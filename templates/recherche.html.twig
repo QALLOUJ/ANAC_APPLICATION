@@ -1,40 +1,97 @@
 {% extends 'bases.html.twig' %}
 
-{% block title %}Accueil - Stage BTS{% endblock %}
+{% block title %}Recherche de lieux{% endblock %}
 
 {% block content %}
     <div class="container mt-4">
-        <h1>Rechercher...</h1>
+        <h1>Recherche dans la ville: {{ city }}</h1>
 
-        <!-- Navbar spécifique à la page -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light mt-4">
-            <div class="container-fluid">
-          
-                <div class="collapse navbar-collapse" id="navbarSubPage">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a href="rechercheJardin.php" class="nav-link {{ pageActive2 == 'rechercheJardin' ? 'active' : '' }}">
-                                <alt="Accueil" width="30" height="24"> Jardin
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="rechercheMusee.php" class="nav-link {{ pageActive2 == 'rechercheMusee' ? 'active' : '' }}">
-                                <alt="Accueil" width="30" height="24"> Musée
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="rechercheRestaurant.php" class="nav-link {{ pageActive2 == 'rechercheRestaurant' ? 'active' : '' }}">
-                                <alt="Accueil" width="30" height="24"> Restaurant
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+        <!-- Barre de recherche -->
+        <div class="mb-4">
+            <input type="text" id="search-input" class="form-control" placeholder="Rechercher une ville...">
+            <button class="btn btn-primary mt-2" onclick="searchCity()">Chercher</button>
+        </div>
 
-        <!-- Contenu principal de la page -->
-        <div class="content2">
-            <p>        {% block contentRecherche %}{% endblock %}</p>
+        <!-- Carte -->
+        <div id="map" style="height: 400px;"></div> <!-- Carte interactive -->
+
+        <!-- Liste des lieux -->
+        <div class="mt-4">
+            <h3>Hôtels</h3>
+            <ul>
+                {% for hotel in hotels %}
+                    <li>{{ hotel.nom }} - {{ hotel.ville }}</li>
+                {% endfor %}
+            </ul>
+
+            <h3>Musées</h3>
+            <ul>
+                {% for musee in musees %}
+                    <li>{{ musee.nom }} - {{ musee.ville }}</li>
+                {% endfor %}
+            </ul>
+
+            <h3>Jardins</h3>
+            <ul>
+                {% for jardin in jardins %}
+                    <li>{{ jardin.nom }} - {{ jardin.ville }}</li>
+                {% endfor %}
+            </ul>
+
+            <h3>Restaurants</h3>
+            <ul>
+                {% for restaurant in restaurants %}
+                    <li>{{ restaurant.nom }} - {{ restaurant.ville }}</li>
+                {% endfor %}
+            </ul>
         </div>
     </div>
+
+    <!-- Intégration de Leaflet.js pour la carte -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <script>
+        // Initialisation de la carte centrée sur la ville recherchée
+        var map = L.map('map').setView([48.8566, 2.3522], 13);  // Coordonnées par défaut (Paris)
+
+        // Charger les tuiles OpenStreetMap
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        {% if city %}
+            // Récupérer les marqueurs pour les hôtels, musées, jardins et restaurants
+            var places = [
+                {% for hotel in hotels %}
+                    { name: '{{ hotel.nom }}', lat: {{ hotel.position_gps|split(',')[0] }}, lon: {{ hotel.position_gps|split(',')[1] }} },
+                {% endfor %}
+                {% for musee in musees %}
+                    { name: '{{ musee.nom }}', lat: {{ musee.position_gps|split(',')[0] }}, lon: {{ musee.position_gps|split(',')[1] }} },
+                {% endfor %}
+                {% for jardin in jardins %}
+                    { name: '{{ jardin.nom }}', lat: {{ jardin.position_gps|split(',')[0] }}, lon: {{ jardin.position_gps|split(',')[1] }} },
+                {% endfor %}
+                {% for restaurant in restaurants %}
+                    { name: '{{ restaurant.nom }}', lat: {{ restaurant.position_gps|split(',')[0] }}, lon: {{ restaurant.position_gps|split(',')[1] }} },
+                {% endfor %}
+            ];
+
+            // Ajouter les marqueurs sur la carte
+            places.forEach(function(place) {
+                L.marker([place.lat, place.lon]).addTo(map)
+                    .bindPopup("<b>" + place.name + "</b>");
+            });
+
+            // Ajuster la carte pour inclure tous les marqueurs
+            var bounds = places.map(function(place) { return [place.lat, place.lon]; });
+            map.fitBounds(bounds);
+        {% endif %}
+
+        // Fonction de recherche de la ville
+        function searchCity() {
+            var city = document.getElementById('search-input').value;
+            window.location.href = '?city=' + city; // Redirige vers la page avec la ville recherchée
+        }
+    </script>
 {% endblock %}

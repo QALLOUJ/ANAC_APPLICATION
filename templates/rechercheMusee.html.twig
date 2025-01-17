@@ -1,11 +1,21 @@
+{% extends 'bases.html.twig' %}
 
-{% extends 'recherche.html.twig' %}
+{% block title %}Recherche de Musées{% endblock %}
 
-{% block title %}Stage BTS{% endblock %}
+{% block content %}
+    <div class="container mt-4">
+        <h1>Liste des Musées</h1>
 
-{% block contentRecherche %}
-<article>
-<h1> Recherche de Musee </h1>
-
+        <div class="list-group mt-4">
+            {% for musee in musees %}
+                <a href="#" class="list-group-item list-group-item-action">
+                    <h5 class="mb-1">{{ musee.musee_nom }}</h5>
+                    <p class="mb-1">{{ musee.ville }}</p>
+                    <small>{{ musee.histoire | slice(0, 500) }}...</small> <!-- Affiche les 150 premiers caractères de l'histoire -->
+                </a>
+            {% else %}
+                <p>Aucun musée trouvé.</p>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}
-

@@ -1,0 +1,27 @@
+{% extends 'bases.html.twig' %}
+
+{% block title %}Recherche d'Hôtels{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h1>Liste des Hôtels</h1>
+
+        <div class="list-group mt-4">
+            {% for hotel in hotels %}
+                <a href="#" class="list-group-item list-group-item-action">
+                    <h5 class="mb-1">{{ hotel.nom }}</h5>
+                    <p class="mb-1">Type : {{ hotel.type }}</p>
+                    <p class="mb-1">Nombre d'étoiles : {{ hotel.nb_etoiles }}</p>
+                    <p class="mb-1">Nombre de chambres : {{ hotel.nb_chambres }}</p>
+                    <small>{{ hotel.ville }} - {{ hotel.region }}</small><br>
+                    <small><a href="tel:{{ hotel.telephone }}">{{ hotel.telephone }}</a></small><br>
+                    <small><a href="{{ hotel.site_web }}" target="_blank">{{ hotel.site_web }}</a></small><br>
+                    <small><a href="{{ hotel.page_facebook }}" target="_blank">Facebook</a></small><br>
+                    <small>Email : <a href="mailto:{{ hotel.email }}">{{ hotel.email }}</a></small>
+                </a>
+            {% else %}
+                <p>Aucun hôtel trouvé.</p>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

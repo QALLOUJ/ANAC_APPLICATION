@@ -1,11 +1,24 @@
+{% extends 'bases.html.twig' %}
 
-{% extends 'recherche.html.twig' %}
+{% block title %}Recherche de Restaurants{% endblock %}
 
-{% block title %}Stage BTS{% endblock %}
+{% block content %}
+    <div class="container mt-4">
+        <h1>Liste des Restaurants</h1>
 
-{% block contentRecherche %}
-<article>
-<h1> Recherche de Restaurant </h1>
-
+        <div class="list-group mt-4">
+            {% for restaurant in restaurants %}
+                <a href="#" class="list-group-item list-group-item-action">
+                    <h5 class="mb-1">{{ restaurant.nom }}</h5>
+                    <p class="mb-1">Type : {{ restaurant.type }}</p>
+                    <p class="mb-1">Cuisine : {{ restaurant.cuisine }}</p>
+                    <small>{{ restaurant.ville }} - {{ restaurant.region }}</small><br>
+                    <small><a href="tel:{{ restaurant.telephone }}">{{ restaurant.telephone }}</a></small><br>
+                    <small><a href="{{ restaurant.site_web }}" target="_blank">{{ restaurant.site_web }}</a></small>
+                </a>
+            {% else %}
+                <p>Aucun restaurant trouvé.</p>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}
-
