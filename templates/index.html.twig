@@ -1,14 +1,53 @@
-
 {% extends 'bases.html.twig' %}
 
-{% block title %}Stage BTS{% endblock %}
+{% block title %}Application Web{% endblock %}
 
 {% block content %}
 <article>
-<h1> Bienvenue </h1>
+    <h1>Bienvenue</h1>
+    <p>Pour découvrir le meilleur de la France.</p>
 
-        <p>Pour découvrir le meilleur de la France.</p>
-        </article>
+    <!-- Section de la carte -->
+    <div id="map"></div>
+</article>
 
+<style>
+    #map {
+        height: 600px;
+        width: 100%;
+        margin-top: 20px;
+    }
+</style>
+
+<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+<script>
+    // Initialisation de la carte centrée sur la France
+    var map = L.map('map').setView([46.603354, 1.888334], 6);
+
+    // Ajouter une couche de tuiles (OpenStreetMap)
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    // Récupérer les données des villes via une requête AJAX
+    fetch('villes.php')
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                console.error('Erreur lors de la récupération des villes:', data.error);
+                return;
+            }
+
+            // Ajouter des marqueurs pour chaque ville
+            data.forEach(ville => {
+                L.marker([ville.latitude, ville.longitude])
+                    .addTo(map)
+                    .bindPopup(`<strong>${ville.nom}</strong>`);
+            });
+        })
+        .catch(error => {
+            console.error('Erreur de requête:', error);
+        });
+</script>
 {% endblock %}
 
