@@ -3,21 +3,29 @@
 // Démarrer la session
 session_start();
 
-
 require 'vendor/autoload.php'; // Autoloader pour Twig
 
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
 // Initialiser Twig
-$loader = new FilesystemLoader('templates'); // Assurez-vous que 'templates' contient 'login.html.twig'
+$loader = new FilesystemLoader('templates'); // Assurez-vous que 'templates' contient 'programme.html.twig'
 $twig = new Environment($loader);
 
-
-// Définir la page active
+// Données pour l'affichage des villes
+$villes = [
+    'paris' => 'Paris',
+    'lyon' => 'Lyon',
+    'lille' => 'Lille',
+    'nancy' => 'Nancy',
+    'marseille' => 'Marseille',
+];
 $pageActive = 'programme'; 
 
-// Afficher la page de connexion (formulaire)
+// Rendu de la page template avec les villes
 echo $twig->render('programme.html.twig', [
     'pageActive' => $pageActive,
+    'villes' => $villes
 ]);
+
+?>
