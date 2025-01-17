@@ -1,0 +1,40 @@
+{% extends 'bases.html.twig' %}
+
+{% block title %}Accueil - Stage BTS{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h1>Rechercher...</h1>
+
+        <!-- Navbar spécifique à la page -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light mt-4">
+            <div class="container-fluid">
+          
+                <div class="collapse navbar-collapse" id="navbarSubPage">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a href="rechercheJardin.php" class="nav-link {{ pageActive2 == 'rechercheJardin' ? 'active' : '' }}">
+                                <alt="Accueil" width="30" height="24"> Jardin
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="rechercheMusee.php" class="nav-link {{ pageActive2 == 'rechercheMusee' ? 'active' : '' }}">
+                                <alt="Accueil" width="30" height="24"> Musée
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="rechercheRestaurant.php" class="nav-link {{ pageActive2 == 'rechercheRestaurant' ? 'active' : '' }}">
+                                <alt="Accueil" width="30" height="24"> Restaurant
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Contenu principal de la page -->
+        <div class="content2">
+            <p>        {% block contentRecherche %}{% endblock %}</p>
+        </div>
+    </div>
+{% endblock %}
