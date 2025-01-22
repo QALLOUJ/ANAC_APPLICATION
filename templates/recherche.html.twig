@@ -3,95 +3,78 @@
 {% block title %}Recherche de lieux{% endblock %}
 
 {% block content %}
-    <div class="container mt-4">
-        <h1>Recherche dans la ville: {{ city }}</h1>
+<div class="container mt-4">
+    <h1>Recherche dans la ville: {{ city }}</h1>
 
-        <!-- Barre de recherche -->
-        <div class="mb-4">
-            <input type="text" id="search-input" class="form-control" placeholder="Rechercher une ville...">
-            <button class="btn btn-primary mt-2" onclick="searchCity()">Chercher</button>
-        </div>
-
-        <!-- Carte -->
-        <div id="map" style="height: 400px;"></div> <!-- Carte interactive -->
-
-        <!-- Liste des lieux -->
-        <div class="mt-4">
-            <h3>Hôtels</h3>
-            <ul>
-                {% for hotel in hotels %}
-                    <li>{{ hotel.nom }} - {{ hotel.ville }}</li>
-                {% endfor %}
-            </ul>
-
-            <h3>Musées</h3>
-            <ul>
-                {% for musee in musees %}
-                    <li>{{ musee.nom }} - {{ musee.ville }}</li>
-                {% endfor %}
-            </ul>
-
-            <h3>Jardins</h3>
-            <ul>
-                {% for jardin in jardins %}
-                    <li>{{ jardin.nom }} - {{ jardin.ville }}</li>
-                {% endfor %}
-            </ul>
-
-            <h3>Restaurants</h3>
-            <ul>
-                {% for restaurant in restaurants %}
-                    <li>{{ restaurant.nom }} - {{ restaurant.ville }}</li>
-                {% endfor %}
-            </ul>
-        </div>
+    <!-- Barre de recherche -->
+    <div class="mb-4">
+        <input type="text" id="search-input" class="form-control" placeholder="Rechercher une ville..." value="{{ city }}">
+        <button class="btn btn-primary mt-2" onclick="searchCity()">Chercher</button>
     </div>
 
-    <!-- Intégration de Leaflet.js pour la carte -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<!-- Barre de navigation pour les types de lieux -->
+<div class="mb-4">
+   <a href="rechercheHotel.php?city=Lyon&type=hotels">Hôtels</a>
+<a href="rechercheHotel.php?city=Lyon&type=musees">Musées</a>
+<a href="rechercheHotel.php?city=Lyon&type=restaurants">Restaurants</a>
+<a href="rechercheHotel.php?city=Lyon&type=jardins">Jardins</a>
 
-    <script>
-        // Initialisation de la carte centrée sur la ville recherchée
-        var map = L.map('map').setView([48.8566, 2.3522], 13);  // Coordonnées par défaut (Paris)
+</div>
+    <!-- Carte -->
+    <div id="map" style="height: 400px;"></div>
+</div>
 
-        // Charger les tuiles OpenStreetMap
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
+<!-- Intégration de Leaflet.js -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
-        {% if city %}
-            // Récupérer les marqueurs pour les hôtels, musées, jardins et restaurants
-            var places = [
-                {% for hotel in hotels %}
-                    { name: '{{ hotel.nom }}', lat: {{ hotel.position_gps|split(',')[0] }}, lon: {{ hotel.position_gps|split(',')[1] }} },
-                {% endfor %}
-                {% for musee in musees %}
-                    { name: '{{ musee.nom }}', lat: {{ musee.position_gps|split(',')[0] }}, lon: {{ musee.position_gps|split(',')[1] }} },
-                {% endfor %}
-                {% for jardin in jardins %}
-                    { name: '{{ jardin.nom }}', lat: {{ jardin.position_gps|split(',')[0] }}, lon: {{ jardin.position_gps|split(',')[1] }} },
-                {% endfor %}
-                {% for restaurant in restaurants %}
-                    { name: '{{ restaurant.nom }}', lat: {{ restaurant.position_gps|split(',')[0] }}, lon: {{ restaurant.position_gps|split(',')[1] }} },
-                {% endfor %}
-            ];
+<script>
+    // Initialisation de la carte centrée par défaut (Paris)
+    var map = L.map('map').setView([48.8566, 2.3522], 13); // Paris par défaut
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
 
-            // Ajouter les marqueurs sur la carte
-            places.forEach(function(place) {
-                L.marker([place.lat, place.lon]).addTo(map)
-                    .bindPopup("<b>" + place.name + "</b>");
-            });
-
-            // Ajuster la carte pour inclure tous les marqueurs
-            var bounds = places.map(function(place) { return [place.lat, place.lon]; });
-            map.fitBounds(bounds);
-        {% endif %}
-
-        // Fonction de recherche de la ville
-        function searchCity() {
-            var city = document.getElementById('search-input').value;
-            window.location.href = '?city=' + city; // Redirige vers la page avec la ville recherchée
+    // Fonction pour obtenir la couleur du marqueur en fonction du type
+    function getMarkerColor(type) {
+        switch(type) {
+            case 'hotels': return 'blue'; // Bleu pour les hôtels
+            case 'musees': return 'red';  // Rouge pour les musées
+            case 'jardins': return 'green'; // Vert pour les jardins
+            case 'restaurants': return 'yellow'; // Jaune pour les restaurants
+            default: return 'gray'; // Couleur par défaut
         }
-    </script>
+    }
+
+    {% if places is not empty %}
+        // Ajouter les marqueurs pour chaque lieu trouvé
+        {% for place in places %}
+            var markerColor = getMarkerColor("{{ place.type }}"); // Récupérer le type du lieu
+            L.circleMarker([{{ place.lat }}, {{ place.lon }}], {
+                color: markerColor, 
+                radius: 8, // Taille du marqueur
+                fillOpacity: 0.6
+            })
+            .addTo(map)
+            .bindPopup("<b>{{ place.name }}</b>");
+        {% endfor %}
+
+        // Ajuster la vue de la carte pour inclure tous les marqueurs
+        var bounds = [
+            {% for place in places %}
+                [{{ place.lat }}, {{ place.lon }}],
+            {% endfor %}
+        ];
+        map.fitBounds(bounds);
+    {% endif %}
+
+    // Fonction pour rechercher une ville
+    function searchCity() {
+        var city = document.getElementById('search-input').value;
+        if (city.trim() !== '') {
+            window.location.href = '?city=' + city; // Recharger la page avec la ville recherchée
+        }
+    }
+</script>
+
 {% endblock %}
