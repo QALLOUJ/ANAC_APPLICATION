@@ -1,253 +1,146 @@
-div.contenu {
-	display: flex;
+/* Réinitialisation de base */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  background-color: #f4f4f4;
 }
 
+/* Conteneur principal */
+.contenu {
+  display: flex;
+}
+
+/* Style de la barre de navigation */
 .navbar {
-  width: 100%;  /* Assurez-vous que la navbar utilise toute la largeur de l'écran */
-  margin: 0;    /* Enlevez toute marge qui pourrait restreindre la largeur */
-  padding: 0;   /* Assurez-vous que le padding n'est pas un problème */
-}
-
-
-nav{
-  width: 50px;
-	flex: 25%;
-	display: flex;
-	flex-direction: column;
-	padding: 0px;
-	margin: 5px;
- overflow-y: auto; 
-}
-
-nav a {
-  color: white;
-  background-color:  #7433ff;
-  border-radius: 4px;
-  padding: 10px;
-  margin: 0px;
-  text-decoration: none;
-  margin: 5px; 
-  padding: 20px 15px; 	
-}
-
-nav a:hover {
-  background-color:  #7433ff;
-  color: white;
-}
-
-nav a.active{
-  color:lightcyan;
-}
-
-article{
-	flex: 100%;
-	padding: 10px;
-	margin: 5px;
-	border-radius: 10px;
-}
-
-
-/* Responsive layout */
-@media (max-width: 600px) {
-  div.contenu {
-    flex-direction: column;
-
-  }
-  nav, article{
-	  flex: 100%;
-     
-  }
-}
-
-#iframe_css {
-	text-align: center;
-}
-
-
-
-
-p{text-align: justify;color:  #7433ff ; text-align: center;}
-
-h1{font-size: 26px !important;
-  color:  #7433ff !important;
-  text-align: center !important;}
-hr{ color:  #7433ff;}
-
-/* Style du tableau */
-table {
   width: 100%;
-  border-collapse: collapse; /* Pour que les bordures soient jointes */
+  margin: 0;
+  padding: 0;
 }
 
-/* Bordure des cellules */
-th, td {
-  border: 1px solid  #7433ff; /* Bordure de couleur bleu foncé */
-  padding: 8px; /* Espacement intérieur */
-  text-align: left; /* Alignement du texte */
+.navbar-nav .nav-link {
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
 }
 
-/* Bordure des en-têtes */
-th {
-  background-color: #f2f2f2; /* Couleur de fond claire pour les en-têtes */
-  color: darkblue; /* Couleur du texte */
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active {
+  background-color: #5a2aff;
+  color: lightcyan;
+  border-radius: 4px;
 }
 
-/* Style des lignes impaires (optionnel) */
-tr:nth-child(odd) {
-  background-color: #f9f9f9; /* Fond légèrement grisé pour les lignes impaires */
-}
-
-body { font-family: Arial, Helvetica, sans-serif; }
-table { border-collapse: collapse; width: 100%; border: 2px solid blue; }
-th, td { padding: 15px; text-align: left; border: 1px solid blue; }
-th { background-color: #d0e7ff; color: #001f5b; }
-td { background-color: #f9f9f9; }
-.action-buttons img {
-    filter: invert(20%) sepia(70%) saturate(500%) hue-rotate(190deg) brightness(100%) contrast(90%);
-}
-
-body {
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-.droite {
-  float: center;
-  display: block;
-  margin-left: 20px; /* Vous pouvez ajuster cette valeur pour plus d'espacement */
-}
-
-/* Ajoutez une règle pour nettoyer les flottants après l'élément flottant */
-.clear {
-  clear: both;
-}
-.reponse{
-  text-align: left;
-  border: 1px solid darkgray;
-  border-radius: 10px;
-  padding: 10px;
-  background: lightgray
-
-}
-
-.important{
-  color: red
-}
-
-.nav a img {
-  margin-right: 8px;
-}
-
-.nav a:hover {
-  background-color: #1c1c1c;
-}
-
-body {
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-.container {
+/* Style de la zone principale */
+main {
   padding: 10px;
 }
 
-
-
-
-.nav a img {
-  margin-right: 8px;
+/* Diaporama */
+.slideshow-container {
+  position: relative;
+  max-width: 100%;
+  height: 100vh;
+  overflow: hidden;
 }
 
-.nav a:hover {
-  background-color: #1c1c1c;
+.mySlides img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
+.text {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  color: white;
+  font-size: 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 10px;
+  border-radius: 8px;
+}
 
-/* Style du formulaire */
+.dot-container {
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+  text-align: center;
+}
+
+.dot {
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+  transition: background-color 0.6s ease;
+}
+
+.dot.active {
+  background-color: #5a2aff;
+}
+
+/* Pied de page */
+footer {
+  text-align: center;
+  padding: 10px;
+  background-color: #333;
+  color: white;
+}
+
+/* Styles généraux */
+h1, h3 {
+  color: #5a2aff;
+}
+
+p {
+  color: #333;
+  text-align: justify;
+}
+
+/* Formulaire */
 .formulaire {
-  flex: 1;
   background: #fff;
   border-radius: 5px;
   padding: 20px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-.section-titre {
-  background-color: #0066cc;
-  color: #fff;
-  font-size: 16px;
-  padding: 8px 10px;
-  margin-bottom: 10px;
-  border-radius: 3px;
-}
-
 .form-group {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 .form-group label {
-  width: 30%;
+  display: block;
   font-weight: bold;
-  font-size: 14px;
-  padding-right: 10px;
-  color: #333;
+  margin-bottom: 5px;
 }
 
 .form-group input,
 .form-group select,
 .form-group textarea {
-  width: 68%;
-  padding: 5px;
-  font-size: 14px;
+  width: 100%;
+  padding: 8px;
   border: 1px solid #ccc;
   border-radius: 3px;
-  outline: none;
-  transition: border-color 0.3s ease;
-}
-
-textarea {
-  resize: none;
-  height: 60px;
 }
 
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
-  border-color: #0066cc;
+  border-color: #5a2aff;
 }
 
-.alert {
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 3px;
-  font-size: 14px;
-}
-
-.alert.success {
-  background-color: #dff0d8;
-  color: #3c763d;
-  border: 1px solid #d6e9c6;
-}
-
-.alert.error {
-  background-color: #f2dede;
-  color: #a94442;
-  border: 1px solid #ebccd1;
-}
-
-.specialite-options {
-  display: flex;
-  flex-direction: column;
-}
-
-/* Bouton Ajouter */
 .btn-submit {
   display: inline-block;
   margin-top: 10px;
-  background-color: #0066cc;
+  background-color: #5a2aff;
   color: #fff;
-  font-size: 16px;
-  padding: 8px 12px;
+  padding: 10px 15px;
   border: none;
   border-radius: 3px;
   cursor: pointer;
@@ -256,42 +149,43 @@ textarea {
 }
 
 .btn-submit:hover {
-  background-color: #005bb5;
+  background-color: #4a23d9;
 }
 
-/* Note des champs obligatoires */
-.note {
-  margin-top: 10px;
-  background-color: #d9fdd3;
-  color: #3c763d;
-  padding: 10px;
-  border-radius: 3px;
-  text-align: center;
-  font-size: 14px;
-  border: 1px solid #a9e2a9;
-}
-.specialite-options {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 10px;
-  margin-top: 10px;
+/* Tableaux */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
 }
 
-.specialite-option {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 14px;
-  font-weight: bold;
-  color: #333;
+table th, table td {
+  border: 1px solid #5a2aff;
+  padding: 8px;
+  text-align: left;
 }
 
-.specialite-option input {
-  margin-right: 5px;
-  transform: scale(1.2); /* Agrandir légèrement les cases à cocher */
+table th {
+  background-color: #f2f2f2;
+  color: #5a2aff;
 }
 
-.specialite-options p {
-  color: #666;
-  font-style: italic;
+table tr:nth-child(odd) {
+  background-color: #f9f9f9;
+}
+
+/* Styles Responsives */
+@media (max-width: 600px) {
+  .contenu {
+      flex-direction: column;
+  }
+
+  nav, article {
+      flex: 100%;
+  }
+
+  .navbar-nav .nav-link {
+      padding: 10px;
+      font-size: 14px;
+  }
 }

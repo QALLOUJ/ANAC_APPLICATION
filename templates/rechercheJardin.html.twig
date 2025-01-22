@@ -1,11 +1,22 @@
+{% extends 'bases.html.twig' %}
 
-{% extends 'recherche.html.twig' %}
+{% block title %}Recherche de Jardins{% endblock %}
 
-{% block title %}Stage BTS{% endblock %}
+{% block content %}
+    <div class="container mt-4">
+        <h1>Liste des Jardins Remarquables</h1>
 
-{% block contentRecherche %}
-<article>
-<h1> Recherche de Jardin </h1>
-
+        <div class="list-group mt-4">
+            {% for jardin in jardins %}
+                <a href="#" class="list-group-item list-group-item-action">
+                    <h5 class="mb-1">{{ jardin.jardin_nom }}</h5>
+                    <p class="mb-1">{{ jardin.ville }}</p>
+                    <small>{{ jardin.description | slice(0, 500) }}...</small> <!-- Affiche les 150 premiers caractères de la description -->
+                </a>
+            {% else %}
+                <p>Aucun jardin trouvé.</p>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}
 
