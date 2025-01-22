@@ -4,24 +4,61 @@
 
 {% block content %}
 <div class="container mt-4">
-    <h1>Recherche dans la ville: {{ city }}</h1>
+    <div class="row">
+        <!-- Colonne gauche : Recherche et résultats -->
+        <div class="col-md-5">
+            <h1>Recherche</h1>
 
-    <!-- Barre de recherche -->
-    <div class="mb-4">
-        <input type="text" id="search-input" class="form-control" placeholder="Rechercher une ville..." value="{{ city }}">
-        <button class="btn btn-primary mt-2" onclick="searchCity()">Chercher</button>
+            <!-- Barre de recherche -->
+            <form id="search-form" method="GET" class="mb-4">
+                <div class="form-group">
+                    <label for="search-input-city">Ville</label>
+                    <input type="text" name="city" id="search-input-city" class="form-control" placeholder="Rechercher une ville..." value="{{ city }}">
+                </div>
+                <div class="form-group mt-2">
+                    <label for="search-input-type">Catégorie</label>
+                    <select name="type" id="search-input-type" class="form-control">
+                        <option value="" {% if type is empty %}selected{% endif %}>Toutes les catégories</option>
+                        <option value="hotels" {% if type == 'hotels' %}selected{% endif %}>Hôtels</option>
+                        <option value="musees" {% if type == 'musees' %}selected{% endif %}>Musées</option>
+                        <option value="restaurants" {% if type == 'restaurants' %}selected{% endif %}>Restaurants</option>
+                        <option value="jardins" {% if type == 'jardins' %}selected{% endif %}>Jardins</option>
+                    </select>
+                </div>
+                <button class="btn btn-primary mt-3 w-100" type="submit">Chercher</button>
+            </form>
+
+            <!-- Résultats de recherche -->
+            <div>
+                <h2>Résultats</h2>
+                {% if places is not empty %}
+                    <div>
+                        {% for type in ['hotels', 'musees', 'restaurants', 'jardins'] %}
+                            {% set type_places = places|filter(place => place.type == type) %}
+                            {% if type_places|length > 0 %}
+                                <h3>{{ type|capitalize }}</h3>
+                                <ul class="list-group mb-3">
+                                    {% for place in type_places %}
+                                        <li class="list-group-item">
+                                            <b><a href="details.php?type={{ place.type }}&id={{ place.id }}">{{ place.name }}</a></b>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p>Aucun résultat trouvé.</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Colonne droite : Carte -->
+        <div class="col-md-7">
+            <h1>Carte des lieux</h1>
+            <div id="map" style="height: 500px; border: 1px solid #ddd;"></div>
+        </div>
     </div>
-
-<!-- Barre de navigation pour les types de lieux -->
-<div class="mb-4">
-   <a href="rechercheHotel.php?city=Lyon&type=hotels">Hôtels</a>
-<a href="rechercheHotel.php?city=Lyon&type=musees">Musées</a>
-<a href="rechercheHotel.php?city=Lyon&type=restaurants">Restaurants</a>
-<a href="rechercheHotel.php?city=Lyon&type=jardins">Jardins</a>
-
-</div>
-    <!-- Carte -->
-    <div id="map" style="height: 400px;"></div>
 </div>
 
 <!-- Intégration de Leaflet.js -->
@@ -29,8 +66,8 @@
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
 <script>
-    // Initialisation de la carte centrée par défaut (Paris)
-    var map = L.map('map').setView([48.8566, 2.3522], 13); // Paris par défaut
+    // Initialisation de la carte centrée sur la France
+    var map = L.map('map').setView([46.603354, 1.888334], 6); // Coordonnées de la France avec un zoom adapté
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
@@ -38,16 +75,16 @@
     // Fonction pour obtenir la couleur du marqueur en fonction du type
     function getMarkerColor(type) {
         switch(type) {
-            case 'hotels': return 'blue'; // Bleu pour les hôtels
-            case 'musees': return 'red';  // Rouge pour les musées
-            case 'jardins': return 'green'; // Vert pour les jardins
-            case 'restaurants': return 'yellow'; // Jaune pour les restaurants
-            default: return 'gray'; // Couleur par défaut
+            case 'hotels': return 'blue'; 
+            case 'musees': return 'red';  
+            case 'jardins': return 'green'; 
+            case 'restaurants': return 'yellow'; 
+            default: return 'gray'; 
         }
     }
 
     {% if places is not empty %}
-        // Ajouter les marqueurs pour chaque lieu trouvé
+        // Ajouter les marqueurs pour chaque lieu trouvé uniquement après une recherche
         {% for place in places %}
             var markerColor = getMarkerColor("{{ place.type }}"); // Récupérer le type du lieu
             L.circleMarker([{{ place.lat }}, {{ place.lon }}], {
@@ -56,7 +93,7 @@
                 fillOpacity: 0.6
             })
             .addTo(map)
-            .bindPopup("<b>{{ place.name }}</b>");
+            .bindPopup(`<b><a href="details.php?type={{ place.type }}&id={{ place.id }}">{{ place.name }}</a></b>`);
         {% endfor %}
 
         // Ajuster la vue de la carte pour inclure tous les marqueurs
@@ -67,14 +104,5 @@
         ];
         map.fitBounds(bounds);
     {% endif %}
-
-    // Fonction pour rechercher une ville
-    function searchCity() {
-        var city = document.getElementById('search-input').value;
-        if (city.trim() !== '') {
-            window.location.href = '?city=' + city; // Recharger la page avec la ville recherchée
-        }
-    }
 </script>
-
 {% endblock %}

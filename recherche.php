@@ -10,31 +10,57 @@ try {
     $db = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // Récupérer les données de la ville seulement si le paramètre `city` est fourni
+    // Initialiser les variables
     $places = [];
-    if (isset($_GET['city']) && !empty($_GET['city'])) {
-        $city = $_GET['city'];
+    $city = isset($_GET['city']) ? $_GET['city'] : '';
+    $type = isset($_GET['type']) ? $_GET['type'] : '';
 
-        // Tables à récupérer
-        $tables = [
-            'hotels' => 'nom, position_gps',
-            'musees' => 'nom, position_gps',
-            'liste_des_jardins_remarquables' => 'nom, position_gps',
-            'restaurants' => 'nom, position_gps'
-        ];
+    // Tables et leurs colonnes correspondantes
+    $tables = [
+        'hotels' => 'nom, position_gps',
+        'musees' => 'nom, position_gps',
+        'liste_des_jardins_remarquables' => 'nom, position_gps',
+        'restaurants' => 'nom, position_gps'
+    ];
 
-        foreach ($tables as $table => $columns) {
-            $query = $db->prepare("SELECT $columns FROM $table WHERE ville LIKE :city");
+    // Si une ville est spécifiée
+    if (!empty($city)) {
+        // Si une catégorie spécifique est sélectionnée
+        if (!empty($type) && array_key_exists($type, $tables)) {
+            $query = $db->prepare("SELECT id, nom, position_gps FROM $type WHERE ville LIKE :city LIMIT 3");
             $query->execute([':city' => "%$city%"]);
-            foreach ($query->fetchAll(PDO::FETCH_ASSOC) as $place) {
+            $results = $query->fetchAll(PDO::FETCH_ASSOC);
+            
+          
+            
+            foreach ($results as $place) {
                 $gps = explode(',', $place['position_gps']);
                 if (count($gps) === 2 && is_numeric($gps[0]) && is_numeric($gps[1])) {
                     $places[] = [
+                        'id' => $place['id'],  // Assurez-vous que l'ID est récupéré ici
                         'name' => $place['nom'],
                         'lat' => (float) $gps[0],
                         'lon' => (float) $gps[1],
-                        'type' => $table // Ajout du type de lieu (table)
+                        'type' => $type
                     ];
+                }
+            }
+        } else {
+            // Si aucune catégorie spécifique n'est sélectionnée, récupérer les 3 premiers résultats de chaque catégorie
+            foreach ($tables as $table => $columns) {
+                $query = $db->prepare("SELECT id, nom, position_gps FROM $table WHERE ville LIKE :city LIMIT 3");
+                $query->execute([':city' => "%$city%"]);
+                foreach ($query->fetchAll(PDO::FETCH_ASSOC) as $place) {
+                    $gps = explode(',', $place['position_gps']);
+                    if (count($gps) === 2 && is_numeric($gps[0]) && is_numeric($gps[1])) {
+                        $places[] = [
+                            'id' => $place['id'],  // Assurez-vous que l'ID est récupéré ici
+                            'name' => $place['nom'],
+                            'lat' => (float) $gps[0],
+                            'lon' => (float) $gps[1],
+                            'type' => $table
+                        ];
+                    }
                 }
             }
         }
@@ -44,12 +70,13 @@ try {
     $loader = new \Twig\Loader\FilesystemLoader('templates');
     $twig = new \Twig\Environment($loader);
 
-    // Passer les données à la page Twig
+    // Passer les données au modèle Twig
     echo $twig->render('recherche.html.twig', [
         'places' => $places,
-        'city' => $city ?? ''
+        'city' => $city,
+        'type' => $type
     ]);
-    
+
 } catch (PDOException $e) {
     echo 'Erreur de connexion à la base de données : ' . $e->getMessage();
 } catch (Exception $e) {

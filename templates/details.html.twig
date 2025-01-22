@@ -1,0 +1,132 @@
+{% extends 'bases.html.twig' %}
+
+{% block title %}Détails - {{ place.nom }}{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Détails du lieu</h1>
+    <h2>{{ place.nom }}</h2>
+    <p><b>Type :</b> {{ type|capitalize }}</p>
+
+    {% if type == 'restaurants' %}
+        <h3>Informations sur le restaurant</h3>
+        <ul>
+            <li><b>Nom :</b> {{ place.nom }}</li>
+            <li><b>Type :</b> {{ place.type }}</li>
+            <li><b>Marque :</b> {{ place.marque|default('Non spécifiée') }}</li>
+            <li><b>Cuisine :</b> {{ place.cuisine|default('Non spécifiée') }}</li>
+            <li><b>Végétarien :</b> {{ place.vegetarien ? 'Oui' : 'Non' }}</li>
+            <li><b>Végan :</b> {{ place.vegane ? 'Oui' : 'Non' }}</li>
+            <li><b>Heures d'ouverture :</b> {{ place.heures_ouverture|default('Non spécifiées') }}</li>
+            <li><b>Accès handicapés :</b> {{ place.acces_handicapes ? 'Oui' : 'Non' }}</li>
+            <li><b>Téléphone :</b> {{ place.telephone|default('Non spécifié') }}</li>
+            <li><b>Site web :</b> 
+                {% if place.site_web %}
+                    <a href="{{ place.site_web }}" target="_blank">{{ place.site_web }}</a>
+                {% else %}
+                    Non spécifié
+                {% endif %}
+            </li>
+            <li><b>Ville :</b> {{ place.ville }}</li>
+            <li><b>Code ville :</b> {{ place.code_ville }}</li>
+            <li><b>Département :</b> {{ place.departement }} (Code : {{ place.code_departement }})</li>
+            <li><b>Région :</b> {{ place.region }} (Code : {{ place.code_region }})</li>
+        </ul>
+    {% elseif type == 'hotels' %}
+        <h3>Informations sur l'hôtel</h3>
+        <ul>
+            <li><b>Nom :</b> {{ place.nom }}</li>
+            <li><b>Type :</b> {{ place.type }}</li>
+            <li><b>Accès handicapés :</b> {{ place.acces_handicapes ? 'Oui' : 'Non' }}</li>
+            <li><b>Nombre d'étoiles :</b> {{ place.nb_etoiles }}</li>
+            <li><b>Nombre de chambres :</b> {{ place.nb_chambres }}</li>
+            <li><b>Accès à Internet :</b> {{ place.acces_internet ? 'Oui' : 'Non' }}</li>
+            <li><b>Site web :</b>
+                {% if place.site_web %}
+                    <a href="{{ place.site_web }}" target="_blank">{{ place.site_web }}</a>
+                {% else %}
+                    Non spécifié
+                {% endif %}
+            </li>
+            <li><b>Téléphone :</b> {{ place.telephone|default('Non spécifié') }}</li>
+            <li><b>Page Facebook :</b> 
+                {% if place.page_facebook %}
+                    <a href="{{ place.page_facebook }}" target="_blank">{{ place.page_facebook }}</a>
+                {% else %}
+                    Non spécifiée
+                {% endif %}
+            </li>
+            <li><b>Email :</b> {{ place.email|default('Non spécifié') }}</li>
+            <li><b>Ville :</b> {{ place.ville }}</li>
+            <li><b>Code postal :</b> {{ place.code_postal }}</li>
+            <li><b>Département :</b> {{ place.departement }} (Code : {{ place.code_departement }})</li>
+            <li><b>Région :</b> {{ place.region }} (Code : {{ place.code_region }})</li>
+            
+        </ul>
+    {% elseif type == 'jardins' %}
+        <h3>Informations sur le jardin</h3>
+        <ul>
+            <li><b>Nom :</b> {{ place.nom }}</li>
+            <li><b>Code postal :</b> {{ place.code_postal }}</li>
+            <li><b>Région :</b> {{ place.region }}</li>
+            <li><b>Département :</b> {{ place.departement }}</li>
+            <li><b>Adresse :</b> {{ place.adresse }}</li>
+            <li><b>Ville :</b> {{ place.ville }}</li>
+            <li><b>Code département :</b> {{ place.code_departement }}</li>
+            <li><b>Code région :</b> {{ place.code_region }}</li>
+            <li><b>Site web :</b>
+                {% if place.site_web %}
+                    <a href="{{ place.site_web }}" target="_blank">{{ place.site_web }}</a>
+                {% else %}
+                    Non spécifié
+                {% endif %}
+            </li>
+            <li><b>Type :</b> {{ place.type }}</li>
+            <li><b>Description :</b> {{ place.description }}</li>
+            <li><b>Accessible au public :</b> {{ place.accessible_au_public ? 'Oui' : 'Non' }}</li>
+            
+        </ul>
+    {% elseif type == 'musees' %}
+        <h3>Informations sur le musée</h3>
+        <ul>
+            <li><b>Nom :</b> {{ place.nom }}</li>
+            <li><b>Adresse :</b> {{ place.adresse }}</li>
+            <li><b>Lieu :</b> {{ place.lieu }}</li>
+            <li><b>Code postal :</b> {{ place.code_postal }}</li>
+            <li><b>Ville :</b> {{ place.ville }}</li>
+            <li><b>Région :</b> {{ place.region }}</li>
+            <li><b>Département :</b> {{ place.departement }}</li>
+            <li><b>Site web :</b>
+                {% if place.site_web %}
+                    <a href="{{ place.site_web }}" target="_blank">{{ place.site_web }}</a>
+                {% else %}
+                    Non spécifié
+                {% endif %}
+            </li>
+            <li><b>Téléphone :</b> {{ place.telephone|default('Non spécifié') }}</li>
+            <li><b>Thèmes :</b> {{ place.themes }}</li>
+            <li><b>Histoire :</b> {{ place.histoire }}</li>
+            <li><b>Atout :</b> {{ place.atout }}</li>
+            <li><b>Artiste :</b> {{ place.artiste }}</li>
+            <li><b>Intérêt :</b> {{ place.interet }}</li>
+            <li><b>Année de création :</b> {{ place.annee_creation }}</li>
+            
+        </ul>
+    {% else %}
+        <p>Aucune information détaillée disponible pour ce type de lieu.</p>
+    {% endif %}
+
+<a href="#" onclick="goBack()" class="btn btn-secondary mt-3">Retour</a>
+
+<script>
+    function goBack() {
+        const previousURL = localStorage.getItem('previousURL');
+        if (previousURL) {
+            window.location.href = previousURL;
+        } else {
+            window.history.back(); // Si l'URL précédente n'est pas stockée, revenir en arrière dans l'historique
+        }
+    }
+</script>
+</div>
+{% endblock %}
