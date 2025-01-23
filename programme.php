@@ -9,7 +9,7 @@ use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
 // Initialiser Twig
-$loader = new FilesystemLoader('templates'); // Assurez-vous que 'templates' contient 'programme.html.twig'
+$loader = new FilesystemLoader('templates'); 
 $twig = new Environment($loader);
 
 // Données pour l'affichage des villes
