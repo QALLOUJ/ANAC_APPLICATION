@@ -3,7 +3,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Roboto', sans-serif;
-  background-color: #f8f4f1; /* Fond nude clair */
+  background-color: #f4f4f4;
 }
 
 /* Conteneur principal */
@@ -16,21 +16,19 @@ body {
   width: 100%;
   margin: 0;
   padding: 0;
-  background-color: #d8c8b8; /* Couleur nude beige claire (non noir) */
 }
 
 .navbar-nav .nav-link {
-  color: #4e3629; /* Texte brun foncé */
+  color: white;
   padding: 10px 20px;
   text-decoration: none;
   transition: background-color 0.3s ease;
 }
 
-
 .navbar-nav .nav-link:hover,
 .navbar-nav .nav-link.active {
-  background-color: #b3a18d; /* Hover nude doux */
-  color: #fff; /* Texte blanc */
+  background-color: #5a2aff;
+  color: lightcyan;
   border-radius: 4px;
 }
 
@@ -75,7 +73,7 @@ main {
   height: 15px;
   width: 15px;
   margin: 0 2px;
-  background-color: #d8c8b8; /* Couleur nude beige claire */
+  background-color: #bbb;
   border-radius: 50%;
   display: inline-block;
   cursor: pointer;
@@ -83,30 +81,30 @@ main {
 }
 
 .dot.active {
-  background-color: #b3a18d; /* Couleur nude plus intense */
+  background-color: #5a2aff;
 }
 
 /* Pied de page */
 footer {
   text-align: center;
   padding: 10px;
-  background-color: #4e3629; /* Fond brun foncé */
-  color: #fff; /* Texte blanc */
+  background-color: #333;
+  color: white;
 }
 
 /* Styles généraux */
 h1, h3 {
-  color: #4e3629; /* Brun foncé */
+  color: #5a2aff;
 }
 
 p {
-  color: #4e3629; /* Texte brun foncé */
+  color: #333;
   text-align: justify;
 }
 
 /* Formulaire */
 .formulaire {
-  background: #fff; /* Fond blanc */
+  background: #fff;
   border-radius: 5px;
   padding: 20px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
@@ -120,7 +118,6 @@ p {
   display: block;
   font-weight: bold;
   margin-bottom: 5px;
-  color: #4e3629; /* Texte des labels brun foncé */
 }
 
 .form-group input,
@@ -128,20 +125,20 @@ p {
 .form-group textarea {
   width: 100%;
   padding: 8px;
-  border: 1px solid #d8c8b8; /* Bordure nude claire */
+  border: 1px solid #ccc;
   border-radius: 3px;
 }
 
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
-  border-color: #b3a18d; /* Bordure nude plus intense au focus */
+  border-color: #5a2aff;
 }
 
 .btn-submit {
   display: inline-block;
   margin-top: 10px;
-  background-color: #b3a18d; /* Bouton en couleur nude douce */
+  background-color: #5a2aff;
   color: #fff;
   padding: 10px 15px;
   border: none;
@@ -152,7 +149,7 @@ p {
 }
 
 .btn-submit:hover {
-  background-color: #d8c8b8; /* Couleur nude claire au survol */
+  background-color: #4a23d9;
 }
 
 /* Tableaux */
@@ -163,20 +160,39 @@ table {
 }
 
 table th, table td {
-  border: 1px solid #d8c8b8; /* Bordure nude claire */
+  border: 1px solid #5a2aff;
   padding: 8px;
   text-align: left;
 }
 
 table th {
-  background-color: #f9f4f1; /* Fond nude très clair */
-  color: #4e3629; /* Texte brun foncé */
+  background-color: #f2f2f2;
+  color: #5a2aff;
 }
 
 table tr:nth-child(odd) {
-  background-color: #f4ece0; /* Légère nuance nude sur les lignes impaires */
+  background-color: #f9f9f9;
+}
+/* Styles pour les petites images intégrées dans le texte */
+/* Styles pour les petites images au survol */
+.small-hover-image {
+  width: 1000px; /* Largeur réduite */
+  height: 200px; /* Hauteur ajustée automatiquement */
+  display: none; /* Masqué par défaut */
+  position: absolute; /* Position absolue pour le survol */
+  left: 0; /* Alignement à gauche */
+  top: 100%; /* Affichage sous le mot clé */
+  margin-top: 8px; /* Espace entre le mot et l'image */
+  border-radius: 4px; /* Coins légèrement arrondis */
+  border: 1px solid #e5e7eb; /* Bordure légère */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre légère */
+  z-index: 1000; /* Affichage au-dessus des autres éléments */
 }
 
+/* Affiche l'image au survol */
+.hover-image-trigger:hover .small-hover-image {
+  display: block; /* Affiche l'image au survol */
+}
 .hover-image {
   width: 600px; /* Largeur fixe de 600px */
   height: auto; /* Hauteur ajustée automatiquement pour conserver les proportions */
@@ -195,6 +211,7 @@ table tr:nth-child(odd) {
 .hover-image-trigger:hover .hover-image {
   display: block; /* Affiche l'image au survol */
 }
+
 
 /* Styles Responsives */
 @media (max-width: 600px) {
