@@ -7,92 +7,155 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
-    <style>
-        .nav-link.active {
-            background-color: #7433ff;
-        }
+   <style>
+    .nav-link.active {
+        background-color: #d8b7a6; /* Couleur nude claire */
+    }
 
-        .slideshow-container {
+    .slideshow-container {
+        position: relative;
+        max-width: 100%;
+        height: 400px;
+        overflow: hidden;
+    }
+
+    .mySlides img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .text {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        color: white;
+        font-size: 20px;
+        background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent noir */
+        padding: 10px;
+        border-radius: 8px;
+    }
+
+    .dot-container {
+        position: absolute;
+        bottom: 10px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .dot {
+        height: 15px;
+        width: 15px;
+        margin: 0 2px;
+        background-color: #e2c2a1; /* Nude moyen */
+        border-radius: 50%;
+        display: inline-block;
+        cursor: pointer;
+        transition: background-color 0.6s ease;
+    }
+
+    .dot.active {
+        background-color: #c49e8f; /* Couleur nude plus foncée */
+    }
+
+    .card img {
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .card-title {
+        color: #c49e8f; /* Nude foncé */
+        font-weight: bold;
+    }
+
+    .btn-primary {
+        background-color: #d8b7a6; /* Couleur nude claire */
+        border: none;
+    }
+
+    .btn-primary:hover {
+        background-color: #c49e8f; /* Nude foncé pour le hover */
+    }
+  /* Positionner le sous-menu sous le lien Recherche */
+        .nav-item.dropdown {
             position: relative;
-            max-width: 100%;
-            height: 400px;
-            overflow: hidden;
         }
 
-        .mySlides img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .text {
+        /* Masquer le sous-menu par défaut */
+        .dropdown-menu {
+            display: none;
             position: absolute;
-            bottom: 20px;
-            left: 20px;
-            color: white;
-            font-size: 20px;
-            background-color: rgba(0, 0, 0, 0.5);
-            padding: 10px;
+            background-color: #f4f4f4;
             border-radius: 8px;
+            top: 100%; /* Affiche sous le lien */
+            left: 0;
+            z-index: 1000;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-        .dot-container {
-            position: absolute;
-            bottom: 10px;
-            width: 100%;
-            text-align: center;
+        /* Afficher le sous-menu au survol de la souris */
+        .nav-item.dropdown:hover .dropdown-menu {
+            display: block;
         }
 
-        .dot {
-            height: 15px;
-            width: 15px;
-            margin: 0 2px;
-            background-color: #bbb;
-            border-radius: 50%;
-            display: inline-block;
-            cursor: pointer;
-            transition: background-color 0.6s ease;
+        /* Style du lien survolé */
+        .dropdown-item {
+            padding: 10px 20px;
+            text-decoration: none;
+            color: #333;
+            transition: background-color 0.3s ease;
         }
 
-        .dot.active {
-            background-color: #7433ff;
+        .dropdown-item:hover {
+            background-color: #e2c2a1; /* Couleur nude clair au survol */
         }
-    </style>
+
+</style>
+
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container-fluid">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a href="index.php" class="nav-link {{ pageActive == 'accueil' ? 'active' : '' }}">
-                                <img src="icons/home.png" alt="Accueil" width="30" height="24"> Accueil
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="recherche.php" class="nav-link {{ pageActive == 'recherche' ? 'active' : '' }}">Recherche</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="evenement.php" class="nav-link {{ pageActive == 'evenement' ? 'active' : '' }}">Événements</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="avis.php" class="nav-link {{ pageActive == 'avis' ? 'active' : '' }}">Avis</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="programme.php" class="nav-link {{ pageActive == 'programme' ? 'active' : '' }}">Programme</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="aide.php" class="nav-link {{ pageActive == 'aide' ? 'active' : '' }}">Aide</a>
-                        </li>
-                    </ul>
-                </div>
+    </head>
+<body>
+
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="index.php" class="nav-link {{ pageActive == 'accueil' ? 'active' : '' }}">Accueil</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Recherche</a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="rechercheHotel.php">Hôtels</a></li>
+                            <li><a class="dropdown-item" href="rechercheJardin.php">Jardins</a></li>
+                            <li><a class="dropdown-item" href="rechercheMusee.php">Musées</a></li>
+                            <li><a class="dropdown-item" href="rechercheRestaurant.php">Restaurants</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="evenement.php" class="nav-link {{ pageActive == 'evenement' ? 'active' : '' }}">Événements</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="avis.php" class="nav-link {{ pageActive == 'avis' ? 'active' : '' }}">Avis</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="programme.php" class="nav-link {{ pageActive == 'programme' ? 'active' : '' }}">Programme</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="aide.php" class="nav-link {{ pageActive == 'aide' ? 'active' : '' }}">Aide</a>
+                    </li>
+                </ul>
             </div>
-        </nav>
-    </header>
+        </div>
+    </nav>
+
+</header>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <main>
         <!-- Diaporama d'images -->
         <div class="slideshow-container">
@@ -109,46 +172,194 @@
                 <div class="text">Explorez les parcs magnifiques de la France !</div>
             </div>
         </div>
+        <script>
+    let slideIndex = 0;
+
+    function showSlides() {
+        let slides = document.getElementsByClassName("mySlides");
+        let dots = document.getElementsByClassName("dot");
+        
+        // Cacher toutes les diapositives
+        for (let i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";  
+        }
+        
+        // Incrémenter l'indice de la diapositive
+        slideIndex++;
+        if (slideIndex > slides.length) {slideIndex = 1}    // Recommence à la première diapositive
+
+        // Afficher la diapositive actuelle
+        slides[slideIndex - 1].style.display = "block";  
+
+        // Gérer les points de navigation
+        for (let i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+        if (dots.length > 0) {
+            dots[slideIndex - 1].className += " active";
+        }
+
+        setTimeout(showSlides, 3000); // Changer d'image toutes les 3 secondes
+    }
+
+    showSlides(); // Démarrer le diaporama au chargement de la page
+</script>
 
         <!-- Contenu de la page Accueil -->
         <div class="container mt-4">
-            <h1>Bienvenue à Votre Guide de Voyage en France</h1>
-            <p>Explorez les meilleurs restaurants, hôtels, événements et plus encore avec notre application dédiée à votre séjour en France.</p>
-            <p>Ce guide vous propose des informations précieuses sur les destinations incontournables, les événements à venir et des conseils pour rendre votre séjour agréable.</p>
-            <!-- Vous pouvez ajouter ici plus de contenu si nécessaire -->
+           <div class="container mt-4">
+    <h1>Bienvenue sur ANAC, votre guide de voyage en France</h1>
+    <p>
+        ANAC est l'outil idéal pour vous accompagner tout au long de votre séjour en France. Que vous soyez en voyage d'affaires, en escapade romantique, en vacances en famille ou en quête d'aventure, notre application vous permet de trouver les meilleurs <a href="recherche.php?categorie=hotels">hôtels</a>, <a href="recherche.php?categorie=restaurants">restaurants</a>, <a href="recherche.php?categorie=musees">musées</a> et <a href="recherche.php?categorie=jardins">jardins</a>, tout en vous offrant un <a href="programme.php">programme détaillé</a> pour les villes célèbres.
+    </p>
+    <p>
+        Grâce à ANAC, vous pouvez facilement organiser votre séjour en accédant à des informations sur les <a href="recherche.php?categorie=hotels">hôtels</a> et <a href="recherche.php?categorie=restaurants">restaurants</a> qui correspondent à vos préférences. Profitez également des <a href="recherche.php?categorie=musees">musées</a> les plus emblématiques de chaque région et découvrez les plus beaux <a href="recherche.php?categorie=jardins">jardins</a> de France.
+    </p>
+    <p>
+        N'oubliez pas que vous pouvez aussi laisser un <a href="avis.php">avis</a> sur vos lieux préférés et partager vos expériences avec la communauté d'ANAC_APP.
+    </p>
+    <p>
+        Que vous soyez à la recherche d'un hôtel de charme, d'un restaurant gastronomique, d'une exposition culturelle ou d'un jardin secret à découvrir, ANAC vous guide à chaque étape de votre voyage, pour que vous profitiez pleinement de tout ce que la France a à offrir.
+    </p>
+</div>
+
+
+        <!-- Explorez les différentes catégories -->
+        <div class="container mt-5">
+            <h2 class="text-center mb-4">Explorez les différentes catégories</h2>
+            <div class="row">
+                <div class="col-md-3 mb-4">
+                    <div class="card shadow-sm">
+                        <img src="images/hotel.jpg" class="card-img-top" alt="Hôtels">
+                        <div class="card-body">
+                            <h5 class="card-title">Hôtels</h5>
+                            <p class="card-text">Trouvez les meilleurs hôtels adaptés à vos besoins.</p>
+                            <a href="rechercheHotel.php?categorie=hotels" class="btn btn-primary">Explorer</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="card shadow-sm">
+                        <img src="images/restaurant.jpg" class="card-img-top" alt="Restaurants">
+                        <div class="card-body">
+                            <h5 class="card-title">Restaurants</h5>
+                            <p class="card-text">Découvrez des restaurants de qualité près de chez vous.</p>
+                            <a href="rechercheRestaurant.php?categorie=restaurants" class="btn btn-primary">Explorer</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="card shadow-sm">
+                        <img src="images/musee.jpg" class="card-img-top" alt="Musées">
+                        <div class="card-body">
+                            <h5 class="card-title">Musées</h5>
+                            <p class="card-text">Explorez les musées et enrichissez votre culture.</p>
+                            <a href="rechercheMusee.php?categorie=musees" class="btn btn-primary">Explorer</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="card shadow-sm">
+                        <img src="images/jardin.jpg" class="card-img-top" alt="Jardins">
+                        <div class="card-body">
+                            <h5 class="card-title">Jardins</h5>
+                            <p class="card-text">Promenez-vous dans les plus beaux jardins.</p>
+                            <a href="rechercheJardin.php?categorie=jardins" class="btn btn-primary">Explorer</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+
+        <!-- Découvrez la France avec un Guide Conférencier -->
+        <div class="container mt-5">
+            <h2 class="text-center mb-4">Découvrez la France avec un Guide Conférencier</h2>
+            <div class="row">
+                <!-- Région 1 -->
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-sm">
+                        <img src="images/auvergne.jpg" class="card-img-top" alt="Auvergne Rhône Alpes">
+                        <div class="card-body">
+                            <h5 class="card-title">Auvergne Rhône Alpes</h5>
+                            <p class="card-text">
+                                Explorez cette magnifique région avec un guide conférencier. Découvrez des lieux uniques, participez à des visites guidées et vivez des excursions privées.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Région 2 -->
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-sm">
+                        <img src="images/bretagne.jpg" class="card-img-top" alt="Bretagne">
+                        <div class="card-body">
+                            <h5 class="card-title">Bretagne</h5>
+                            <p class="card-text">
+                                Partez à la découverte des paysages côtiers et des traditions bretonnes. Visites privées et excursions guidées disponibles.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Région 3 -->
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-sm">
+                        <img src="images/corse.jpg" class="card-img-top" alt="Corse">
+                        <div class="card-body">
+                            <h5 class="card-title">Corse</h5>
+                            <p class="card-text">
+                                Découvrez l'Île de Beauté avec un guide privé. Explorez ses plages, montagnes et villages authentiques.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ligne 2 -->
+            <div class="row">
+                <!-- Région 4 -->
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-sm">
+                        <img src="images/grand-est.jpg" class="card-img-top" alt="Grand Est">
+                        <div class="card-body">
+                            <h5 class="card-title">Grand Est</h5>
+                            <p class="card-text">
+                                Explorez l'Alsace, la Lorraine et la Champagne avec un guide conférencier pour des expériences mémorables.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Région 5 -->
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-sm">
+                        <img src="images/ile-de-france.jpg" class="card-img-top" alt="Île de France">
+                        <div class="card-body">
+                            <h5 class="card-title">Île de France</h5>
+                            <p class="card-text">
+                                Découvrez les secrets de Paris et ses alentours avec des visites guidées enrichissantes.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Région 6 -->
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-sm">
+                        <img src="images/normandie.jpg" class="card-img-top" alt="Normandie">
+                        <div class="card-body">
+                            <h5 class="card-title">Normandie</h5>
+                            <p class="card-text">
+                                Vivez l'histoire de la Normandie, ses plages du Débarquement et ses paysages pittoresques.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </main>
 
     <footer>
-        <p class="text-center">&copy; Site des meilleures destinations en France</p>
+        <p class="text-center">&copy; 2025 - ANAC_APP, votre guide de voyage en France</p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-    <script>
-        let slideIndex = 0;
-        showSlides();
-
-        function showSlides() {
-            let i;
-            let slides = document.getElementsByClassName("mySlides");
-            let dots = document.getElementsByClassName("dot");
-
-            // Masquer toutes les diapositives
-            for (i = 0; i < slides.length; i++) {
-                slides[i].style.display = "none";
-            }
-
-            // Réinitialiser l'index si nécessaire
-            slideIndex++;
-            if (slideIndex > slides.length) {slideIndex = 1}
-
-            // Afficher la diapositive
-            slides[slideIndex - 1].style.display = "block";
-
-            // Changer l'image toutes les 3 secondes
-            setTimeout(showSlides, 3000);
-        }
-    </script>
 </body>
 </html>
