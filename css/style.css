@@ -3,7 +3,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Roboto', sans-serif;
-  background-color: #f4f4f4;
+  background-color: #f8f4f1; /* Fond nude clair */
 }
 
 /* Conteneur principal */
@@ -16,19 +16,21 @@ body {
   width: 100%;
   margin: 0;
   padding: 0;
+  background-color: #d8c8b8; /* Couleur nude beige claire (non noir) */
 }
 
 .navbar-nav .nav-link {
-  color: white;
+  color: #4e3629; /* Texte brun foncé */
   padding: 10px 20px;
   text-decoration: none;
   transition: background-color 0.3s ease;
 }
 
+
 .navbar-nav .nav-link:hover,
 .navbar-nav .nav-link.active {
-  background-color: #5a2aff;
-  color: lightcyan;
+  background-color: #b3a18d; /* Hover nude doux */
+  color: #fff; /* Texte blanc */
   border-radius: 4px;
 }
 
@@ -73,7 +75,7 @@ main {
   height: 15px;
   width: 15px;
   margin: 0 2px;
-  background-color: #bbb;
+  background-color: #d8c8b8; /* Couleur nude beige claire */
   border-radius: 50%;
   display: inline-block;
   cursor: pointer;
@@ -81,30 +83,30 @@ main {
 }
 
 .dot.active {
-  background-color: #5a2aff;
+  background-color: #b3a18d; /* Couleur nude plus intense */
 }
 
 /* Pied de page */
 footer {
   text-align: center;
   padding: 10px;
-  background-color: #333;
-  color: white;
+  background-color: #4e3629; /* Fond brun foncé */
+  color: #fff; /* Texte blanc */
 }
 
 /* Styles généraux */
 h1, h3 {
-  color: #5a2aff;
+  color: #4e3629; /* Brun foncé */
 }
 
 p {
-  color: #333;
+  color: #4e3629; /* Texte brun foncé */
   text-align: justify;
 }
 
 /* Formulaire */
 .formulaire {
-  background: #fff;
+  background: #fff; /* Fond blanc */
   border-radius: 5px;
   padding: 20px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
@@ -118,6 +120,7 @@ p {
   display: block;
   font-weight: bold;
   margin-bottom: 5px;
+  color: #4e3629; /* Texte des labels brun foncé */
 }
 
 .form-group input,
@@ -125,20 +128,20 @@ p {
 .form-group textarea {
   width: 100%;
   padding: 8px;
-  border: 1px solid #ccc;
+  border: 1px solid #d8c8b8; /* Bordure nude claire */
   border-radius: 3px;
 }
 
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
-  border-color: #5a2aff;
+  border-color: #b3a18d; /* Bordure nude plus intense au focus */
 }
 
 .btn-submit {
   display: inline-block;
   margin-top: 10px;
-  background-color: #5a2aff;
+  background-color: #b3a18d; /* Bouton en couleur nude douce */
   color: #fff;
   padding: 10px 15px;
   border: none;
@@ -149,7 +152,7 @@ p {
 }
 
 .btn-submit:hover {
-  background-color: #4a23d9;
+  background-color: #d8c8b8; /* Couleur nude claire au survol */
 }
 
 /* Tableaux */
@@ -160,19 +163,20 @@ table {
 }
 
 table th, table td {
-  border: 1px solid #5a2aff;
+  border: 1px solid #d8c8b8; /* Bordure nude claire */
   padding: 8px;
   text-align: left;
 }
 
 table th {
-  background-color: #f2f2f2;
-  color: #5a2aff;
+  background-color: #f9f4f1; /* Fond nude très clair */
+  color: #4e3629; /* Texte brun foncé */
 }
 
 table tr:nth-child(odd) {
-  background-color: #f9f9f9;
+  background-color: #f4ece0; /* Légère nuance nude sur les lignes impaires */
 }
+
 .hover-image {
   width: 600px; /* Largeur fixe de 600px */
   height: auto; /* Hauteur ajustée automatiquement pour conserver les proportions */
