@@ -173,6 +173,26 @@ table th {
 table tr:nth-child(odd) {
   background-color: #f9f9f9;
 }
+/* Styles pour les petites images intégrées dans le texte */
+/* Styles pour les petites images au survol */
+.small-hover-image {
+  width: 1000px; /* Largeur réduite */
+  height: 200px; /* Hauteur ajustée automatiquement */
+  display: none; /* Masqué par défaut */
+  position: absolute; /* Position absolue pour le survol */
+  left: 0; /* Alignement à gauche */
+  top: 100%; /* Affichage sous le mot clé */
+  margin-top: 8px; /* Espace entre le mot et l'image */
+  border-radius: 4px; /* Coins légèrement arrondis */
+  border: 1px solid #e5e7eb; /* Bordure légère */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre légère */
+  z-index: 1000; /* Affichage au-dessus des autres éléments */
+}
+
+/* Affiche l'image au survol */
+.hover-image-trigger:hover .small-hover-image {
+  display: block; /* Affiche l'image au survol */
+}
 .hover-image {
   width: 600px; /* Largeur fixe de 600px */
   height: auto; /* Hauteur ajustée automatiquement pour conserver les proportions */
@@ -191,6 +211,7 @@ table tr:nth-child(odd) {
 .hover-image-trigger:hover .hover-image {
   display: block; /* Affiche l'image au survol */
 }
+
 
 /* Styles Responsives */
 @media (max-width: 600px) {
