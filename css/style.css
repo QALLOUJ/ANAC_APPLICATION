@@ -173,6 +173,24 @@ table th {
 table tr:nth-child(odd) {
   background-color: #f9f9f9;
 }
+.hover-image {
+  width: 600px; /* Largeur fixe de 600px */
+  height: auto; /* Hauteur ajustée automatiquement pour conserver les proportions */
+  max-width: none; /* Empêche toute limitation de largeur */
+  display: none; /* Masqué par défaut */
+  position: absolute; /* Position absolue pour le survol */
+  left: 0; /* Alignement à gauche */
+  top: 100%; /* Affichage sous le mot clé */
+  margin-top: 8px; /* Espace entre le mot et l'image */
+  border-radius: 8px; /* Coins arrondis */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre légère */
+  border: 1px solid #e5e7eb; /* Bordure légère */
+  z-index: 50; /* Affichage au-dessus des autres éléments */
+}
+
+.hover-image-trigger:hover .hover-image {
+  display: block; /* Affiche l'image au survol */
+}
 
 /* Styles Responsives */
 @media (max-width: 600px) {
