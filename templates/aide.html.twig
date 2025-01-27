@@ -3,70 +3,164 @@
 {% block title %}{{ pageTitle }}{% endblock %}
 
 {% block content %}
-    <div class="container mx-auto p-4">
-        <!-- Titre de la page -->
-        <h1 class="text-3xl font-bold text-center mb-4">{{ pageTitle }}</h1>
-        <p class="text-xl text-center mb-8 text-gray-600">{{ pageDescription }}</p>
+<div class="container mx-auto p-4">
+    <!-- Titre de la page -->
+    <h1 class="text-4xl font-extrabold text-center text-blue-700 mb-4">{{ pageTitle }}</h1>
+    <p class="text-lg text-center mb-8 text-gray-600">{{ pageDescription }}</p>
 
-        <!-- Section FAQ -->
-        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-            <h2 class="text-2xl font-bold mb-4 text-blue-600">Questions fréquentes</h2>
-            <div class="space-y-4">
-                {% for item in faq %}
-                    <div class="bg-gray-50 p-4 rounded-lg">
-                        <h3 class="text-xl font-semibold text-gray-800">{{ item.question }}</h3>
-                        <p class="text-lg text-gray-600">{{ item.answer|raw }}</p>
-                    </div>
-                {% endfor %}
+    
+    <!-- Section FAQ -->
+    <div class="bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg shadow-md p-6 mb-6">
+        <h2 class="text-2xl font-bold mb-4 text-blue-600 flex items-center">
+            <i class="fas fa-question-circle mr-2 text-blue-500"></i> Questions fréquentes
+        </h2>
+
+        <!-- Liste des questions avec réponses interactives -->
+        <div x-data="{ open: null }" class="space-y-4">
+            <!-- Question 1 -->
+            <div class="bg-white p-4 rounded-lg hover:shadow-lg transition duration-300">
+                <button @click="open === 1 ? open = null : open = 1" class="w-full text-left">
+                    <h3 class="text-xl font-semibold text-gray-800">Comment rechercher une ville ou un programme de visite ?</h3>
+                </button>
+                <div x-show="open === 1" x-collapse class="mt-2">
+                    <p class="text-lg text-gray-600">
+                        Pour rechercher une ville ou un programme de visite, utilisez la barre "Recherche" en haut de la page. Tapez le nom de la ville ou le type de visite que vous souhaitez, puis sélectionnez une option dans les résultats.
+                    </p>
+                </div>
             </div>
-        </div>
 
-        <!-- Section Guide d'utilisation -->
-        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-            <h2 class="text-2xl font-bold mb-4 text-blue-600">Comment utiliser l'application</h2>
-            <div class="space-y-4">
-                {% for item in guide %}
-                    <div class="bg-gray-50 p-4 rounded-lg">
-                        <h3 class="text-xl font-semibold text-gray-800">{{ item.title }}</h3>
-                        <p class="text-lg text-gray-600">{{ item.description }}</p>
-                    </div>
-                {% endfor %}
+            <!-- Question 2 -->
+            <div class="bg-white p-4 rounded-lg hover:shadow-lg transition duration-300">
+                <button @click="open === 2 ? open = null : open = 2" class="w-full text-left">
+                    <h3 class="text-xl font-semibold text-gray-800">Comment utiliser la carte interactive ?</h3>
+                </button>
+                <div x-show="open === 2" x-collapse class="mt-2">
+                    <p class="text-lg text-gray-600">
+                        La carte interactive vous permet de visualiser les lieux d'intérêt. Cliquez sur un marqueur pour voir les détails du lieu. Vous pouvez également zoomer et déplacer la carte pour explorer différentes zones.
+                    </p>
+                </div>
             </div>
-        </div>
 
-        <!-- Section Contact et support -->
-        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-            <h2 class="text-2xl font-bold mb-4 text-blue-600">Contactez-nous</h2>
-            <div class="space-y-4">
-                <p class="text-lg text-gray-600">Pour toute question ou problème, contactez-nous à l'adresse : <a href="mailto:{{ contact.email }}" class="text-blue-600 hover:text-blue-800">{{ contact.email }}</a>.</p>
-                <p class="text-lg text-gray-600">Vous pouvez également nous contacter via nos réseaux sociaux :</p>
-                <div class="flex space-x-4">
-                    {% for social in contact.socialMedia %}
-                        <a href="{{ social.link }}" class="text-blue-600 hover:text-blue-800">{{ social.name }}</a>
-                    {% endfor %}
+            <!-- Question 3 -->
+            <div class="bg-white p-4 rounded-lg hover:shadow-lg transition duration-300">
+                <button @click="open === 3 ? open = null : open = 3" class="w-full text-left">
+                    <h3 class="text-xl font-semibold text-gray-800">Que faire si l’application ne fonctionne pas correctement ?</h3>
+                </button>
+                <div x-show="open === 3" x-collapse class="mt-2">
+                    <p class="text-lg text-gray-600">
+                        Si l'application ne fonctionne pas correctement, essayez de la redémarrer ou de mettre à jour la page. Si le problème persiste, contactez notre support technique à les adresses dans la section "Contactez-nous"
+                    </p>
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="bg-white p-4 rounded-lg hover:shadow-lg transition duration-300">
+                <button @click="open === 4 ? open = null : open = 4" class="w-full text-left">
+                    <h3 class="text-xl font-semibold text-gray-800">Comment signaler un bug ou un problème technique ?</h3>
+                </button>
+                <div x-show="open === 4" x-collapse class="mt-2">
+                    <p class="text-lg text-gray-600">
+                        Pour signaler un bug ou un problème technique, rendez-vous dans la section "Contactez-nous" . Vous pouvez  envoyer un email .
+                    </p>
+                </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="bg-white p-4 rounded-lg hover:shadow-lg transition duration-300">
+                <button @click="open === 5 ? open = null : open = 5" class="w-full text-left">
+                    <h3 class="text-xl font-semibold text-gray-800">Où puis-je signaler des erreurs ou proposer des idées pour améliorer l’application ?</h3>
+                </button>
+                <div x-show="open === 5" x-collapse class="mt-2">
+                    <p class="text-lg text-gray-600">
+                        Vous pouvez signaler des erreurs ou proposer des idées en envoyant un mail dans la section "Contactez-nous". Nous apprécions vos retours pour améliorer l'application !
+                    </p>
+                </div>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="bg-white p-4 rounded-lg hover:shadow-lg transition duration-300">
+                <button @click="open === 6 ? open = null : open = 6" class="w-full text-left">
+                    <h3 class="text-xl font-semibold text-gray-800">Où puis-je donner mon avis sur l'application ?</h3>
+                </button>
+                <div x-show="open === 6" x-collapse class="mt-2">
+                    <p class="text-lg text-gray-600">
+                        Vous pouvez donner votre avis en cliquant sur le bouton "Donner mon avis" dans la section "Votre avis compte". Votre feedback nous aide à améliorer l'application.
+                    </p>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- Section Informations supplémentaires -->
-        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-            <h2 class="text-2xl font-bold mb-4 text-blue-600">Informations utiles</h2>
-            <div class="space-y-4">
-                {% for link in usefulLinks %}
-                    <a href="{{ link.link }}" class="text-blue-600 hover:text-blue-800 block">{{ link.text }}</a>
-                {% endfor %}
-            </div>
-        </div>
+    
 
-        <!-- Section Feedback -->
-        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-            <h2 class="text-2xl font-bold mb-4 text-blue-600">Votre avis compte</h2>
-            <div class="space-y-4">
-                <p class="text-lg text-gray-600">Nous aimerions connaître votre avis pour améliorer l'application.</p>
-                {% for item in feedback %}
-                    <a href="{{ item.link }}" class="text-blue-600 hover:text-blue-800 block">{{ item.text }}</a>
-                {% endfor %}
-            </div>
+    <!-- Section Contact et support -->
+    <div class="bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg shadow-md p-6 mb-6">
+        <h2 class="text-2xl font-bold mb-4 text-blue-600 flex items-center">
+            <i class="fas fa-envelope mr-2 text-blue-500"></i> Contactez-nous
+        </h2>
+        <div class="space-y-4">
+            <p class="text-lg text-gray-600">Pour toute question ou problème, vous pouvez nous contacter aux adresses suivantes :</p>
+            <ul class="text-gray-600 space-y-2">
+                <li class="flex items-center justify-between bg-white p-4 rounded-lg hover:shadow-lg transition duration-300">
+                    <span>ashley.padayodi@etu.univ-lyon1.fr</span>
+                    <a href="mailto:ashley.padayodi@etu.univ-lyon1.fr">
+                        <button class="bg-blue-500 text-white px-3 py-1 rounded-lg shadow hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300">
+                            Contacter
+                        </button>
+                    </a>
+                </li>
+                <li class="flex items-center justify-between bg-white p-4 rounded-lg hover:shadow-lg transition duration-300">
+                    <span>abir.hanned@etu.univ-lyon1.fr</span>
+                    <a href="mailto:abir.hanned@etu.univ-lyon1.fr">
+                        <button class="bg-blue-500 text-white px-3 py-1 rounded-lg shadow hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300">
+                            Contacter
+                        </button>
+                    </a>
+                </li>
+                <li class="flex items-center justify-between bg-white p-4 rounded-lg hover:shadow-lg transition duration-300">
+                    <span>nawal.elkhal@etu.univ-lyon1.fr</span>
+                    <a href="mailto:nawal.elkhal@etu.univ-lyon1.fr">
+                        <button class="bg-blue-500 text-white px-3 py-1 rounded-lg shadow hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300">
+                            Contacter
+                        </button>
+                    </a>
+                </li>
+                <li class="flex items-center justify-between bg-white p-4 rounded-lg hover:shadow-lg transition duration-300">
+                    <span>chafae.qallouj@etu.univ-lyon1.fr</span>
+                    <a href="mailto:chafae.qallouj@etu.univ-lyon1.fr">
+                        <button class="bg-blue-500 text-white px-3 py-1 rounded-lg shadow hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300">
+                            Contacter
+                        </button>
+                    </a>
+                </li>
+            </ul>
         </div>
     </div>
+
+    <!-- Section Informations supplémentaires -->
+    <div class="bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg shadow-md p-6 mb-6">
+        <h2 class="text-2xl font-bold mb-4 text-blue-600 flex items-center">
+            <i class="fas fa-info-circle mr-2 text-blue-500"></i> Informations utiles
+        </h2>
+        <div class="space-y-4">
+            {% for link in usefulLinks %}
+                <a href="{{ link.link }}" class="text-blue-600 hover:text-blue-800 block">{{ link.text }}</a>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Section Feedback -->
+    <div class="bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg shadow-md p-6 mb-6">
+        <h2 class="text-2xl font-bold mb-4 text-blue-600 flex items-center">
+            <i class="fas fa-comment-alt mr-2 text-blue-500"></i> Votre avis compte
+        </h2>
+        <p class="text-lg text-gray-600 mb-4">Nous aimerions connaître votre avis pour améliorer l'application.</p>
+        <div class="space-y-4">
+            <!-- Lien vers la page avis.php -->
+            <a href="avis.php" class="block bg-blue-500 text-white text-lg font-semibold px-6 py-3 rounded-lg shadow hover:bg-blue-600 transition duration-300 text-center">
+                Donner mon avis
+            </a>
+        </div>
+    </div>
+</div>
 {% endblock %}
