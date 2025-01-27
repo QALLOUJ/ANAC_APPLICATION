@@ -20,9 +20,36 @@ try {
     die('Erreur de connexion à la base de données : ' . $e->getMessage());
 }
 
-// Récupérer les données des jardins remarquables
-$queryJardins = $db->query("SELECT nom AS jardin_nom, ville, description FROM liste_des_jardins_remarquables");
-$jardins = $queryJardins->fetchAll(PDO::FETCH_ASSOC);
+// Récupérer les paramètres de recherche depuis la requête GET
+$nom = isset($_GET['nom']) ? $_GET['nom'] : '';
+$ville = isset($_GET['ville']) ? $_GET['ville'] : '';
+
+// Construire la requête SQL en fonction des filtres
+$query = "SELECT nom, ville, adresse, site_web FROM liste_des_jardins_remarquables"; // On garde 'nom' et 'ville' dans la sélection
+
+// Ajouter des conditions de filtre selon les critères
+if ($nom) {
+    $query .= " WHERE LOWER(nom) LIKE :nom"; // Si 'nom' est fourni, ajoutez un filtre
+}
+
+if ($ville) {
+    // Si 'ville' est fourni, on l'ajoute comme condition supplémentaire
+    $query .= ($nom ? " AND " : " WHERE ") . "LOWER(ville) LIKE :ville";
+}
+
+// Préparer et exécuter la requête SQL
+$stmt = $db->prepare($query);
+
+if ($nom) {
+    $stmt->bindValue(':nom', '%' . strtolower($nom) . '%');
+}
+
+if ($ville) {
+    $stmt->bindValue(':ville', '%' . strtolower($ville) . '%');
+}
+
+$stmt->execute();
+$jardins = $stmt->fetchAll(PDO::FETCH_ASSOC);  // Récupérer tous les résultats sous forme de tableau associatif
 
 // Initialiser Twig
 $loader = new FilesystemLoader('templates'); // Assurez-vous que 'templates' contient 'rechercheJardin.html.twig'
@@ -30,6 +57,6 @@ $twig = new Environment($loader);
 
 // Passer les données à Twig
 echo $twig->render('rechercheJardin.html.twig', [
-    'jardins' => $jardins // Passe les données des jardins à Twig
+    'liste_des_jardins_remarquables' => $jardins // Passe les données des jardins à Twig
 ]);
 ?>

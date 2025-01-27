@@ -1,36 +1,54 @@
 <?php
 session_start();
-
-require 'vendor/autoload.php'; // Assurez-vous que Twig est bien chargé
+require 'vendor/autoload.php';
 
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
 // Paramètres de connexion à la base de données
-$host = 'localhost';  // Hôte de la base de données
-$dbname = 'appli_tourisme';  // Nom de la base de données
-$username = 'root';  // Nom d'utilisateur de la base de données (par défaut 'root' pour XAMPP)
-$password = '';  // Le mot de passe de l'utilisateur (par défaut vide pour XAMPP)
+$host = 'localhost';
+$dbname = 'appli_tourisme';
+$username = 'root';
+$password = '';
 
 try {
     // Connexion à la base de données
     $db = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);  // Gérer les erreurs
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
     die('Erreur de connexion à la base de données : ' . $e->getMessage());
 }
 
-// Récupérer les données des musées
-$queryMusees = $db->query("SELECT nom AS musee_nom, ville, adresse, histoire, themes FROM musees");
-$musees = $queryMusees->fetchAll(PDO::FETCH_ASSOC);
+// Récupérer les musées
+try {
+    $queryMusees = $db->query("SELECT id, nom, themes, ville, telephone, site_web, region FROM musees");
+    $musees = $queryMusees->fetchAll(PDO::FETCH_ASSOC);
 
-// Initialiser Twig
-$loader = new FilesystemLoader('templates'); // Assurez-vous que 'templates' contient 'rechercheMusee.html.twig'
+    // Vérifier et formater les URLs des sites web
+    foreach ($musees as &$musee) {
+        if (!empty($musee['site_web']) && !preg_match("~^(?:f|ht)tps?://~i", $musee['site_web'])) {
+            $musee['site_web'] = 'http://' . $musee['site_web']; // Ajouter "http://" si manquant
+        }
+    }
+} catch (PDOException $e) {
+    die('Erreur lors de la récupération des musées : ' . $e->getMessage());
+}
+
+// Récupérer les thèmes uniques des musées
+try {
+    $queryThemes = $db->query("SELECT DISTINCT themes FROM musees");
+    $themes = $queryThemes->fetchAll(PDO::FETCH_COLUMN);
+} catch (PDOException $e) {
+    die('Erreur lors de la récupération des thèmes : ' . $e->getMessage());
+}
+
+// Charger Twig
+$loader = new FilesystemLoader('templates');
 $twig = new Environment($loader);
 
-// Passer les données à Twig
+// Afficher la page avec les données
 echo $twig->render('rechercheMusee.html.twig', [
-    'musees' => $musees // Passe les données des musées à Twig
+    'musees' => $musees, 
+    'themes' => $themes,
 ]);
 ?>
-
