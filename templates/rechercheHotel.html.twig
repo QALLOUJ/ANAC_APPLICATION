@@ -1,55 +1,23 @@
 {% extends 'bases.html.twig' %}
 
-{% block title %}Recherche de {{ type | capitalize }}{% endblock %}
+{% block title %}Recherche {% endblock %}
 
 {% block content %}
     <div class="container mt-4">
-        <h1>Recherche de {{ type | capitalize }} à {{ city }}</h1>
+        <h1>Liste des Hotels</h1>
 
-        <!-- Formulaire de recherche -->
-        <form method="GET" action="/ProjetWeb/Projet/rechercheHotel.php">
-            <div class="row">
-                <div class="col">
-                    <input type="text" name="city" class="form-control" placeholder="Entrez une ville" value="{{ city }}">
-                </div>
-                <div class="col">
-                    <select name="type" class="form-control">
-                        <option value="hotels" {% if type == 'hotels' %}selected{% endif %}>Hôtels</option>
-                        <option value="musees" {% if type == 'musees' %}selected{% endif %}>Musées</option>
-                        <option value="jardins" {% if type == 'jardins' %}selected{% endif %}>Jardins</option>
-                        <option value="restaurants" {% if type == 'restaurants' %}selected{% endif %}>Restaurants</option>
-                    </select>
-                </div>
-                <div class="col">
-                    <button type="submit" class="btn btn-primary">Rechercher</button>
-                </div>
-            </div>
-        </form>
-
-        <!-- Liste des résultats -->
         <div class="list-group mt-4">
-            {% for place in places %}
+            {% for hotel in hotels %}
                 <a href="#" class="list-group-item list-group-item-action">
-                    <h5 class="mb-1">{{ place.nom }}</h5>
-                    <img src="{{ place.photo_url }}" alt="Photo" class="img-fluid" style="max-height: 150px; object-fit: cover;">
-                    <p class="mb-1">Localisation : {{ place.position_gps }}</p>
+                    <h5 class="mb-1">{{ hotel.nom }}</h5>
+                    <p class="mb-1">{{ hotel.ville }}</p>
+                     <p class="mb-1">Type : {{ hotel.type }}</p>
                 </a>
             {% else %}
-                <p>Aucun résultat trouvé pour cette recherche.</p>
+                <p>Aucun hotel trouvé.</p>
             {% endfor %}
         </div>
-
-        <!-- Pagination -->
-        {% if totalPages > 1 %}
-        <nav aria-label="Page navigation example">
-            <ul class="pagination">
-                {% for pageNum in 1..totalPages %}
-                    <li class="page-item {% if pageNum == currentPage %}active{% endif %}">
-                        <a class="page-link" href="?city={{ city }}&type={{ type }}&page={{ pageNum }}">{{ pageNum }}</a>
-                    </li>
-                {% endfor %}
-            </ul>
-        </nav>
-        {% endif %}
     </div>
 {% endblock %}
+
+

@@ -1,86 +1,35 @@
 <?php
-require_once 'vendor/autoload.php'; // Charger Composer et Twig
+session_start();
 
-$host = 'localhost';
-$dbname = 'appli_tourisme';
-$username = 'root';
-$password = '';
+require 'vendor/autoload.php'; // Assurez-vous que Twig est bien chargé
+
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
+
+// Paramètres de connexion à la base de données
+$host = 'localhost';  // Hôte de la base de données
+$dbname = 'appli_tourisme';  // Nom de la base de données
+$username = 'root';  // Nom d'utilisateur de la base de données (par défaut 'root' pour XAMPP)
+$password = '';  // Le mot de passe de l'utilisateur (par défaut vide pour XAMPP)
 
 try {
+    // Connexion à la base de données
     $db = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    // Initialisation des variables
-    $places = [];
-    $city = '';
-    $type = '';
-
-    // Vérifier les paramètres de recherche
-    if (isset($_GET['city']) && !empty($_GET['city'])) {
-        $city = $_GET['city'];
-    } else {
-        // Si la ville n'est pas définie, on peut rediriger ou afficher un message d'erreur
-        echo 'La ville est requise pour la recherche.';
-        exit;
-    }
-
-    if (isset($_GET['type']) && !empty($_GET['type'])) {
-        $type = $_GET['type'];
-    } else {
-        // Si le type n'est pas défini, on peut rediriger ou afficher un message d'erreur
-        echo 'Le type de lieu est requis pour la recherche.';
-        exit;
-    }
-
-    // Pagination : récupérer la page actuelle
-    $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
-    $limit = 10; // Nombre d'éléments par page
-    $offset = ($page - 1) * $limit;
-
-    // Tables à récupérer en fonction du type
-    $tables = [
-        'hotels' => 'nom, position_gps, photo_url',
-        'musees' => 'nom, position_gps, photo_url',
-        'liste_des_jardins_remarquables' => 'nom, position_gps, photo_url',
-        'restaurants' => 'nom, position_gps, photo_url'
-    ];
-
-    // Vérifier que le type existe dans la liste des tables
-    if (isset($tables[$type])) {
-        $queryStr = "SELECT nom, position_gps, photo_url FROM " . $tables[$type] . " WHERE ville LIKE :city LIMIT :limit OFFSET :offset";
-        $query = $db->prepare($queryStr);
-        $query->bindValue(':city', "%$city%", PDO::PARAM_STR);
-        $query->bindValue(':limit', $limit, PDO::PARAM_INT);
-        $query->bindValue(':offset', $offset, PDO::PARAM_INT);
-        $query->execute();
-
-        $places = $query->fetchAll(PDO::FETCH_ASSOC);
-    } else {
-        echo 'Type de lieu invalide.';
-        exit;
-    }
-
-    // Calculer le nombre total de résultats
-    $totalResultsQuery = $db->prepare("SELECT COUNT(*) FROM " . $tables[$type] . " WHERE ville LIKE :city");
-    $totalResultsQuery->bindValue(':city', "%$city%", PDO::PARAM_STR);
-    $totalResultsQuery->execute();
-    $totalResults = $totalResultsQuery->fetchColumn();
-    $totalPages = ceil($totalResults / $limit);
-
-    // Initialiser Twig
-    $loader = new \Twig\Loader\FilesystemLoader('templates');
-    $twig = new \Twig\Environment($loader);
-
-    // Passer les données à la page Twig
-    echo $twig->render('rechercheHotel.html.twig', [
-        'places' => $places,
-        'city' => $city,
-        'type' => $type,
-        'totalPages' => $totalPages,
-        'currentPage' => $page
-    ]);
-
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);  // Gérer les erreurs
 } catch (PDOException $e) {
-    echo 'Erreur de connexion à la base de données : ' . $e->getMessage();
+    die('Erreur de connexion à la base de données : ' . $e->getMessage());
 }
+
+// Récupérer les données des jardins remarquables
+$queryJardins = $db->query("SELECT nom , ville, type FROM hotels");
+$jardins = $queryJardins->fetchAll(PDO::FETCH_ASSOC);
+
+// Initialiser Twig
+$loader = new FilesystemLoader('templates'); // Assurez-vous que 'templates' contient 'rechercheJardin.html.twig'
+$twig = new Environment($loader);
+
+// Passer les données à Twig
+echo $twig->render('rechercheHotel.html.twig', [
+    'jardins' => $jardins // Passe les données des jardins à Twig
+]);
 ?>
