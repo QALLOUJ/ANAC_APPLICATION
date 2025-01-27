@@ -22,7 +22,7 @@
                         <option value="hotels" {% if type == 'hotels' %}selected{% endif %}>Hôtels</option>
                         <option value="musees" {% if type == 'musees' %}selected{% endif %}>Musées</option>
                         <option value="restaurants" {% if type == 'restaurants' %}selected{% endif %}>Restaurants</option>
-                        <option value="jardins" {% if type == 'jardins' %}selected{% endif %}>Jardins</option>
+                        <option value="" {% if type == 'liste_des_jardins_remarquables' %}selected{% endif %}>Jardins</option>
                     </select>
                 </div>
                 <button class="btn btn-primary mt-3 w-100" type="submit">Chercher</button>
@@ -33,7 +33,7 @@
                 <h2>Résultats</h2>
                 {% if places is not empty %}
                     <div>
-                        {% for type in ['hotels', 'musees', 'restaurants', 'jardins'] %}
+                        {% for type in ['hotels', 'musees', 'restaurants', 'liste_des_jardins_remarquables'] %}
                             {% set type_places = places|filter(place => place.type == type) %}
                             {% if type_places|length > 0 %}
                                 <h3>{{ type|capitalize }}</h3>
