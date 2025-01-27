@@ -15,15 +15,23 @@
     .slideshow-container {
         position: relative;
         max-width: 100%;
-        height: 400px;
+        max-height: 600px;
         overflow: hidden;
     }
 
-    .mySlides img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
+    
+
+.mySlides img {
+    width: 100%; /* Largeur ajustée au conteneur */
+    height: 100%; /* Hauteur ajustée au conteneur */
+    object-fit: cover; /* Recadrage de l'image pour remplir */
+}
+
+
+    
+
+
+
 
     .text {
         position: absolute;
@@ -34,6 +42,7 @@
         background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent noir */
         padding: 10px;
         border-radius: 8px;
+        font-family: "Times New Roman", Times, serif; /* Correctement défini */
     }
 
     .dot-container {
@@ -162,15 +171,15 @@
         <!-- Diaporama d'images -->
         <div class="slideshow-container">
             <div class="mySlides">
-                <img src="images/restaurant1.jpg" alt="Restaurant">
-                <div class="text">Découvrez les meilleurs restaurants !</div>
+                <img src="images/restaurant1.jpg" alt="Restaurant"   height= 6000>
+                <div class="text" >Découvrez les meilleurs restaurants !</div>
             </div>
             <div class="mySlides">
-                <img src="images/hotel1.jpg" alt="Hôtel">
+                <img src="images/hotel1.jpg" alt="Hôtel"   height= 6000>
                 <div class="text">Séjournez dans les hôtels les plus confortables !</div>
             </div>
             <div class="mySlides">
-                <img src="images/parc1.jpg" alt="Parc">
+                <img src="images/parc1.jpg" alt="Parc"   height= 6000>
                 <div class="text">Explorez les parcs magnifiques de la France !</div>
             </div>
         </div>
