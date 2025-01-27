@@ -93,7 +93,11 @@
                 fillOpacity: 0.6
             })
             .addTo(map)
-            .bindPopup(`<b><a href="details.php?type={{ place.type }}&id={{ place.id }}">{{ place.name }}</a></b>`);
+            .bindPopup(`
+        <b><a href="details.php?type={{ place.type }}&id={{ place.id }}">{{ place.name }}</a></b>
+        <br>
+        <button onclick="window.open('https://www.google.com/maps?q={{ place.lat }},{{ place.lon }}', '_blank')">S'y rendre</button>
+    `);
         {% endfor %}
 
         // Ajuster la vue de la carte pour inclure tous les marqueurs

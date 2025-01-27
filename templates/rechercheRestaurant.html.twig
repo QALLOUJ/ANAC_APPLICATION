@@ -72,7 +72,7 @@
                     col.className = 'col-md-4';
                     col.innerHTML = `
                         <div class="card p-3">
-                            <h5>${restaurant.nom}</h5>
+                            <h5><a href="details.php?type=restaurants&id=${restaurant.id}" class="text-decoration-none">${restaurant.nom}</a></h5>
                             <p>${restaurant.ville} - ${restaurant.cuisine}</p>
                             <p><small>${restaurant.telephone}</small></p>
                             <a href="${restaurant.site_web}" target="_blank" class="btn btn-link">Site web</a>
@@ -109,4 +109,3 @@
 </script>
 
 {% endblock %}
-
