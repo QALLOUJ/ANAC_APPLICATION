@@ -5,35 +5,55 @@
 {% block content %}
 
 <style>
-
-
-.test {
-      font-size: 20px; /* Taille fixe en pixels */
-  text-align: center;
-  display: block;
-  margin: 0 auto;
-}
-h1 {
-  font-size: 32px;
-  color: #d8b7a6 ;
-  text-align: center;
-  display: block;
-  margin: 0 auto;
+.image {
+    margin : auto;
+    flex: block;
 }
 
+article {
+    background-color : white;
+}
 </style>
 
 <article>
-  <h1 >Avis</h1>
-  <br>
-  <p class="test"> Pour donner un avis sur un établissement visité </p>
-  <a href="donnerAvis.php" class="test">Clique ici</a>
-  <br>
-  <p class="test"> Pour rechercher un établissement selon les votes </p>
-  <a href="donnerAvis.php" class="test">Clique ici</a>
-
-
 <br>
+  <h1 class="text-center">Page d'avis</h1>
+  
+  
+  <div class="row">
+    <!-- Première colonne -->
+    <div class="col-md-4 text-center">
+    <br>
+    <br>
+    <br>
+      <p class="lead">Pour donner un avis sur un établissement visité</p>
+      <a href="donnerAvis.php">
+        <button type="button" class="btn btn-primary btn-lg">
+          Clique ici
+        </button>
+      </a>
+    </div>
+
+    <!-- Deuxième colonne -->
+    <div class="col-md-4 text-center">
+      <img src="images/commentaire.png" alt="logo" width="300" height="240" class="image" >
+    </div>
+    
+    <!-- Deuxième colonne -->
+    <div class="col-md-4 text-center">
+    <br>
+    <br>
+    <br>
+      <p class="lead">Pour rechercher un établissement selon les votes</p>
+      <a href="donnerAvis.php">
+        <button type="button" class="btn btn-primary btn-lg">
+          Clique ici
+        </button>
+      </a>
+    </div>
+  </div>
+
+  <br>
   {% block content1 %}{% endblock %}
 </article>
 
