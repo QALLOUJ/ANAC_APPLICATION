@@ -4,11 +4,82 @@
 {% block title %}Stage BTS{% endblock %}
 
 {% block content %}
-<article>
-<h1> Bienvenue </h1>
+ <style>
+    /* Styles de base */
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    
+    /* Style du chronomètre */
+    #timer {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
 
-        <p>Pour découvrir le meilleur de la France.</p>
-        </article>
+    /* Tableau avec animation */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
 
+    th, td {
+      padding: 10px;
+      border: 1px solid #ddd;
+    }
+
+    .table-row {
+      opacity: 0;  /* Initialement invisible */
+      transform: translateY(20px);  /* Décalage vertical */
+      transition: opacity 0.5s ease, transform 0.5s ease;  /* Transition douce */
+    }
+
+    .table-row.visible {
+      opacity: 1;  /* Visible */
+      transform: translateY(0);  /* Retour à la position originale */
+    }
+
+    /* Style pour le champ de saisie */
+    #cityInput {
+      padding: 10px;
+      font-size: 16px;
+      margin-right: 10px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="timer">Temps restant : 60</div>
+
+  <input type="text" id="cityInput" placeholder="Entrez une ville">
+  <button onclick="submitCity()">Valider</button>
+
+  <table id="cityTable">
+    <thead>
+      <tr>
+        <th>Ville</th>
+        <th>Population</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script src="js/jeu_chrono.js"></script>
+
+</body>
 {% endblock %}
 

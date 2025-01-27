@@ -25,7 +25,7 @@ $nom = isset($_GET['nom']) ? $_GET['nom'] : '';
 $ville = isset($_GET['ville']) ? $_GET['ville'] : '';
 
 // Construire la requête SQL en fonction des filtres
-$query = "SELECT nom, ville, adresse, site_web FROM liste_des_jardins_remarquables"; // On garde 'nom' et 'ville' dans la sélection
+$query = "SELECT nom, ville, id, adresse, site_web FROM liste_des_jardins_remarquables"; // On garde 'nom' et 'ville' dans la sélection
 
 // Ajouter des conditions de filtre selon les critères
 if ($nom) {

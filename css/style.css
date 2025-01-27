@@ -13,22 +13,23 @@ body {
 
 /* Style de la barre de navigation */
 .navbar {
+  background-color: rgb(192, 135, 106); /* Beige clair */
   width: 100%;
   margin: 0;
   padding: 0;
 }
 
-.navbar-nav .nav-link {
-  color: white;
+.navbar .nav-link {
+  color: white; /* Texte blanc */
   padding: 10px 20px;
   text-decoration: none;
   transition: background-color 0.3s ease;
 }
 
-.navbar-nav .nav-link:hover,
-.navbar-nav .nav-link.active {
-  background-color: #5a2aff;
-  color: lightcyan;
+.navbar .nav-link:hover,
+.navbar .nav-link.active {
+  background-color: #d8b7a6; /* Beige clair au survol */
+  color: #fff;
   border-radius: 4px;
 }
 
@@ -57,7 +58,7 @@ main {
   left: 20px;
   color: white;
   font-size: 20px;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent noir */
   padding: 10px;
   border-radius: 8px;
 }
@@ -73,7 +74,7 @@ main {
   height: 15px;
   width: 15px;
   margin: 0 2px;
-  background-color: #bbb;
+  background-color: #e2c2a1; /* Beige moyen */
   border-radius: 50%;
   display: inline-block;
   cursor: pointer;
@@ -81,28 +82,124 @@ main {
 }
 
 .dot.active {
-  background-color: #5a2aff;
+  background-color: #c49e8f; /* Beige foncé */
 }
 
-/* Pied de page */
+.card img {
+  height: 200px;
+  object-fit: cover;
+}
+
+.card-title {
+  color: #c49e8f; /* Beige foncé */
+  font-weight: bold;
+}
+
+.btn-primary {
+  background-color: #d8b7a6; /* Beige clair */
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #c49e8f; /* Beige foncé pour le hover */
+}
+
+/* Footer */
 footer {
-  text-align: center;
-  padding: 10px;
-  background-color: #333;
+  background-color: rgb(192, 135, 106); /* Beige clair similaire à la navbar */
+  color: white; /* Texte en blanc */
+  padding: 20px 0; /* Un peu d'espace autour du texte */
+  text-align: center; /* Centrer le texte dans le footer */
+}
+
+/* Liens dans le footer */
+footer a {
+  color: white; /* Liens en blanc */
+  text-decoration: none; /* Enlever le soulignement */
+  transition: color 0.3s ease;
+}
+
+/* Changement de couleur des liens au survol dans le footer */
+footer a:hover {
+  color: #c49e8f; /* Beige foncé au survol */
+}
+
+/* Positionner le sous-menu sous le lien Recherche */
+.nav-item.dropdown {
+  position: relative;
+}
+
+/* Masquer le sous-menu par défaut */
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  background-color: #f4f4f4;
+  border-radius: 8px;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Afficher le sous-menu au survol de la souris */
+.nav-item.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+/* Style du lien survolé */
+.dropdown-item {
+  padding: 10px 20px;
+  text-decoration: none;
+  color: #333;
+  transition: background-color 0.3s ease;
+}
+
+.dropdown-item:hover {
+  background-color: #e2c2a1; /* Beige moyen au survol */
+}
+
+/* Styles Responsives */
+@media (max-width: 600px) {
+  .contenu {
+    flex-direction: column;
+  }
+
+  nav, article {
+    flex: 100%;
+  }
+
+  .navbar-nav .nav-link {
+    padding: 10px;
+    font-size: 14px;
+  }
+}
+
+/* Pagination */
+.pagination .page-item.active .page-link {
+  background-color:#c49e8f;
+  
   color: white;
 }
 
-/* Styles généraux */
-h1, h3 {
-  color: #5a2aff;
+.pagination .page-link {
+  color: ;
+  border-radius: 50%;
+  transition: background-color 0.3s, color 0.3s;
 }
 
-p {
-  color: #333;
-  text-align: justify;
+.pagination .page-link:hover {
+  background-color: #c49e8f;;
+  color: #fff;
 }
 
-/* Formulaire */
+.pagination .active .page-link {
+  background-color: #c49e8f;
+  color: #fff;
+  
+}
+
+/* Autres éléments de formulaire, tableau, etc. */
+
 .formulaire {
   background: #fff;
   border-radius: 5px;
@@ -132,13 +229,12 @@ p {
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
-  border-color: #5a2aff;
+  
 }
 
 .btn-submit {
   display: inline-block;
   margin-top: 10px;
-  background-color: #5a2aff;
   color: #fff;
   padding: 10px 15px;
   border: none;
@@ -149,10 +245,9 @@ p {
 }
 
 .btn-submit:hover {
-  background-color: #4a23d9;
+  background-color: #c49e8f;;
 }
 
-/* Tableaux */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -173,136 +268,43 @@ table th {
 table tr:nth-child(odd) {
   background-color: #f9f9f9;
 }
-/* Styles pour les petites images intégrées dans le texte */
-/* Styles pour les petites images au survol */
+
 .small-hover-image {
-  width: 1000px; /* Largeur réduite */
-  height: 200px; /* Hauteur ajustée automatiquement */
-  display: none; /* Masqué par défaut */
-  position: absolute; /* Position absolue pour le survol */
-  left: 0; /* Alignement à gauche */
-  top: 100%; /* Affichage sous le mot clé */
-  margin-top: 8px; /* Espace entre le mot et l'image */
-  border-radius: 4px; /* Coins légèrement arrondis */
-  border: 1px solid #e5e7eb; /* Bordure légère */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre légère */
-  z-index: 1000; /* Affichage au-dessus des autres éléments */
+  width: 1000px;
+  height: 200px;
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 100%;
+  margin-top: 8px;
+  border-radius: 4px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
 }
 
-/* Affiche l'image au survol */
 .hover-image-trigger:hover .small-hover-image {
-  display: block; /* Affiche l'image au survol */
+  display: block;
 }
+
 .hover-image {
-  width: 600px; /* Largeur fixe de 600px */
-  height: auto; /* Hauteur ajustée automatiquement pour conserver les proportions */
-  max-width: none; /* Empêche toute limitation de largeur */
-  display: none; /* Masqué par défaut */
-  position: absolute; /* Position absolue pour le survol */
-  left: 0; /* Alignement à gauche */
-  top: 100%; /* Affichage sous le mot clé */
-  margin-top: 8px; /* Espace entre le mot et l'image */
-  border-radius: 8px; /* Coins arrondis */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre légère */
-  border: 1px solid #e5e7eb; /* Bordure légère */
-  z-index: 50; /* Affichage au-dessus des autres éléments */
+  width: 600px;
+  height: auto;
+  max-width: none;
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 100%;
+  margin-top: 8px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+  z-index: 50;
 }
 
 .hover-image-trigger:hover .hover-image {
-  display: block; /* Affiche l'image au survol */
+  display: block;
 }
-
-#results-container ul {
-  padding: 0;
-  list-style: none;
-}
-
-#results-container ul li {
-  border-bottom: 1px solid #ddd;
-  padding: 8px 0;
-}
-
-#results-container ul li:last-child {
-  border-bottom: none;
-}
-.pagination .page-item.active .page-link {
-  background-color: #007bff;
-  border-color: #007bff;
-  color: white;
-}
-
-/* Styles Responsives */
-@media (max-width: 600px) {
-  .contenu {
-      flex-direction: column;
-  }
-
-  nav, article {
-      flex: 100%;
-  }
-
-  .navbar-nav .nav-link {
-      padding: 10px;
-      font-size: 14px;
- 
-    }
-   
- 
-        /* Style personnalisé */
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f9f9f9;
-            color: #333;
-        }
-
-        /* Champs de recherche */
-        form input {
-            transition: all 0.3s;
-        }
-        form input:focus {
-            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-            outline: none;
-        }
-
-        /* Cartes des résultats */
-        .card {
-            border: 1px solid #ddd;
-            border-radius: 12px;
-            background-color: #fff;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        .card:hover {
-            transform: scale(1.02);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Pagination */
-        .pagination .page-link {
-            color: #007bff;
-            border-radius: 50%;
-            transition: background-color 0.3s, color 0.3s;
-        }
-        .pagination .page-link:hover {
-            background-color: #007bff;
-            color: #fff;
-        }
-        .pagination .active .page-link {
-            background-color: #007bff;
-            color: #fff;
-            border-color: #007bff;
-        }
-
-        /* Responsivité */
-        @media (max-width: 768px) {
-            form {
-                flex-direction: column;
-            }
-            form input {
-                width: 100%;
-            }
-        }
-      }     
-   
 
  
 
