@@ -1,6 +1,29 @@
 {% extends 'bases.html.twig' %}
 
 {% block title %}{{ pageTitle }}{% endblock %}
+{% set usefulLinks = [
+    {
+        "text": "Météo France",
+        "link": "https://meteofrance.com",
+        "icon": "fas fa-cloud-sun",
+        "description": "Consultez la météo en temps réel pour planifier vos visites."
+    },
+    {
+        "text": "Horaires des transports",
+        "link": "https://www.thetrainline.com/fr/horaire-bus",
+        "icon": "fas fa-bus",
+        "description": "Trouvez les horaires des bus, métros et tramways."
+    },
+    
+    {
+        "text": "Convertisseur de devises",
+        "link": "https://www.boursorama.com/bourse/devises/convertisseur-devises/",
+        "icon": "fas fa-euro-sign",
+        "description": "Convertissez les devises pour vos dépenses à l'étranger."
+    },
+    
+] 
+%}
 
 {% block content %}
 <div class="container mx-auto p-4">
@@ -12,7 +35,7 @@
     <!-- Section FAQ -->
     <div class="bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg shadow-md p-6 mb-6">
         <h2 class="text-2xl font-bold mb-4 text-blue-600 flex items-center">
-            <i class="fas fa-question-circle mr-2 text-blue-500"></i> Questions fréquentes
+            <i class="fas fa-question-circle mr-2 text-blue-500"></i> Questions fréquentes (FAQ)
         </h2>
 
         <!-- Liste des questions avec réponses interactives -->
@@ -40,6 +63,17 @@
                     </p>
                 </div>
             </div>
+            <div class="bg-white p-4 rounded-lg hover:shadow-lg transition duration-300">
+                <button @click="open === 2 ? open = null : open = 2" class="w-full text-left">
+                    <h3 class="text-xl font-semibold text-gray-800">Comment accéder à la direction d'un lieu dans GPS?</h3>
+                </button>
+                <div x-show="open === 2" x-collapse class="mt-2">
+                    <p class="text-lg text-gray-600">
+                         Dans la carte interactive, cliquez simplement sur le lieu qui vous intéresse. Une option s'affichera pour accéder directement à la position du lieu dans Google Maps. Cliquez sur cette option pour ouvrir Google Maps et obtenir les directions GPS.
+                    </p>
+                </div>
+            </div>
+
 
             <!-- Question 3 -->
             <div class="bg-white p-4 rounded-lg hover:shadow-lg transition duration-300">
@@ -137,14 +171,27 @@
         </div>
     </div>
 
-    <!-- Section Informations supplémentaires -->
+    <!-- Section Informations utiles -->
     <div class="bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg shadow-md p-6 mb-6">
         <h2 class="text-2xl font-bold mb-4 text-blue-600 flex items-center">
             <i class="fas fa-info-circle mr-2 text-blue-500"></i> Informations utiles
         </h2>
         <div class="space-y-4">
             {% for link in usefulLinks %}
-                <a href="{{ link.link }}" class="text-blue-600 hover:text-blue-800 block">{{ link.text }}</a>
+                <a href="{{ link.link }}" target="_blank" class="block bg-white p-4 rounded-lg hover:shadow-lg transition duration-300">
+                    <div class="flex items-center">
+                        <!-- Icône (optionnelle) -->
+                        <i class="{{ link.icon }} text-blue-500 text-2xl mr-4"></i>
+                        <div>
+                            <!-- Titre du lien -->
+                            <h3 class="text-xl font-semibold text-gray-800">{{ link.text }}</h3>
+                            <!-- Description du lien (optionnelle) -->
+                            {% if link.description %}
+                                <p class="text-lg text-gray-600">{{ link.description }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </a>
             {% endfor %}
         </div>
     </div>
@@ -163,4 +210,5 @@
         </div>
     </div>
 </div>
+
 {% endblock %}
