@@ -32,7 +32,7 @@ $twig = new Environment($loader);
 
 // Afficher la page avec les données
 echo $twig->render('rechercheMusee.html.twig', [
-    'musees' => $musees, // Correction ici
+    'musees' => $musees, 
     'themes' => $themes,
 ]);
 ?>
