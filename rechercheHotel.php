@@ -1,35 +1,43 @@
 <?php
 session_start();
-
-require 'vendor/autoload.php'; // Assurez-vous que Twig est bien chargé
+require 'vendor/autoload.php';
 
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
 // Paramètres de connexion à la base de données
-$host = 'localhost';  // Hôte de la base de données
-$dbname = 'appli_tourisme';  // Nom de la base de données
-$username = 'root';  // Nom d'utilisateur de la base de données (par défaut 'root' pour XAMPP)
-$password = '';  // Le mot de passe de l'utilisateur (par défaut vide pour XAMPP)
+$host = 'localhost';
+$dbname = 'appli_tourisme';
+$username = 'root';
+$password = '';
 
 try {
-    // Connexion à la base de données
     $db = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);  // Gérer les erreurs
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
     die('Erreur de connexion à la base de données : ' . $e->getMessage());
 }
 
-// Récupérer les données des jardins remarquables
-$queryJardins = $db->query("SELECT nom , ville, type FROM hotels");
-$jardins = $queryJardins->fetchAll(PDO::FETCH_ASSOC);
+// Récupérer les hôtels
+$queryHotels = $db->query("SELECT id, nom, type, nb_etoiles, ville, telephone, site_web, region FROM hotels");
+$hotels = $queryHotels->fetchAll(PDO::FETCH_ASSOC);
 
-// Initialiser Twig
-$loader = new FilesystemLoader('templates'); // Assurez-vous que 'templates' contient 'rechercheJardin.html.twig'
+// Récupérer les types d'hôtels uniques
+$queryTypes = $db->query("SELECT DISTINCT type FROM hotels");
+$types = $queryTypes->fetchAll(PDO::FETCH_COLUMN);
+
+// Récupérer les nombres d'étoiles uniques
+$queryEtoiles = $db->query("SELECT DISTINCT nb_etoiles FROM hotels ORDER BY nb_etoiles ASC");
+$etoiles = $queryEtoiles->fetchAll(PDO::FETCH_COLUMN);
+
+// Charger Twig
+$loader = new FilesystemLoader('templates');
 $twig = new Environment($loader);
 
-// Passer les données à Twig
+// Afficher la page avec les données
 echo $twig->render('rechercheHotel.html.twig', [
-    'jardins' => $jardins // Passe les données des jardins à Twig
+    'hotels' => $hotels,
+    'types' => $types,
+    'etoiles' => $etoiles,
 ]);
 ?>

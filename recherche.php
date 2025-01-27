@@ -48,7 +48,7 @@ try {
         } else {
             // Si aucune catégorie spécifique n'est sélectionnée, récupérer les 3 premiers résultats de chaque catégorie
             foreach ($tables as $table => $columns) {
-                $query = $db->prepare("SELECT id, nom, position_gps FROM $table WHERE ville LIKE :city LIMIT 3");
+                $query = $db->prepare("SELECT id, nom, position_gps FROM $table WHERE ville LIKE :city LIMIT 5");
                 $query->execute([':city' => "%$city%"]);
                 foreach ($query->fetchAll(PDO::FETCH_ASSOC) as $place) {
                     $gps = explode(',', $place['position_gps']);
