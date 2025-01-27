@@ -5,6 +5,7 @@ require 'vendor/autoload.php';
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
+// Paramètres de connexion à la base de données
 $host = 'localhost';
 $dbname = 'appli_tourisme';
 $username = 'root';
@@ -18,12 +19,12 @@ try {
 }
 
 // Récupérer les musées
-$queryMusees = $db->query("SELECT id, nom, ville, themes FROM musees");
+$queryMusees = $db->query("SELECT id, nom, themes, ville, telephone, site_web, region FROM musees");
 $musees = $queryMusees->fetchAll(PDO::FETCH_ASSOC);
 
-// Récupérer les types de themes
-$queryThemes = $db->query("SELECT DISTINCT themes FROM musees");
-$themess = $queryThemes->fetchAll(PDO::FETCH_COLUMN);
+// Récupérer les thèmes uniques des musées
+$queryThemes = $db->query("SELECT DISTINCT themes FROM Musees");
+$themes = $queryThemes->fetchAll(PDO::FETCH_COLUMN);
 
 // Charger Twig
 $loader = new FilesystemLoader('templates');
@@ -31,8 +32,7 @@ $twig = new Environment($loader);
 
 // Afficher la page avec les données
 echo $twig->render('rechercheMusee.html.twig', [
-    'musees' => $musees,
-    'themess' => $themess,
+    'musees' => $musees, // Correction ici
+    'themes' => $themes,
 ]);
-
-
+?>

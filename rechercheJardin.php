@@ -20,19 +20,21 @@ try {
     die('Erreur de connexion à la base de données : ' . $e->getMessage());
 }
 
-// Récupérer les paramètres de recherche
+// Récupérer les paramètres de recherche depuis la requête GET
 $nom = isset($_GET['nom']) ? $_GET['nom'] : '';
 $ville = isset($_GET['ville']) ? $_GET['ville'] : '';
 
 // Construire la requête SQL en fonction des filtres
-$query = "SELECT nom FROM liste_des_jardins_remarquables"; // On garde seulement le nom
+$query = "SELECT nom, ville, adresse, site_web FROM liste_des_jardins_remarquables"; // On garde 'nom' et 'ville' dans la sélection
 
+// Ajouter des conditions de filtre selon les critères
 if ($nom) {
-    $query .= " AND LOWER(nom) LIKE :nom";
+    $query .= " WHERE LOWER(nom) LIKE :nom"; // Si 'nom' est fourni, ajoutez un filtre
 }
 
 if ($ville) {
-    $query .= " AND LOWER(ville) LIKE :ville";
+    // Si 'ville' est fourni, on l'ajoute comme condition supplémentaire
+    $query .= ($nom ? " AND " : " WHERE ") . "LOWER(ville) LIKE :ville";
 }
 
 // Préparer et exécuter la requête SQL
@@ -47,7 +49,7 @@ if ($ville) {
 }
 
 $stmt->execute();
-$jardins = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$jardins = $stmt->fetchAll(PDO::FETCH_ASSOC);  // Récupérer tous les résultats sous forme de tableau associatif
 
 // Initialiser Twig
 $loader = new FilesystemLoader('templates'); // Assurez-vous que 'templates' contient 'rechercheJardin.html.twig'
