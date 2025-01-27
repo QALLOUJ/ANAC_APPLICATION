@@ -21,14 +21,13 @@ try {
 $errors = [];
 $success = '';
 
-// Récupérer les hôtels depuis la base de données
+// Récupérer les restaurants depuis la base de données
 try {
-    $result = $db->query('SELECT nom FROM restaurants')->fetchAll(PDO::FETCH_ASSOC);
+    $result = $db->query('SELECT CONCAT(nom, " (", code_ville, ")") as nom FROM restaurants')->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
-    $errors[] = "Erreur lors de la récupération des hôtels : " . $e->getMessage();
+    $errors[] = "Erreur lors de la récupération des restaurants : " . $e->getMessage();
 }
 
-// Traitement du formulaire lors de la soumission
 // Traitement du formulaire lors de la soumission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -43,24 +42,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors[] = "Tous les champs sont obligatoires.";
     }
 
-    // Si pas d'erreurs, on envoie les données à la base
+    // Si pas d'erreurs, on récupère le code ville du restaurant
     if (empty($errors)) {
         try {
-            // Afficher la requête SQL avant exécution pour déboguer
-            $stmt = $db->prepare("INSERT INTO avis (nom, date, note, avis, pseudo) 
-                                  VALUES (:nom, :date, :note, :avis, :pseudo)");
+            // Récupérer le code ville du restaurant sélectionné
+            $stmt = $db->prepare("SELECT code_ville FROM restaurants WHERE CONCAT(nom, ' (', code_ville, ')') = :nom");
+            $stmt->execute([':nom' => $nom]);
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-          
-            // Exécution de la requête avec les données envoyées
-            $stmt->execute([
-                ':nom' => $nom,
-                ':date' => $date,
-                ':note' => $note,
-                ':avis' => $avis,
-                ':pseudo' => $pseudo
-            ]);
+            if ($result) {
+                $code_ville = $result['code_ville'];
 
-            $success = "Votre avis a été enregistré avec succès!";
+                // Insertion dans la base de données
+                $stmt = $db->prepare("INSERT INTO avis (nom, date, note, avis, pseudo, type, code_postal) 
+                                      VALUES (:nom, :date, :note, :avis, :pseudo, 'Restaurant', :code_ville)");
+
+                // Exécution de la requête avec les données envoyées
+                $stmt->execute([
+                    ':nom' => $nom,
+                    ':date' => $date,
+                    ':note' => $note,
+                    ':avis' => $avis,
+                    ':pseudo' => $pseudo,
+                    ':code_ville' => $code_ville
+                ]);
+
+                $success = "Votre avis a été enregistré avec succès!";
+            } else {
+                $errors[] = "Le restaurant sélectionné n'existe pas.";
+            }
         } catch (PDOException $e) {
             $errors[] = "Erreur lors de l'enregistrement de l'avis : " . $e->getMessage();
             echo $e->getMessage();  // Affiche l'erreur SQL
@@ -77,7 +87,7 @@ $pageAvis = 'restaurants';
 $type = "du restaurant"; 
 
 // Affichage du template avec les variables
-echo $twig->render('avisHotels.html.twig', [
+echo $twig->render('avisRestaurants.html.twig', [
     'result' => $result,
     'errors' => $errors,
     'success' => $success,
