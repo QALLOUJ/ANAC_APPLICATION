@@ -68,7 +68,7 @@
                     col.className = 'col-md-4';
                     col.innerHTML = `
                         <div class="card p-3">
-                            <h5>${jardin.nom || 'Nom non disponible'}</h5>  
+                            <h5><a href="details.php?type=liste_des_jardins_remarquables&id=${jardin.id}" class="text-decoration-none">${jardin.nom || 'Nom non disponible'}</a></h5>
                             <p><strong>Adresse:</strong> ${jardin.adresse || 'Adresse non disponible'}</p>
                             <p><strong>Ville:</strong> ${jardin.ville || 'Ville non disponible'}</p>
                             <p><strong>Site Web:</strong> <a href="${jardin.siteweb || '#'}" target="_blank">${jardin.siteweb || 'Site web non disponible'}</a></p>

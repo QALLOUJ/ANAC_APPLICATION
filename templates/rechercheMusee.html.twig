@@ -39,7 +39,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-     
     document.getElementById('search-form').addEventListener('submit', function (event) {
         event.preventDefault();
 
@@ -60,13 +59,13 @@
         const musees = {{ musees|json_encode|raw }}; // Données injectées depuis PHP
 
         // Filtrer les musées
-         const filteredMusees = musees.filter(musee => {
-    return (
-        (ville === '' || musee.ville.toLowerCase().includes(ville)) &&
-        (theme === '' || musee.themes.toLowerCase().includes(theme)) &&  // Changer de `theme` à `themes`
-        (nom === '' || musee.nom.toLowerCase().includes(nom))
-    );
-});
+        const filteredMusees = musees.filter(musee => {
+            return (
+                (ville === '' || musee.ville.toLowerCase().includes(ville)) &&
+                (theme === '' || musee.themes.toLowerCase().includes(theme)) &&  // Changer de `theme` à `themes`
+                (nom === '' || musee.nom.toLowerCase().includes(nom))
+            );
+        });
 
         if (filteredMusees.length === 0) {
             noResults.style.display = 'block';
@@ -84,11 +83,11 @@
                     col.className = 'col-md-4';
                     col.innerHTML = ` 
                         <div class="card p-3">
-                            <h5>${musee.nom}</h5>
+                            <h5><a href="details.php?type=musees&id=${musee.id}" class="text-decoration-none">${musee.nom}</a></h5>
                             <p>${musee.ville} - ${musee.theme}</p>
                             <p><small>${musee.telephone}</small></p>
                             <a href="${musee.site_web}" target="_blank" class="btn btn-link">Site web</a>
-                        </div>`;
+                        </div>`; // Fermeture de la div.card
                     resultsList.appendChild(col);
                 });
             }
