@@ -1,4 +1,4 @@
-{% extends 'avis.html.twig' %}
+{% extends 'donnerAvis.html.twig' %}
 
 {% block title %}Stage BTS{% endblock %}
 
@@ -49,11 +49,11 @@
                 </div>
             {% endif %}
 
-            <form method="POST" action="avisRestaurants.php">
+            <form method="POST" action="donnerAvisHotels.php">
                 <div class="form-group">
                     <label >Nom {{type}} </label>
-                    <input list="restaurants" name="nom" id="nom" required>
-                    <datalist id="restaurants">
+                    <input list="hotels" name="nom" id="nom" required>
+                    <datalist id="hotels">
                         <option value="">Sélectionner l'hôtel</option>
                           {% for row in result %}
                          <option value="{{ row.nom }}">

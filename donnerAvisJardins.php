@@ -87,7 +87,7 @@ $pageAvis = 'jardins';
 $type = "du jardin"; 
 
 // Affichage du template avec les variables
-echo $twig->render('avisJardins.html.twig', [
+echo $twig->render('donnerAvisJardins.html.twig', [
     'result' => $result,
     'errors' => $errors,
     'success' => $success,
