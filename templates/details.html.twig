@@ -4,9 +4,6 @@
 
 {% block content %}
 <div class="container mt-4">
-    <h1>Détails du lieu</h1>
-    <h2>{{ place.nom }}</h2>
-    <p><b>Type :</b> {{ type|capitalize }}</p>
 
     {% if type == 'restaurants' %}
         <h3>Informations sur le restaurant</h3>
@@ -31,6 +28,12 @@
             <li><b>Code ville :</b> {{ place.code_ville }}</li>
             <li><b>Département :</b> {{ place.departement }} (Code : {{ place.code_departement }})</li>
             <li><b>Région :</b> {{ place.region }} (Code : {{ place.code_region }})</li>
+
+            <!-- Bouton "S'y rendre" -->
+            <button onclick="window.open('https://www.google.com/maps?q={{ place.lat }},{{ place.lon }}', '_blank')">
+                S'y rendre
+            </button>
+
         </ul>
     {% elseif type == 'hotels' %}
         <h3>Informations sur l'hôtel</h3>
@@ -61,6 +64,11 @@
             <li><b>Code postal :</b> {{ place.code_postal }}</li>
             <li><b>Département :</b> {{ place.departement }} (Code : {{ place.code_departement }})</li>
             <li><b>Région :</b> {{ place.region }} (Code : {{ place.code_region }})</li>
+
+            <!-- Bouton "S'y rendre" -->
+            <button onclick="window.open('https://www.google.com/maps?q={{ place.lat }},{{ place.lon }}', '_blank')">
+                S'y rendre
+            </button>
             
         </ul>
     {% elseif type == 'liste_des_jardins_remarquables' %}
@@ -84,34 +92,94 @@
             <li><b>Type :</b> {{ place.type }}</li>
             <li><b>Description :</b> {{ place.description }}</li>
             <li><b>Accessible au public :</b> {{ place.accessible_au_public ? 'Oui' : 'Non' }}</li>
+
+            <!-- Bouton "S'y rendre" -->
+            <button onclick="window.open('https://www.google.com/maps?q={{ place.lat }},{{ place.lon }}', '_blank')">
+                S'y rendre
+            </button>
             
         </ul>
     {% elseif type == 'musees' %}
-        <h3>Informations sur le musée</h3>
-        <ul>
-            <li><b>Nom :</b> {{ place.nom }}</li>
-            <li><b>Adresse :</b> {{ place.adresse }}</li>
-            <li><b>Lieu :</b> {{ place.lieu }}</li>
-            <li><b>Code postal :</b> {{ place.code_postal }}</li>
-            <li><b>Ville :</b> {{ place.ville }}</li>
-            <li><b>Région :</b> {{ place.region }}</li>
-            <li><b>Département :</b> {{ place.departement }}</li>
-            <li><b>Site web :</b>
-                {% if place.site_web %}
-                    <a href="{{ place.site_web }}" target="_blank">{{ place.site_web }}</a>
-                {% else %}
-                    Non spécifié
-                {% endif %}
-            </li>
-            <li><b>Téléphone :</b> {{ place.telephone|default('Non spécifié') }}</li>
-            <li><b>Thèmes :</b> {{ place.themes }}</li>
-            <li><b>Histoire :</b> {{ place.histoire }}</li>
-            <li><b>Atout :</b> {{ place.atout }}</li>
-            <li><b>Artiste :</b> {{ place.artiste }}</li>
-            <li><b>Intérêt :</b> {{ place.interet }}</li>
-            <li><b>Année de création :</b> {{ place.annee_creation }}</li>
-            
-        </ul>
+
+
+
+
+
+
+    <style>
+        /* Jumbotron avec fond gris clair et texte noir, bords arrondis */
+        .jumbotron-light, .jumbotron-light h1 {
+            background-color: #f1f1f1; /* Gris clair */
+            color: #000; /* Texte noir */
+            border-radius: 15px; /* Bords arrondis */
+            padding: 30px; /* Un peu d'espace interne */
+            margin-bottom: 20px; /* Espace entre les jumbotrons */
+        }
+
+        /* Jumbotron avec fond noir et texte blanc, bords arrondis */
+        .jumbotron-dark, .jumbotron-dark p, .jumbotron-dark h1{
+            background-color:rgb(226, 215, 245); /* Fond noir */
+            color: #000; /* Texte blanc */
+            border-radius: 15px; /* Bords arrondis */
+            padding: 30px; /* Un peu d'espace interne */
+            margin-bottom: 20px; /* Espace entre les jumbotrons */
+        }
+
+        /* Optionnel: ajouter une légère ombre au fond pour le côté moderne */
+        .jumbotron-light, .jumbotron-dark {
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+
+
+
+
+
+
+
+
+
+
+
+<div class="container mt-5">
+
+    <!-- Jumbotron pour le nom du musée -->
+         
+
+    <!-- Jumbotron pour l'histoire, atouts et autres informations -->
+    <div class="jumbotron-dark">
+        <h1 class="display-4">{{ place.nom | upper }}</h1>
+        
+        {% if place.annee_creation != 0 %}
+        <p><strong>Année de création : </strong>{{ place.annee_creation }}</p>
+        {% endif %}
+        <p><strong>Histoire : </strong>{{ place.histoire }}</p>
+        <p><strong>Atouts : </strong>{{ place.atout }}</p>
+        <p><strong>Artiste(s) : </strong>{{ place.artiste }}</p>
+        <p><strong>Intérêts : </strong>{{ place.interet }}</p>
+        <p><strong>Thèmes : </strong>{{ place.themes }}</p>     
+    </div>
+
+        <!-- Jumbotron pour l'adresse -->
+    <div class="jumbotron-light">
+        <h2>Adresse</h2>
+        <p><strong>{{ place.adresse }}</strong></p>
+        <p><strong>{{ place.code_postal }} {{ place.ville }}</strong></p>     
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" href="https://www.google.com/maps?q={{ place.lat }},{{ place.lon }}" role="button">S'y rendre</a>
+        </p>
+    </div>
+
+    <!-- Jumbotron pour les informations de contact -->
+    <div class="jumbotron-light">
+        <h2>Informations de contact</h2>
+        <p><strong>Site web : </strong><a href="{{ place.site_web }}" target="_blank">{{ place.site_web }}</a></p>
+        <p><strong>Téléphone : </strong>{{ place.telephone }}</p>
+    </div>
+
+
+</div>
+
     {% else %}
         <p>Aucune information détaillée disponible pour ce type de lieu.</p>
     {% endif %}
