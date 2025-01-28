@@ -23,7 +23,7 @@ $success = '';
 
 // Récupérer les restaurants depuis la base de données
 try {
-    $result = $db->query('SELECT CONCAT(nom, " (", code_ville, ")") as nom FROM restaurants')->fetchAll(PDO::FETCH_ASSOC);
+    $result = $db->query('SELECT CONCAT(nom, " (", code_ville, ")") as nom FROM restaurants WHERE nom IS NOT NULL AND TRIM(nom) != ""')->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     $errors[] = "Erreur lors de la récupération des restaurants : " . $e->getMessage();
 }

@@ -52,7 +52,7 @@
             <form method="POST" action="donnerAvisMusees.php">
                 <div class="form-group">
                     <label >Nom {{type}} </label>
-                    <input list="musees" name="nom" id="nom" required>
+                    <input list="musees" name="nom" id="nom" autocomplete="off" required>
                     <datalist id="musees">
                         <option value="">Sélectionner le musée</option>
                           {% for row in result %}

@@ -52,9 +52,9 @@
             <form method="POST" action="donnerAvisRestaurants.php">
                 <div class="form-group">
                     <label >Nom {{type}} </label>
-                    <input list="restaurants" name="nom" id="nom" required>
+                    <input list="restaurants" name="nom" id="nom" autocomplete="off" required>
                     <datalist id="restaurants">
-                        <option value="">Sélectionner l'hôtel</option>
+                        <option value="">Sélectionner le restaurant</option>
                           {% for row in result %}
                          <option value="{{ row.nom }}">
                          {{ row.nom }}
