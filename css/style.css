@@ -306,5 +306,41 @@ table tr:nth-child(odd) {
   display: block;
 }
 
+
  
 
+h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-align: center;
+  color: #ad8170;
+  margin: 20px 0;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+p {
+  max-width: 800px;
+  margin: 10px auto;
+  text-align: justify;
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.8;
+}
+
+a {
+  color:  #caa090;
+  text-decoration: none;
+  font-weight: bold;
+  border-bottom: 2px solid transparent;
+  transition: color 0.3s, border-bottom 0.3s;
+}
+
+a:hover {
+  color: #caa090;
+  border-bottom: 2px solid #caa090;
+}
+
+p a { 
+  font-style: italic;
+}
