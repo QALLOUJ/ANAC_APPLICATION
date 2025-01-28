@@ -21,3 +21,5 @@ $pageActive = 'jeux';
 echo $twig->render('quiz.html.twig', [
     'pageActive' => $pageActive,
 ]);
+?>
+
