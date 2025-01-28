@@ -62,15 +62,15 @@
                     <label >Nom {{type}} </label>
                     <input list="restaurants" name="nom" id="nom" autocomplete="off" required>
                     <datalist id="restaurants">
-  <option value="">Sélectionner le restaurant</option>
-  {% for row in result|slice(0, 20) %}
-    <option value="{{ row.nom }}">
-      {{ row.nom }}
-    </option>
-  {% else %}
-    <option value="">Aucun hôtel trouvé</option>
-  {% endfor %}
-</datalist>
+                        <option value="">Sélectionner le restaurant</option>
+                          {% for row in result %}
+                         <option value="{{ row.nom }}">
+                         {{ row.nom }}
+                        </option>
+                        {% else %}
+                          <option value="">Aucun hôtel trouvé</option>
+                        {% endfor %}
+                     </datalist>
 
                 </div>
 
