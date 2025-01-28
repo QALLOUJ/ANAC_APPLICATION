@@ -1,0 +1,90 @@
+{% extends 'bases.html.twig' %}
+
+{% block title %}Recherche d'Hôtels{% endblock %}
+
+{% block content %}
+  <div class="container mt-4">
+    <h1 class="text-center">Hôtels à {{ villeChoisie }}</h1>
+
+    <!-- Barre de recherche -->
+    <form action="voirAvisHotels.php" method="GET" class="d-flex justify-content-between my-4 gap-2 flex-wrap">
+      <select id="search-ville" name="ville" class="form-control rounded-pill shadow-sm">
+        <option value="">Sélectionner une ville</option>
+        {% for ville in villes %}
+          <option value="{{ ville.ville }}" {% if ville.ville == villeChoisie %}selected{% endif %}>{{ ville.ville }}</option>
+        {% endfor %}
+      </select>
+      
+      <button type="submit" class="btn btn-primary rounded-pill px-4">Rechercher</button>
+    </form>
+
+    <!-- Affichage des hôtels -->
+    <div class="row">
+      {% for hotel in hotels %}
+        <div class="col-md-4 mb-4">
+          <div class="card">
+            <h5 class="card-header">{{ hotel.nom }}</h5>
+            <div class="card-body">
+              <p class="card-text">Ville : {{ hotel.ville }}</p>
+              <p class="card-text">Type : {{ hotel.type }}</p>
+              <p class="card-text">{{ hotel.nb_etoiles }} étoiles</p>
+              <p class="card-text">Téléphone : {{ hotel.telephone }}</p>
+
+              <!-- Affichage des avis -->
+              {% if hotel.avis %}
+                <h6>Avis :</h6>
+                <ul>
+                  {% for avis in hotel.avis|split(',') %}
+                    {% set parts = avis|split(' (') %}
+                    <li>
+                      <strong>{{ parts[0] }}</strong> ( {{ parts[1]|split(') ')[0] }})
+                      
+                      <br> <!-- Saut de ligne avant le texte de l'avis -->
+                      {{ parts[1]|split(') ')[1] }}
+                    </li>
+                    <br>
+                  {% endfor %}
+                </ul>
+              {% else %}
+                <p>Aucun avis pour cet hôtel.</p>
+              {% endif %}
+
+              <a href="donnerAvisHotels.php" target="_blank" class="btn btn-primary">Mettre un avis</a>
+            </div>
+          </div>
+        </div>
+      {% else %}
+        <p>Aucun hôtel trouvé.</p>
+      {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    {% if totalPages > 1 %}
+      <nav aria-label="Pagination">
+        <ul class="pagination">
+          {% if currentPage > 1 %}
+            <li class="page-item">
+              <a class="page-link" href="?ville={{ villeChoisie }}&page={{ currentPage - 1 }}&type={{ selectedType }}&etoiles={{ selectedEtoile }}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+          {% endif %}
+
+          {% for i in 1..totalPages %}
+            <li class="page-item {% if i == currentPage %}active{% endif %}">
+              <a class="page-link" href="?ville={{ villeChoisie }}&page={{ i }}&type={{ selectedType }}&etoiles={{ selectedEtoile }}">{{ i }}</a>
+            </li>
+          {% endfor %}
+
+          {% if currentPage < totalPages %}
+            <li class="page-item">
+              <a class="page-link" href="?ville={{ villeChoisie }}&page={{ currentPage + 1 }}&type={{ selectedType }}&etoiles={{ selectedEtoile }}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          {% endif %}
+        </ul>
+      </nav>
+    {% endif %}
+  </div>
+{% endblock %}

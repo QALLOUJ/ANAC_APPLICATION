@@ -1,4 +1,4 @@
-{% extends 'donnerAvis.html.twig' %}
+{% extends 'voirAvis.html.twig' %}
 
 {% block title %}Stage BTS{% endblock %}
 
@@ -49,18 +49,18 @@
                 </div>
             {% endif %}
 
-            <form method="POST" action="donnerAvisJardins.php">
+            <form method="POST" action="voirAvisMusees.php">
                 <div class="form-group">
                     <label >Nom {{type}} </label>
-                    <input list="jardins" name="nom" id="nom" autocomplete="off" required>
-                    <datalist id="jardins">
-                        <option value="">Sélectionner le jardin</option>
+                    <input list="musees" name="nom" id="nom" autocomplete="off" required>
+                    <datalist id="musees">
+                        <option value="">Sélectionner le musée</option>
                           {% for row in result %}
                          <option value="{{ row.nom }}">
                          {{ row.nom }}
                         </option>
                         {% else %}
-                          <option value="">Aucun Jardin trouvé</option>
+                          <option value="">Aucun musée trouvé</option>
                         {% endfor %}
                      </datalist>
 

@@ -84,11 +84,11 @@ $loader = new FilesystemLoader('templates');
 $twig = new Environment($loader);
 
 $pageActive = 'avis';
-$pageAvis = 'musees'; 
+$pageAvis = 'Musees'; 
 $type = "du musée"; 
 
 // Affichage du template avec les variables
-echo $twig->render('donnerAvisMusees.html.twig', [
+echo $twig->render('donnerAvisDetails.html.twig', [
     'result' => $result,
     'errors' => $errors,
     'success' => $success,

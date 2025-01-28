@@ -45,21 +45,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($errors)) {
         try {
             // Récupérer le code postal du jardin sélectionné
-            $stmt = $db->prepare("SELECT code_postal FROM liste_des_jardins_remarquables WHERE nom = :nom");
+            $stmt = $db->prepare("SELECT code_postal, id FROM liste_des_jardins_remarquables WHERE nom = :nom");
             $stmt->execute([':nom' => $nom]);
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if ($result) {
                 // Si le jardin existe, on récupère le code postal
                 $code_postal = $result['code_postal'];
+                $id = $result['id'];
 
                 // Insertion dans la base de données
-                $stmt = $db->prepare("INSERT INTO avis (nom, date, note, avis, pseudo, type, code_postal) 
-                                      VALUES (:nom, :date, :note, :avis, :pseudo, 'Jardin', :code_postal)");
+                $stmt = $db->prepare("INSERT INTO avis (nom, id, date, note, avis, pseudo, type, code_postal) 
+                                      VALUES (:nom, :id, :date, :note, :avis, :pseudo, 'Jardin', :code_postal)");
 
                 // Exécution de la requête avec les données envoyées
                 $stmt->execute([
                     ':nom' => $nom,
+                    ':id' => $id,
                     ':date' => $date,
                     ':note' => $note,
                     ':avis' => $avis,
@@ -83,11 +85,11 @@ $loader = new FilesystemLoader('templates');
 $twig = new Environment($loader);
 
 $pageActive = 'avis';
-$pageAvis = 'jardins'; 
+$pageAvis = 'Jardins'; 
 $type = "du jardin"; 
 
 // Affichage du template avec les variables
-echo $twig->render('donnerAvisJardins.html.twig', [
+echo $twig->render('donnerAvisDetails.html.twig', [
     'result' => $result,
     'errors' => $errors,
     'success' => $success,

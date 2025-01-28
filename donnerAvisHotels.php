@@ -23,7 +23,7 @@ $success = '';
 
 // Récupérer les hôtels depuis la base de données
 try {
-    $result = $db->query('SELECT CONCAT(nom, " (", code_postal, ")") as nom FROM hotels WHERE nom IS NOT NULL AND TRIM(nom) != ""')-> fetchAll(PDO::FETCH_ASSOC);
+    $result = $db->query('SELECT nom FROM hotels WHERE nom IS NOT NULL AND TRIM(nom) != ""')-> fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     $errors[] = "Erreur lors de la récupération des hôtels : " . $e->getMessage();
 }
@@ -83,11 +83,11 @@ $loader = new FilesystemLoader('templates');
 $twig = new Environment($loader);
 
 $pageActive = 'avis';
-$pageAvis = 'hotels'; 
+$pageAvis = 'Hotels'; 
 $type = "de l'hôtel"; 
 
 // Affichage du template avec les variables
-echo $twig->render('donnerAvisHotels.html.twig', [
+echo $twig->render('donnerAvisDetails.html.twig', [
     'result' => $result,
     'errors' => $errors,
     'success' => $success,
