@@ -28,6 +28,7 @@ try {
     $errors[] = "Erreur lors de la récupération des restaurants : " . $e->getMessage();
 }
 
+
 // Traitement du formulaire lors de la soumission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -77,6 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
+
 
 // Charger le template Twig
 $loader = new FilesystemLoader('templates');
