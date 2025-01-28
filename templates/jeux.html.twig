@@ -4,84 +4,66 @@
 
 {% block content %}
 
+</br>
+</br>
+</br>
 
+<h1> ANAC GAMES </h1>
 
-<div class="circle-container">
-  <div class="circle">
-    <a href="quiz.php" class="section section1">Jeu 1</a>
-    <a href="memoire.php" class="section section2">Jeu 2</a>
-    <a href="jeu_chrono.php" class="section section3">Pays les plus peuplés</a>
-    <a href="mots_croises.php" class="section section4">Mots croisés</a>
+</br>
+</br>
+</br>
+
+<a href="quiz.php" class="text-decoration-none">
+  <div class="card text-bg-dark">
+    <img src="images/quizz.jpg" class="card-img" alt="...">
+    <div class="card-img-overlay">
+      <h5 class="card-title">Quizz</h5>
+      <p class="card-text">Teste ta culture française avec un quizz de 10 questions !</p>
+      <p class="card-text"><small>ANAC Games</small></p>
+    </div>
   </div>
-</div>
+</a>
 
+</br>
 
-<style>
-/* Conteneur du cercle */
-.circle-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;  /* Pour centrer verticalement */
-}
+<a href="memoire.php" class="text-decoration-none">
+  <div class="card text-bg-dark">
+    <img src="images/memoire.jpg" class="card-img" alt="...">
+    <div class="card-img-overlay">
+      <h5 class="card-title">Memory</h5>
+      <p class="card-text">Tu penses avoir une bonne mémoire ? Ce jeu est fait pour toi !</p>
+      <p class="card-text"><small>ANAC Games</small></p>
+    </div>
+  </div>
+</a>
 
-/* Style du cercle */
-.circle {
-  position: relative;
-  width: 500px;
-  height: 500px;
-  border-radius: 50%;
-  border: 2px solid #000;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+</br>
 
-/* Sections du cercle */
-.section {
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 50%;
-  height: 50%;
-  text-align: center;
-  font-size: 16px;
-  text-decoration: none;
-  color: white;
-  transition: all 0.3s ease;
-}
+<a href="jeu_chrono.php" class="text-decoration-none">
+  <div class="card text-bg-dark">
+    <img src="images/chrono.jpg" class="card-img" alt="...">
+    <div class="card-img-overlay">
+      <h5 class="card-title">City counter</h5>
+      <p class="card-text">Serais-tu capable de siter les 30 villes les plus peuplées de France ? Montre nous ça !</p>
+      <p class="card-text"><small>ANAC Games</small></p>
+    </div>
+  </div>
+</a>
 
-/* Position des sections */
-.section1 {
-  top: 0;
-  left: 0;
-  background-color:rgb(192, 135, 106);
-}
+</br>
 
-.section2 {
-  top: 0;
-  right: 0;
-  background-color:rgb(242, 176, 144);
-}
+<a href="nouvelle-page.html" class="text-decoration-none">
+  <div class="card text-bg-dark">
+    <img src="image.jpg" class="card-img" alt="...">
+    <div class="card-img-overlay">
+      <h5 class="card-title">Card title</h5>
+      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+      <p class="card-text"><small>ANAC Games</small></p>
+    </div>
+  </div>
+</a>
 
-.section3 {
-  bottom: 0;
-  left: 0;
-  background-color:rgb(213, 118, 71);
-}
+</br>
 
-.section4 {
-  bottom: 0;
-  right: 0;
-  background-color:rgb(178, 69, 14);
-}
-
-/* Effet au survol */
-.section:hover {
-  opacity: 0.8;
-  transform: scale(1.1);
-}
-</style>
 {% endblock %}
