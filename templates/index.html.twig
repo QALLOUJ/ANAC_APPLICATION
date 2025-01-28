@@ -1,88 +1,87 @@
 {% extends 'bases.html.twig' %}
 
-{% block title %}ANAC - Accueil{% endblock %}
+{% block title %}ANAC - Guide touristique{% endblock %}
 
 {% block content %}
 
    <style>
-   .navbar {
-    background-color:rgb(192, 135, 106); /* Couleur beige */
-}     
-    .navbar .nav-link {
-    color: white; /* Texte blanc */
-}
-
-    .nav-link.active {
-        background-color: #d8b7a6; /* Couleur nude claire */
-        color: white;
-    }
-
-    .slideshow-container {
-        position: relative;
-        max-width: 100%;
-        height: 400px;
-        overflow: hidden;
-    }
-
-    .mySlides img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    .text {
-        position: absolute;
-        bottom: 20px;
-        left: 20px;
-        color: white;
-        font-size: 20px;
-        background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent noir */
-        padding: 10px;
-        border-radius: 8px;
-    }
-
-    .dot-container {
-        position: absolute;
-        bottom: 10px;
-        width: 100%;
-        text-align: center;
-    }
-
-    .dot {
-        height: 15px;
-        width: 15px;
-        margin: 0 2px;
-        background-color: #e2c2a1; /* Nude moyen */
-        border-radius: 50%;
-        display: inline-block;
-        cursor: pointer;
-        transition: background-color 0.6s ease;
-    }
-
-    .dot.active {
-        background-color: #c49e8f; /* Couleur nude plus foncée */
-    }
-
-    .card img {
-        height: 200px;
-        object-fit: cover;
-    }
-
-    .card-title {
-        color: #c49e8f; /* Nude foncé */
-        font-weight: bold;
-    }
-
-    .btn-primary {
-        background-color: #d8b7a6; /* Couleur nude claire */
-        border: none;
-    }
-
-    .btn-primary:hover {
-        background-color: #c49e8f; /* Nude foncé pour le hover */
-    }
-  /* Positionner le sous-menu sous le lien Recherche */
+        .navbar {
+        background-color:rgb(192, 135, 106); /* Couleur beige */
         
+        }     
+        .navbar .nav-link {
+        color: white; /* Texte blanc */
+        }
+
+        .nav-link.active {
+            background-color: #d8b7a6; /* Couleur nude claire */
+            color: white;
+        }
+
+        .slideshow-container {
+            position: relative;
+            max-width: 100%;
+            height: 400px;
+            overflow: hidden;
+        }
+
+        .mySlides img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .text {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            color: white;
+            font-size: 20px;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent noir */
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .dot-container {
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .dot {
+            height: 15px;
+            width: 15px;
+            margin: 0 2px;
+            background-color: #e2c2a1; /* Nude moyen */
+            border-radius: 50%;
+            display: inline-block;
+            cursor: pointer;
+            transition: background-color 0.6s ease;
+        }
+
+        .dot.active {
+            background-color: #c49e8f; /* Couleur nude plus foncée */
+        }
+
+        .card img {
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card-title {
+            color: #c49e8f; /* Nude foncé */
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            background-color: #d8b7a6; /* Couleur nude claire */
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #c49e8f; /* Nude foncé pour le hover */
+        }
 
         /* Masquer le sous-menu par défaut */
         .dropdown-menu {
@@ -112,89 +111,89 @@
         .dropdown-item:hover {
             background-color: #e2c2a1; /* Couleur nude clair au survol */
         }
+
         /* Style pour le footer */
-footer {
-    background-color: rgb(192, 135, 106); /* Couleur beige similaire à la barre de navigation */
-    color: white; /* Texte en blanc */
-    padding: 20px 0; /* Un peu d'espace autour du texte */
-    text-align: center; /* Centrer le texte dans le footer */
-}
+        footer {
+        background-color: rgb(192, 135, 106); /* Couleur beige similaire à la barre de navigation */
+        color: white; /* Texte en blanc */
+        padding: 20px 0; /* Un peu d'espace autour du texte */
+        text-align: center; /* Centrer le texte dans le footer */
+        }
 
-/* Pour les liens dans le footer */
-footer a {
-    color: white; /* Liens en blanc */
-    text-decoration: none; /* Enlever le soulignement */
-    transition: color 0.3s ease;
-}
+        /* Pour les liens dans le footer */
+        footer a {
+            color: white; /* Liens en blanc */
+            text-decoration: none; /* Enlever le soulignement */
+            transition: color 0.3s ease;
+        }
 
-/* Changement de couleur des liens au survol */
-footer a:hover {
-    color: #c49e8f; /* Nude foncé au survol */
-}
-h1 {
-  font-size: 2.8rem;
-  font-weight: 700;
-  text-align: center;
-  color: #ad8170; /* Couleur chaude, douce mais visible */
-  margin: 20px 0;
-  text-transform: capitalize; /* Remplacer les majuscules complètes par une capitalisation pour plus de douceur */
-  letter-spacing: 0.5px; /* Un léger espacement entre les lettres */
-  font-family: 'Georgia', serif; /* Une police plus élégante pour un effet plus raffiné */
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1); /* Ombre légère pour donner du relief */
-}
+        /* Changement de couleur des liens au survol */
+        footer a:hover {
+            color: #c49e8f; /* Nude foncé au survol */
+        }
+        h1 {
+        font-size: 2.8rem;
+        font-weight: 700;
+        text-align: center;
+        color: #ad8170; /* Couleur chaude, douce mais visible */
+        margin: 20px 0;
+        text-transform: capitalize; /* Remplacer les majuscules complètes par une capitalisation pour plus de douceur */
+        letter-spacing: 0.5px; /* Un léger espacement entre les lettres */
+        font-family: 'Georgia', serif; /* Une police plus élégante pour un effet plus raffiné */
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1); /* Ombre légère pour donner du relief */
+        }
 
 
-p {
-  max-width: 800px;
-  margin: 10px auto;
-  text-align: justify;
-  font-size: 1rem;
-  color: #555;
-  line-height: 1.8;
-}
+        p {
+        max-width: 800px;
+        margin: 10px auto;
+        text-align: justify;
+        font-size: 1rem;
+        color: #555;
+        line-height: 1.8;
+        }
 
-a {
-  color:  #caa090;
-  text-decoration: none;
-  font-weight: bold;
-  border-bottom: 2px solid transparent;
-  transition: color 0.3s, border-bottom 0.3s;
-}
+        a {
+        color:  #caa090;
+        text-decoration: none;
+        font-weight: bold;
+        border-bottom: 2px solid transparent;
+        transition: color 0.3s, border-bottom 0.3s;
+        }
 
-a:hover {
-  color: #caa090;
-  border-bottom: 2px solid #caa090;
-}
+        a:hover {
+        color: #caa090;
+        border-bottom: 2px solid #caa090;
+        }
 
-p a { 
-  font-style: italic;
-}
-h2.text-center {
-  font-size: 2rem;
-  font-weight: 700;
-  color: #ad8170; /* Harmonisé avec la couleur de l'h1 */
-  margin-bottom: 1.5rem; /* marges ajustées pour espacer du contenu suivant */
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  font-family: 'Arial', sans-serif;
-  position: relative;
-}
+        p a { 
+        font-style: italic;
+        }
+        h2.text-center {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #ad8170; /* Harmonisé avec la couleur de l'h1 */
+        margin-bottom: 1.5rem; /* marges ajustées pour espacer du contenu suivant */
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        font-family: 'Arial', sans-serif;
+        position: relative;
+        }
 
-h2.text-center::after {
-  content: "";
-  position: absolute;
-  bottom: -5px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 50px;
-  height: 3px;
-  background-color: #c49e8f; /* Correspond à la couleur nude foncée */
-}
+        h2.text-center::after {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 50px;
+        height: 3px;
+        background-color: #c49e8f; /* Correspond à la couleur nude foncée */
+        }
+    </style>
 
-</style>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <main>
         <!-- Diaporama d'images -->
         <div class="slideshow-container">
             <div class="mySlides">
@@ -402,6 +401,6 @@ h2.text-center::after {
             </div>
         </div>
 
-    </main>
+    
 
 {% endblock %}
