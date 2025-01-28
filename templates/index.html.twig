@@ -142,6 +142,66 @@ footer a {
 footer a:hover {
     color: #c49e8f; /* Nude foncé au survol */
 }
+h1 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  text-align: center;
+  color: #ad8170; /* Couleur chaude, douce mais visible */
+  margin: 20px 0;
+  text-transform: capitalize; /* Remplacer les majuscules complètes par une capitalisation pour plus de douceur */
+  letter-spacing: 0.5px; /* Un léger espacement entre les lettres */
+  font-family: 'Georgia', serif; /* Une police plus élégante pour un effet plus raffiné */
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1); /* Ombre légère pour donner du relief */
+}
+
+
+p {
+  max-width: 800px;
+  margin: 10px auto;
+  text-align: justify;
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.8;
+}
+
+a {
+  color:  #caa090;
+  text-decoration: none;
+  font-weight: bold;
+  border-bottom: 2px solid transparent;
+  transition: color 0.3s, border-bottom 0.3s;
+}
+
+a:hover {
+  color: #caa090;
+  border-bottom: 2px solid #caa090;
+}
+
+p a { 
+  font-style: italic;
+}
+h2.text-center {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #ad8170; /* Harmonisé avec la couleur de l'h1 */
+  margin-bottom: 1.5rem; /* marges ajustées pour espacer du contenu suivant */
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-family: 'Arial', sans-serif;
+  position: relative;
+}
+
+h2.text-center::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 3px;
+  background-color: #c49e8f; /* Correspond à la couleur nude foncée */
+}
+
 </style>
 
 </head>
@@ -251,9 +311,7 @@ footer a:hover {
     <p>
         N'oubliez pas que vous pouvez aussi laisser un <a href="avis.php">avis</a> sur vos lieux préférés et partager vos expériences avec la communauté d'ANAC_APP.
     </p>
-    <p>
-        Que vous soyez à la recherche d'un hôtel de charme, d'un restaurant gastronomique, d'une exposition culturelle ou d'un jardin secret à découvrir, ANAC vous guide à chaque étape de votre voyage, pour que vous profitiez pleinement de tout ce que la France a à offrir.
-    </p>
+    
 </div>
 
 
@@ -303,6 +361,10 @@ footer a:hover {
                 </div>
             </div>
         </div>
+
+        <p>
+        Que vous soyez à la recherche d'un hôtel de charme, d'un restaurant gastronomique, d'une exposition culturelle ou d'un jardin secret à découvrir, ANAC vous guide à chaque étape de votre voyage, pour que vous profitiez pleinement de tout ce que la France a à offrir.
+      </p>
 
         <!-- Découvrez la France avec un Guide Conférencier -->
         <div class="container mt-5">
