@@ -79,6 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+
 // Charger le template Twig
 $loader = new FilesystemLoader('templates');
 $twig = new Environment($loader);
