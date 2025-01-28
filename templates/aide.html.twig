@@ -14,14 +14,12 @@
         "icon": "fas fa-bus",
         "description": "Trouvez les horaires des bus, métros et tramways."
     },
-    
     {
         "text": "Convertisseur de devises",
         "link": "https://www.boursorama.com/bourse/devises/convertisseur-devises/",
         "icon": "fas fa-euro-sign",
         "description": "Convertissez les devises pour vos dépenses à l'étranger."
     },
-    
 ] 
 %}
 
@@ -29,14 +27,13 @@
 
 <div class="container mx-auto p-4">
     <!-- Titre de la page -->
-    <h1 class="text-4xl font-extrabold text-center text-yellow-700 mb-4">{{ pageTitle }}</h1>
+    <h1 class="text-4xl font-extrabold text-center" style="color: #c49e8f;">{{ pageTitle }}</h1>
     <p class="text-lg text-center mb-8 text-gray-600">{{ pageDescription }}</p>
 
-    
     <!-- Section FAQ -->
     <div class="bg-gradient-to-r from-gray-100 to-gray-300 rounded-lg shadow-md p-6 mb-6">
-        <h2 class="text-2xl font-bold mb-4 text-yellow-600 flex items-center">
-            <i class="fas fa-question-circle mr-2 text-yellow-500"></i> Questions fréquentes (FAQ)
+        <h2 class="text-2xl font-bold mb-4 flex items-center" style="color: #c49e8f;">
+            <i class="fas fa-question-circle mr-2" style="color: #c49e8f;"></i> Questions fréquentes (FAQ)
         </h2>
 
         <!-- Liste des questions avec réponses interactives -->
@@ -64,17 +61,6 @@
                     </p>
                 </div>
             </div>
-            <div class="bg-white p-4 rounded-lg hover:shadow-lg transition duration-300">
-                <button @click="open === 2 ? open = null : open = 2" class="w-full text-left">
-                    <h3 class="text-xl font-semibold text-gray-800">Comment accéder à la direction d'un lieu dans GPS?</h3>
-                </button>
-                <div x-show="open === 2" x-collapse class="mt-2">
-                    <p class="text-lg text-gray-600">
-                         Dans la carte interactive, cliquez simplement sur le lieu qui vous intéresse. Une option s'affichera pour accéder directement à la position du lieu dans Google Maps. Cliquez sur cette option pour ouvrir Google Maps et obtenir les directions GPS.
-                    </p>
-                </div>
-            </div>
-
 
             <!-- Question 3 -->
             <div class="bg-white p-4 rounded-lg hover:shadow-lg transition duration-300">
@@ -83,7 +69,7 @@
                 </button>
                 <div x-show="open === 3" x-collapse class="mt-2">
                     <p class="text-lg text-gray-600">
-                        Si l'application ne fonctionne pas correctement, essayez de la redémarrer ou de mettre à jour la page. Si le problème persiste, contactez notre support technique à les adresses dans la section "Contactez-nous"
+                        Si l'application ne fonctionne pas correctement, essayez de la redémarrer ou de mettre à jour la page. Si le problème persiste, contactez notre support technique à les adresses dans la section "Contactez-nous".
                     </p>
                 </div>
             </div>
@@ -95,7 +81,7 @@
                 </button>
                 <div x-show="open === 4" x-collapse class="mt-2">
                     <p class="text-lg text-gray-600">
-                        Pour signaler un bug ou un problème technique, rendez-vous dans la section "Contactez-nous" . Vous pouvez  envoyer un email .
+                        Pour signaler un bug ou un problème technique, rendez-vous dans la section "Contactez-nous" et envoyez un email.
                     </p>
                 </div>
             </div>
@@ -126,12 +112,10 @@
         </div>
     </div>
 
-    
-
     <!-- Section Contact et support -->
     <div class="bg-gradient-to-r from-gray-100 to-gray-300 rounded-lg shadow-md p-6 mb-6">
-        <h2 class="text-2xl font-bold mb-4 text-yellow-600 flex items-center">
-            <i class="fas fa-envelope mr-2 text-yellow-500"></i> Contactez-nous
+        <h2 class="text-2xl font-bold mb-4 flex items-center" style="color: #c49e8f;">
+            <i class="fas fa-envelope mr-2" style="color: #c49e8f;"></i> Contactez-nous
         </h2>
         <div class="space-y-4">
             <p class="text-lg text-gray-600">Pour toute question ou problème, vous pouvez nous contacter aux adresses suivantes :</p>
@@ -139,7 +123,7 @@
                 <li class="flex items-center justify-between bg-white p-4 rounded-lg hover:shadow-lg transition duration-300">
                     <span>ashley.padayodi@etu.univ-lyon1.fr</span>
                     <a href="mailto:ashley.padayodi@etu.univ-lyon1.fr">
-                        <button class="bg-yellow-500 text-white px-3 py-1 rounded-lg shadow hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-300">
+                        <button class="bg-yellow-500 text-white px-3 py-1 rounded-lg shadow hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-300" style="background-color: #c49e8f;">
                             Contacter
                         </button>
                     </a>
@@ -147,7 +131,7 @@
                 <li class="flex items-center justify-between bg-white p-4 rounded-lg hover:shadow-lg transition duration-300">
                     <span>abir.hanned@etu.univ-lyon1.fr</span>
                     <a href="mailto:abir.hanned@etu.univ-lyon1.fr">
-                        <button class="bg-yellow-500 text-white px-3 py-1 rounded-lg shadow hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-300">
+                        <button class="bg-yellow-500 text-white px-3 py-1 rounded-lg shadow hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-300" style="background-color: #c49e8f;">
                             Contacter
                         </button>
                     </a>
@@ -155,7 +139,7 @@
                 <li class="flex items-center justify-between bg-white p-4 rounded-lg hover:shadow-lg transition duration-300">
                     <span>nawal.elkhal@etu.univ-lyon1.fr</span>
                     <a href="mailto:nawal.elkhal@etu.univ-lyon1.fr">
-                        <button class="bg-yellow-500 text-white px-3 py-1 rounded-lg shadow hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-300">
+                        <button class="bg-yellow-500 text-white px-3 py-1 rounded-lg shadow hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-300" style="background-color: #c49e8f;">
                             Contacter
                         </button>
                     </a>
@@ -163,7 +147,7 @@
                 <li class="flex items-center justify-between bg-white p-4 rounded-lg hover:shadow-lg transition duration-300">
                     <span>chafae.qallouj@etu.univ-lyon1.fr</span>
                     <a href="mailto:chafae.qallouj@etu.univ-lyon1.fr">
-                        <button class="bg-yellow-500 text-white px-3 py-1 rounded-lg shadow hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-300">
+                        <button class="bg-yellow-500 text-white px-3 py-1 rounded-lg shadow hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-300" style="background-color: #c49e8f;">
                             Contacter
                         </button>
                     </a>
@@ -174,15 +158,15 @@
 
     <!-- Section Informations utiles -->
     <div class="bg-gradient-to-r from-gray-100 to-gray-300 rounded-lg shadow-md p-6 mb-6">
-        <h2 class="text-2xl font-bold mb-4 text-yellow-600 flex items-center">
-            <i class="fas fa-info-circle mr-2 text-yellow-500"></i> Informations utiles
+        <h2 class="text-2xl font-bold mb-4 flex items-center" style="color: #c49e8f;">
+            <i class="fas fa-info-circle mr-2" style="color: #c49e8f;"></i> Informations utiles
         </h2>
         <div class="space-y-4">
             {% for link in usefulLinks %}
                 <a href="{{ link.link }}" target="_blank" class="block bg-white p-4 rounded-lg hover:shadow-lg transition duration-300">
                     <div class="flex items-center">
                         <!-- Icône (optionnelle) -->
-                        <i class="{{ link.icon }} text-yellow-500 text-2xl mr-4"></i>
+                        <i class="{{ link.icon }} text-2xl mr-4" style="color: #c49e8f;"></i>
                         <div>
                             <!-- Titre du lien -->
                             <h3 class="text-xl font-semibold text-gray-800">{{ link.text }}</h3>
@@ -199,13 +183,13 @@
 
     <!-- Section Feedback -->
     <div class="bg-gradient-to-r from-gray-100 to-gray-300 rounded-lg shadow-md p-6 mb-6">
-        <h2 class="text-2xl font-bold mb-4 text-yellow-600 flex items-center">
-            <i class="fas fa-comment-alt mr-2 text-yellow-500"></i> Votre avis compte
+        <h2 class="text-2xl font-bold mb-4 flex items-center" style="color: #c49e8f;">
+            <i class="fas fa-comment-alt mr-2" style="color: #c49e8f;"></i> Votre avis compte
         </h2>
         <p class="text-lg text-gray-600 mb-4">Nous aimerions connaître votre avis pour améliorer l'application.</p>
         <div class="space-y-4">
             <!-- Lien vers la page avis.php -->
-            <a href="avis.php" class="block bg-yellow-500 text-white text-lg font-semibold px-6 py-3 rounded-lg shadow hover:bg-yellow-600 transition duration-300 text-center">
+            <a href="avis.php" class="block text-white text-lg font-semibold px-6 py-3 rounded-lg transition duration-300 text-center" style="background-color: #c49e8f;">
                 Donner mon avis
             </a>
         </div>
