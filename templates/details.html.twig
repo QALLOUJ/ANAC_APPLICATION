@@ -118,7 +118,7 @@
 
         /* Jumbotron avec fond noir et texte blanc, bords arrondis */
         .jumbotron-dark, .jumbotron-dark p, .jumbotron-dark h1{
-            background-color:rgb(226, 215, 245); /* Fond noir */
+            background-color: #d8b7a6; 
             color: #000; /* Texte blanc */
             border-radius: 15px; /* Bords arrondis */
             padding: 30px; /* Un peu d'espace interne */
@@ -153,11 +153,12 @@
         {% if place.annee_creation != 0 %}
         <p><strong>Année de création : </strong>{{ place.annee_creation }}</p>
         {% endif %}
-        <p><strong>Histoire : </strong>{{ place.histoire }}</p>
-        <p><strong>Atouts : </strong>{{ place.atout }}</p>
-        <p><strong>Artiste(s) : </strong>{{ place.artiste }}</p>
-        <p><strong>Intérêts : </strong>{{ place.interet }}</p>
-        <p><strong>Thèmes : </strong>{{ place.themes }}</p>     
+        
+        <div class="jumbotron-dark"><p><strong>Histoire : </strong>{{ place.histoire }}</p></div>
+        <div class="jumbotron-dark"><p><strong>Atouts : </strong>{{ place.atout }}</p></div>
+        <div class="jumbotron-dark"><p><strong>Artiste(s) : </strong>{{ place.artiste }}</p></div>
+        <div class="jumbotron-dark"><p><strong>Intérêts : </strong>{{ place.interet }}</p></div>
+        <div class="jumbotron-dark"><p><strong>Thèmes : </strong>{{ place.themes }}</p></div>
     </div>
 
         <!-- Jumbotron pour l'adresse -->

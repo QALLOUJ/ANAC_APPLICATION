@@ -1,0 +1,87 @@
+{% extends 'bases.html.twig' %}
+
+{% block title %}Jeux{% endblock %}
+
+{% block content %}
+
+
+
+<div class="circle-container">
+  <div class="circle">
+    <a href="page1.html" class="section section1">Page 1</a>
+    <a href="page2.html" class="section section2">Page 2</a>
+    <a href="jeu_chrono.php" class="section section3">Pays les plus peuplés</a>
+    <a href="mots_croises.php" class="section section4">Mots croisés</a>
+  </div>
+</div>
+
+
+<style>
+/* Conteneur du cercle */
+.circle-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;  /* Pour centrer verticalement */
+}
+
+/* Style du cercle */
+.circle {
+  position: relative;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  border: 2px solid #000;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Sections du cercle */
+.section {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  height: 50%;
+  text-align: center;
+  font-size: 16px;
+  text-decoration: none;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+/* Position des sections */
+.section1 {
+  top: 0;
+  left: 0;
+  background-color:rgb(192, 135, 106);
+}
+
+.section2 {
+  top: 0;
+  right: 0;
+  background-color:rgb(242, 176, 144);
+}
+
+.section3 {
+  bottom: 0;
+  left: 0;
+  background-color:rgb(213, 118, 71);
+}
+
+.section4 {
+  bottom: 0;
+  right: 0;
+  background-color:rgb(178, 69, 14);
+}
+
+/* Effet au survol */
+.section:hover {
+  opacity: 0.8;
+  transform: scale(1.1);
+}
+</style>
+{% endblock %}
