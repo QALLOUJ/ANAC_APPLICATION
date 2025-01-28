@@ -1,0 +1,91 @@
+{% extends 'bases.html.twig' %}
+
+{% block title %}Quiz - Culture Générale{% endblock %}
+
+{% block content %}
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+    body {
+        font-family: 'Roboto', sans-serif;
+        padding: 20px;
+        text-align: center;
+        background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+        min-height: 100vh;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #timer {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    .question-container {
+        margin: 20px auto;
+        padding: 30px;
+        border: 2px solid #ddd;
+        border-radius: 15px;
+        width: 60%;
+        background-color: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+    }
+
+    .question-container:hover {
+        transform: translateY(-5px);
+    }
+
+    .question {
+        font-size: 20px;
+        margin-bottom: 20px;
+        color: #444;
+    }
+
+    .answers button {
+        display: block;
+        margin: 10px auto;
+        padding: 15px;
+        width: 80%;
+        font-size: 16px;
+        cursor: pointer;
+        background-color:rgba(140, 96, 96, 0.84);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .answers button:hover {
+        background-color:rgba(160, 69, 69, 0.79);
+        transform: scale(1.05);
+    }
+
+    .answers button:active {
+        transform: scale(0.95);
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    .fade-in {
+        animation: fadeIn 0.5s ease-in;
+    }
+    </style>
+
+    <div id="timer">Temps restant : 60</div>
+
+    <div class="question-container fade-in">
+    <div id="question" class="question"></div>
+    <div id="answers" class="answers"></div>
+    </div>
+
+    <script src="js/quiz.js"></script>
+{% endblock %}
