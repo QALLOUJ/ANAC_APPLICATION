@@ -3,56 +3,57 @@
 {% block title %}Stage BTS{% endblock %}
 
 {% block content %}
+
 <style>
-h1 {
-  font-size: 32px; /* Taille fixe en pixels */
-  text-align: center;
+.image {
+    margin : auto;
+    flex: block;
 }
 
-
-
-#navAvis {
-  background-color: #333;
-  overflow: hidden;
-  width: 450px;
-  border-radius: 8px;
-  margin: 0 auto;
+article {
+    background-color : white;
 }
-
-#navAvis a {
-  float: left;
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 20px;
-  text-decoration: none;
-}
-
-#navAvis a:hover {
-  background-color: #ddd;
-  color: black;
-}
-
-#navAvis .active {
-  background-color: #d8b7a6;
-  color: white;
-}
-
 </style>
 
-
-
 <article>
-  <h1>Donner des avis</h1>
-  <br>
-  <!-- Navbar -->
-<div class="navbar" id=navAvis>
-  <a href="avisHotels.php" class="{{ pageAvis == 'hotels' ? 'active' : '' }}">Hôtels</a>
-  <a href="avisJardins.php" class="{{ pageAvis == 'jardins' ? 'active' : '' }}">Jardins</a>
-  <a href="avisRestaurants.php" class="{{ pageAvis == 'restaurants' ? 'active' : '' }}">Restaurants</a>
-  <a href="avisMusees.php" class="{{ pageAvis == 'musees' ? 'active' : '' }}">Musées</a>
-</div>
 <br>
+  <h1 class="text-center">Page d'avis</h1>
+  
+  
+  <div class="row">
+    <!-- Première colonne -->
+    <div class="col-md-4 text-center">
+    <br>
+    <br>
+    <br>
+      <p class="lead">Pour donner un avis sur un établissement visité</p>
+      <a href="donnerAvis.php">
+        <button type="button" class="btn btn-primary btn-lg">
+          Clique ici
+        </button>
+      </a>
+    </div>
+
+    <!-- Deuxième colonne -->
+    <div class="col-md-4 text-center">
+      <img src="images/commentaire.png" alt="logo" width="300" height="240" class="image" >
+    </div>
+    
+    <!-- Deuxième colonne -->
+    <div class="col-md-4 text-center">
+    <br>
+    <br>
+    <br>
+      <p class="lead">Pour rechercher un établissement selon les votes</p>
+      <a href="donnerAvis.php">
+        <button type="button" class="btn btn-primary btn-lg">
+          Clique ici
+        </button>
+      </a>
+    </div>
+  </div>
+
+  <br>
   {% block content1 %}{% endblock %}
 </article>
 

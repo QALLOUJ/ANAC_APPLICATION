@@ -88,7 +88,7 @@ $pageAvis = 'musees';
 $type = "du musée"; 
 
 // Affichage du template avec les variables
-echo $twig->render('avisMusees.html.twig', [
+echo $twig->render('donnerAvisMusees.html.twig', [
     'result' => $result,
     'errors' => $errors,
     'success' => $success,
