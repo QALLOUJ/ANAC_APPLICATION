@@ -23,7 +23,7 @@ $success = '';
 
 // Récupérer les hôtels depuis la base de données
 try {
-    $result = $db->query('SELECT nom FROM musees')->fetchAll(PDO::FETCH_ASSOC);
+    $result = $db->query('SELECT nom FROM musees WHERE nom IS NOT NULL AND TRIM(nom) != ""')->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     $errors[] = "Erreur lors de la récupération des hôtels : " . $e->getMessage();
 }

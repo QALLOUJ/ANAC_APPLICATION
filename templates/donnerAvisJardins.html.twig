@@ -52,7 +52,7 @@
             <form method="POST" action="donnerAvisJardins.php">
                 <div class="form-group">
                     <label >Nom {{type}} </label>
-                    <input list="jardins" name="nom" id="nom" required>
+                    <input list="jardins" name="nom" id="nom" autocomplete="off" required>
                     <datalist id="jardins">
                         <option value="">Sélectionner le jardin</option>
                           {% for row in result %}

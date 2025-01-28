@@ -52,7 +52,7 @@
             <form method="POST" action="donnerAvisHotels.php">
                 <div class="form-group">
                     <label >Nom {{type}} </label>
-                    <input list="hotels" name="nom" id="nom" required>
+                    <input list="hotels" name="nom" id="nom" autocomplete="off" required>
                     <datalist id="hotels">
                         <option value="">Sélectionner l'hôtel</option>
                           {% for row in result %}
