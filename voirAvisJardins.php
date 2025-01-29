@@ -30,6 +30,7 @@ $queryJardins = $db->prepare("
     SELECT avis.nom, 
            ROUND(AVG(avis.note),1) AS moyenne, 
            avis.type,
+           id,
            GROUP_CONCAT('De : ', avis.pseudo, ' (', avis.note, '/5) ', avis.avis ORDER BY avis.date DESC) AS avis
     FROM avis
     WHERE (:ville IS NULL OR avis.ville = :ville)
@@ -79,8 +80,8 @@ $twig = new Environment($loader);
 // Définir les données pour Twig
 echo $twig->render('voirAvisHotels.html.twig', [
     'pageActive' => 'avis',
-    'pageAvis' => 'jardins',
-    'type' => 'du hôtel',
+    'pageAvis' => 'liste_des_jardins_remarquables',
+    'type' => 'du jardin',
     'result' => $result,
     'villes' => $villes,
     'villeChoisie' => $ville,
