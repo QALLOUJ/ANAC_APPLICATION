@@ -96,7 +96,7 @@
             .bindPopup(`
                 <b><a href="details.php?type={{ place.type }}&id={{ place.id }}">{{ place.name }}</a></b>
                 <br>
-                <button onclick="window.open('https://www.google.com/maps?q={{ place.lat }},{{ place.lon }}', '_blank')">S'y rendre</button>
+                <button class="btn btn-primary mt-3 w-100" onclick="window.open('https://www.google.com/maps?q={{ place.lat }},{{ place.lon }}', '_blank')">S'y rendre</button>
             `);
         {% endfor %}
 
