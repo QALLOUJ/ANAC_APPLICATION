@@ -46,21 +46,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($errors)) {
         try {
             // Récupérer le code postal de l'hôtel sélectionné
-            $stmt = $db->prepare("SELECT code_postal, ville FROM hotels WHERE nom = :nom");
+            $stmt = $db->prepare("SELECT id, code_postal, ville FROM hotels WHERE nom = :nom");
             $stmt->execute([':nom' => $nom]);
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if ($result) {
                 $code_postal = $result['code_postal'];
                 $ville = $result['ville'];
+                $id = $result['id'];
 
                 // Insertion dans la base de données
-                $stmt = $db->prepare("INSERT INTO avis (nom, date, note, avis, pseudo, type, code_postal, ville) 
-                                      VALUES (:nom, :date, :note, :avis, :pseudo, 'Hotel', :code_postal, :ville)");
+                $stmt = $db->prepare("INSERT INTO avis (nom, id, date, note, avis, pseudo, type, code_postal, ville) 
+                                      VALUES (:nom, :id, :date, :note, :avis, :pseudo, 'Hotel', :code_postal, :ville)");
 
                 // Exécution de la requête avec les données envoyées
                 $stmt->execute([
                     ':nom' => $nom,
+                    ':id' => $id,
                     ':date' => $date,
                     ':note' => $note,
                     ':avis' => $avis,

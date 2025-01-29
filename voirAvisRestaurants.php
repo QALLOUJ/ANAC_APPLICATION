@@ -30,6 +30,7 @@ $queryRestaurants = $db->prepare("
     SELECT avis.nom, 
            ROUND(AVG(avis.note),1) AS moyenne, 
            avis.type,
+           id,
            GROUP_CONCAT('De : ', avis.pseudo, ' (', avis.note, '/5) ', avis.avis ORDER BY avis.date DESC) AS avis
     FROM avis
     WHERE (:ville IS NULL OR avis.ville = :ville)
@@ -80,7 +81,7 @@ $twig = new Environment($loader);
 echo $twig->render('voirAvisHotels.html.twig', [
     'pageActive' => 'avis',
     'pageAvis' => 'restaurants',
-    'type' => 'du hôtel',
+    'type' => 'du restaurant',
     'result' => $result,
     'villes' => $villes,
     'villeChoisie' => $ville,

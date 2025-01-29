@@ -57,7 +57,8 @@
                 <p>Aucun avis pour cet hôtel.</p>
               {% endif %}
 
-              <a href="donnerAvis{{pageAvis}}.php" class="btn btn-primary">Mettre un avis</a>
+              <a href="donnerAvis{{pageAvis}}.php?id={{ row.nom }}" class="btn btn-primary">Mettre un avis</a>
+              <a href="details.php?type={{ pageAvis }}&id={{ row.id }}" class="btn btn-primary">Voir la page {{type}}</a>
 
             </div>
           </div>
