@@ -16,7 +16,6 @@ $twig = new Environment($loader);
 
 // Définir la page active
 $pageActive = 'avis'; 
-
 // Afficher la page de connexion (formulaire)
 echo $twig->render('voirAvis.html.twig', [
     'pageActive' => $pageActive,
