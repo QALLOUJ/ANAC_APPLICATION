@@ -3,6 +3,7 @@
 {% block title %}Détails - {{ place.nom }}{% endblock %}
 
 {% block content %}
+
 <div class="container mt-4">
 
 <style>
@@ -220,7 +221,6 @@ a:hover {
                 <li><b>Département :</b> {{ place.departement }} (Code : {{ place.code_departement }})</li>
                 <li><b>Région :</b> {{ place.region }} (Code : {{ place.code_region }})</li>
             </ul>
-            
             <button class="btn-nude" onclick="window.open('https://www.google.com/maps?q={{ place.lat }},{{ place.lon }}', '_blank')">
                 📍 S'y rendre
             </button>

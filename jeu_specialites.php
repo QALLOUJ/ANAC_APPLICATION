@@ -18,6 +18,6 @@ $twig = new Environment($loader);
 $pageActive = 'jeux'; 
 
 // Afficher la page de connexion (formulaire)
-echo $twig->render('mots_croises.html.twig', [
+echo $twig->render('jeu_specialites.html.twig', [
     'pageActive' => $pageActive,
 ]);
