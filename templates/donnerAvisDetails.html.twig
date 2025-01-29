@@ -30,6 +30,23 @@
   color: #f39c12; /* Couleur dorée */
 }
 
+.btn-submit {
+  display: inline-block;
+  margin-top: 10px;
+  color: white;
+  padding: 10px 15px;
+  border: 1px solid #c49e8f;
+  border-radius: 3px;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-submit:hover {
+  background-color:  #c49e8f; /* Blanc */
+  color: white; /* Change aussi la couleur du texte pour une meilleure visibilité */
+}
+
 </style>
 <article>
     <div class="content">
@@ -50,9 +67,14 @@
             {% endif %}
 
             <form method="POST" action="donnerAvis{{pageAvis}}.php">
+
+                <div class="form-group">
+                    <label for="observation_stage">Nom d'utilisateur :</label>
+                    <input type="text" id="pseudo" name="pseudo">
+                </div>
                 <div class="form-group">
                     <label >Nom {{type}} </label>
-                    <input list="hotels" name="nom" id="nom" autocomplete="off" value="{{ selectionne }}" placeholder="Sélectionner un hôtel" required>
+                    <input list="hotels" name="nom" id="nom" autocomplete="off" value="{{ selectionne }}" placeholder="Sélectionner un {{type2}}" required>
                     <datalist id="hotels">
                           {% for row in result %}
                          <option value="{{ row.nom }}">
@@ -96,11 +118,6 @@
                 <div class="form-group">
                     <label for="desc_projet">Avis :</label>
                     <input type="text" id="avis" name="avis">
-                </div>
-
-                <div class="form-group">
-                    <label for="observation_stage">Nom d'utilisateur* :</label>
-                    <input type="text" id="pseudo" name="pseudo">
                 </div>
 
                 <button type="submit" class="btn-submit">Envoyer</button>

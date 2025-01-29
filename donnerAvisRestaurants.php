@@ -117,6 +117,7 @@ $twig = new Environment($loader);
 $pageActive = 'avis';
 $pageAvis = 'Restaurants'; 
 $type = "du restaurant"; 
+$type2 = "restaurant"; 
 
 // Affichage du template avec les variables
 echo $twig->render('donnerAvisDetails.html.twig', [
@@ -126,6 +127,7 @@ echo $twig->render('donnerAvisDetails.html.twig', [
     'pageActive' => $pageActive,
     'pageAvis' => $pageAvis,
     'type' => $type,
+    'type2' => $type2,
     'selectionne' => $selectionne
 ]);
 ?>

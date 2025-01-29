@@ -26,7 +26,7 @@ $success = '';
 
 // Récupérer les hôtels depuis la base de données
 try {
-    $result = $db->query('SELECT nom FROM hotels WHERE nom IS NOT NULL AND TRIM(nom) != ""')-> fetchAll(PDO::FETCH_ASSOC);
+    $result = $db->query("SELECT CONCAT(nom, ' (', code_postal, ')') AS nom FROM hotels WHERE nom IS NOT NULL AND TRIM(nom) != ''")-> fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     $errors[] = "Erreur lors de la récupération des hôtels : " . $e->getMessage();
 }
@@ -40,7 +40,8 @@ $selectionne = null; // ✅ Initialisation de la variable pour éviter les erreu
 
 if ($id) {
     try {
-        $stmt = $db->prepare("SELECT nom FROM hotels WHERE id = :id");
+        $stmt = $db->prepare("SELECT CONCAT(nom, ' (', code_postal, ')') AS nom FROM hotels WHERE id = :id");
+
         $stmt->execute([':id' => $id]);
         $selectionne = $stmt->fetchColumn(); // ✅ Récupère le nom sous forme de texte
 
@@ -56,7 +57,7 @@ if ($id) {
 if ($id) {
     // Vérifier si l'hôtel existe et récupérer ses informations
     try {
-        $stmt = $db->prepare("SELECT  nom FROM hotels WHERE id = :id");
+        $stmt = $db->prepare("SELECT CONCAT(nom, ' (', code_postal, ')') AS nom FROM hotels WHERE id = :id");
         $stmt->execute([':id' => $id]);
         $selectionne = $stmt->fetchColumn();
 
@@ -91,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($errors)) {
         try {
             // Récupérer le code postal de l'hôtel sélectionné
-            $stmt = $db->prepare("SELECT id, code_postal, ville FROM hotels WHERE nom = :nom");
+            $stmt = $db->prepare("SELECT id, code_postal, ville FROM hotels WHERE CONCAT(nom, ' (', code_postal, ')') = :nom");
             $stmt->execute([':nom' => $nom]);
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -134,6 +135,8 @@ $twig = new Environment($loader);
 $pageActive = 'avis';
 $pageAvis = 'Hotels'; 
 $type = "de l'hôtel"; 
+$type2 = "hôtel"; 
+
 
 // Affichage du template avec les variables
 echo $twig->render('donnerAvisDetails.html.twig', [
@@ -143,6 +146,7 @@ echo $twig->render('donnerAvisDetails.html.twig', [
     'pageActive' => $pageActive,
     'pageAvis' => $pageAvis,
     'type' => $type,
+    'type2' => $type2,
     'selectionne' => $selectionne
 ]);
 ?>
