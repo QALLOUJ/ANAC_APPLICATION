@@ -343,3 +343,81 @@ a:hover {
 p a { 
   font-style: italic;
 }
+/* Style général */
+.container {
+  font-family: "Poppins", sans-serif;
+}
+
+/* Restaurants */
+.restaurant-container {
+  background-color: #FDEFEF; /* Rose poudré */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.restaurant-container h3 {
+  color: #B97A7A; /* Brun rosé */
+}
+
+/* Hôtels */
+.hotel-container {
+  background-color: #FAF0E6; /* Beige clair */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.hotel-container h3 {
+  color: #A67B5B; /* Marron doux */
+}
+
+/* Jardins */
+.jardin-container {
+  background-color: #F5F5DC; /* Ivoire léger */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.jardin-container h3 {
+  color: #8C7551; /* Brun naturel */
+}
+
+/* Musées */
+.musee-container {
+  background-color: #EADBC8; /* Nude sable */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.musee-container h3 {
+  color: #826A5C; /* Taupe */
+}
+
+/* Style des boutons */
+button, .btn-primary {
+  background-color: #D4B5A6; /* Nude terreux */
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-weight: bold;
+}
+
+button:hover, .btn-primary:hover {
+  background-color: #B89482; /* Marron rosé plus foncé */
+}
+
+/* Amélioration des liens */
+a {
+  color: #A67B5B; /* Marron nude */
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
