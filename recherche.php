@@ -69,12 +69,14 @@ try {
     // Initialiser Twig
     $loader = new \Twig\Loader\FilesystemLoader('templates');
     $twig = new \Twig\Environment($loader);
+    $pageActive = 'recherche'; 
 
     // Passer les données au modèle Twig
     echo $twig->render('recherche.html.twig', [
         'places' => $places,
         'city' => $city,
-        'type' => $type
+        'type' => $type,
+        'pageActive' => $pageActive,
     ]);
 
 } catch (PDOException $e) {
