@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 28, 2025 at 07:06 PM
+-- Generation Time: Jan 29, 2025 at 10:56 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `avis` (
   `nom` varchar(1000) NOT NULL,
-  `id` int(11) NOT NULL,
+  `id` varchar(11) NOT NULL,
   `date` date NOT NULL,
   `note` int(10) NOT NULL,
   `avis` varchar(2083) NOT NULL,
@@ -44,34 +44,12 @@ CREATE TABLE `avis` (
 --
 
 INSERT INTO `avis` (`nom`, `id`, `date`, `note`, `avis`, `pseudo`, `type`, `code_postal`, `ville`) VALUES
-('Les Gites de Clairier', 0, '2025-01-09', 2, 'ml', 'lm', '', 0, ''),
-('Chez Lola', 0, '2025-01-23', 1, 'chez nawal est mieux', 'nawal lol', '', 0, ''),
-('Chez Lola', 0, '2025-01-23', 1, 'chez nawal est mieux', 'nawal lol', '', 0, ''),
-('Chez Lola', 0, '2025-01-23', 1, 'chez nawal est mieux', 'nawal lol', '', 0, ''),
-('Aire Sepmes', 0, '2025-01-29', 3, 'pas mal', 'ok', '', 0, ''),
-('Aire Sepmes', 0, '2025-01-29', 3, 'pas mal', 'ok', '', 0, ''),
-('L\'Étoile du Maroc', 0, '2025-01-03', 4, 'maroc >>', 'meee', '', 0, ''),
-('Cailol Villa', 0, '2025-01-04', 2, 'pas mal', 'meeeeeee', 'Hotel', 0, ''),
-('LesSapinsVerts', 0, '2025-01-16', 2, 'lol', 'lol', 'Hotel', 72054, ''),
-('Cailol Villa', 0, '2025-01-30', 2, 'ml', 'lm', 'Hotel', 34007, ''),
-('Domaine le Clols', 0, '2025-01-18', 2, 'l', 'm', 'Hotel', 66179, ''),
-('Chambres d\'Hôtes Chateau des Noces', 0, '2025-01-10', 2, 'qz', 'cd', 'Hotel', 85014, ''),
-('Ibis Styles Hôtels', 0, '2025-01-15', 2, 'n', 'n', 'Hotel', 22278, ''),
-('Ibis Styles Hôtels', 0, '2025-01-15', 2, 'n', 'n', 'Hotel', 22278, ''),
-('Jardin de l\'écomusée de la Guadeloupe', 0, '2025-01-03', 4, 'ml', 'lm', 'Jardin', 97115, ''),
-('musée de La Poterie', 0, '2025-01-02', 5, 'jaime la poterie', 'yay', '', 0, ''),
-('maison de l\'archéologie des Vosges du Nord', 0, '2025-01-03', 1, 'nul', 'nul', 'Musee', 67110, ''),
-('maison de l\'archéologie des Vosges du Nord', 0, '2025-01-03', 1, 'nul', 'nul', 'Musee', 67110, ''),
-('Au pont gourmand', 0, '2025-01-27', 4, 'tres gourmand', 'pol', '', 0, ''),
-('Quick (75108)', 0, '2025-01-04', 5, 'quick and fast', 'qfc', 'Restaurant', 75108, ''),
-('Quick (75108)', 0, '2025-01-04', 5, 'quick and fast', 'qfc', 'Restaurant', 75108, ''),
-('Ibis Styles Hôtels', 0, '2025-01-21', 3, 'bien', 'ik', 'Hotel', 22278, ''),
-('musée Alsacien', 0, '2025-01-14', 3, 'lol', 'lololololololol', 'Musee', 67500, ''),
-('Jardin de l\'écomusée de la Guadeloupe', 9, '2025-01-24', 2, 'gi', 'ji', 'Jardin', 97115, ''),
-('Parc du château d’Arlay et jardin des jeux', 10, '2025-01-15', 3, 'ni', 'oui', 'Jardin', 39140, ''),
-('Hôtel Foch', 0, '2025-01-13', 3, 'mp', 'pm', 'Hotel', 69386, ''),
-('Hôtel de Flore', 0, '2025-01-27', 1, 'bof', 'moyen', 'Hotel', 54395, ''),
-('B&B Hotel', 0, '2025-01-02', 2, 'avis', 'ndu', 'Hotel', 62160, 'Boulogne-sur-Mer');
+('musée du Pays de Hanau - histoire et vies d’un territoire', 'M0003', '2025-01-25', 4, 'Pas mal! Si vous passez dans le coin, très bon musée à visiter', 'Fan2histoire', 'musees', 67330, 'Bouxwiller'),
+('musée du Pays de Hanau - histoire et vies d’un territoire', 'M0003', '2025-01-10', 3, 'Pas aussi enthousiaste que fan2musee, mais c\'était sympa quand meme !', 'adeptededecouverte', 'musees', 67330, 'Bouxwiller'),
+('Chambres d\'Hôtes Chateau des Noces', '6', '2025-01-01', 1, 'Pire expérience de ma vie! Fuyez cet établissement coute que coute', 'bigHater', 'Hotel', 85014, 'Bazoges-en-Pareds'),
+('Jardin des sculptures', '6', '2025-01-24', 4, 'Magnifiques sculture. A voir si vous passez dans le coin.', 'MonsieurPof', 'Jardin', 76780, ''),
+('Kimchi (75102)', '55553', '2025-01-29', 5, 'Très bon! Je pref ceux de ma maman et de Jimin mais ce sont surement les 3èmes meilleurs kimchis du monde!', 'JK97', 'Restaurant', 75102, 'Paris 2e Arrondissement'),
+('Kimchi (75102)', '55553', '2025-01-24', 5, 'jai vu mon idole dans le restau omg, ca ne peut etre que bien', 'fan2kpop', 'Restaurant', 75102, 'Paris 2e Arrondissement');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
