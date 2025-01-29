@@ -1,6 +1,10 @@
 {% extends 'voirAvis.html.twig' %}
 
+<<<<<<< HEAD
+{% block title %}Recherche d'etablissement{% endblock %}
+=======
 {% block title %}Recherche d'Avis{% endblock %}
+>>>>>>> fc55e6b2463c14146ea236a7a1d995680f2d1c94
 
 {% block content1 %}
 <style>
@@ -15,7 +19,7 @@
 }
 </style>
   <div class="container mt-4">
-    <h1 class="text-center">Hôtels à {{ villeChoisie }}</h1>
+    <h1 class="text-center">{{pageAvis}} à {{ villeChoisie }}</h1>
 
     <!-- Barre de recherche -->
     <form action="voirAvis{{pageAvis}}.php" method="GET" class="d-flex justify-content-between my-4 gap-2 flex-wrap">
@@ -29,7 +33,7 @@
       <button type="submit" class="btn btn-primary rounded-pill px-4">Rechercher</button>
     </form>
 
-    <!-- Affichage des hôtels -->
+    <!-- Affichage des lieux -->
     <div class="row">
       {% for row in result %}
         <div class="col-md-4 mb-4">
@@ -42,7 +46,7 @@
               {% if row.avis %}
                 <h6>Avis :</h6>
                 <ul>
-                  {% for avis in row.avis|split(',') %}
+                  {% for avis in row.avis|split('separator') %}
                     {% set parts = avis|split(' (') %}
                     <li class="avis">
                       <strong>{{ parts[0] }}</strong> ( {{ parts[1]|split(') ')[0] }})
@@ -53,18 +57,16 @@
                     <br>
                   {% endfor %}
                 </ul>
-              {% else %}
-                <p>Aucun avis pour cet hôtel.</p>
               {% endif %}
 
-              <a href="donnerAvis{{pageAvis}}.php?id={{ row.nom }}" class="btn btn-primary">Mettre un avis</a>
+              <a href="donnerAvis{{pageAvis}}.php?id={{ row.id }}" class="btn btn-primary">Mettre un avis</a>
               <a href="details.php?type={{ pageAvis }}&id={{ row.id }}" class="btn btn-primary">Voir la page {{type}}</a>
 
             </div>
           </div>
         </div>
       {% else %}
-        <p>Aucun hôtel trouvé.</p>
+        <p>Aucun établissement trouvé.</p>
       {% endfor %}
     </div>
 

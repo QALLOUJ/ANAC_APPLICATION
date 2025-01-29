@@ -5,6 +5,8 @@ require 'vendor/autoload.php';  // Assurez-vous que Twig est bien chargé
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
+$id = $_GET['id'] ?? null;
+
 // Paramètres de connexion à la base de données
 $host = 'localhost';
 $dbname = 'appli_tourisme';
@@ -20,6 +22,49 @@ try {
 
 $errors = [];
 $success = '';
+
+$museeSelectionne = null;
+
+// Récupérer l'ID de l'hôtel depuis l'URL (et le forcer en entier pour éviter les injections SQL)
+$id = $_GET['id'] ?? null;
+
+
+$selectionne = null; // ✅ Initialisation de la variable pour éviter les erreurs
+
+if ($id) {
+    try {
+        $stmt = $db->prepare("SELECT nom FROM musees WHERE id = :id");
+        $stmt->execute([':id' => $id]);
+        $selectionne = $stmt->fetchColumn(); // ✅ Récupère le nom sous forme de texte
+
+        if (!$selectionne) {
+            $errors[] = "L'hôtel sélectionné n'existe pas.";
+            $id = null;
+        }
+    } catch (PDOException $e) {
+        $errors[] = "Erreur lors de la récupération des informations de l'hôtel : " . $e->getMessage();
+    }
+}
+
+if ($id) {
+    // Vérifier si l'hôtel existe et récupérer ses informations
+    try {
+        $stmt = $db->prepare("SELECT  nom FROM musees WHERE id = :id");
+        $stmt->execute([':id' => $id]);
+        $selectionne = $stmt->fetchColumn();
+
+
+       
+
+        if (!$selectionne) {
+            $errors[] = "L'hôtel sélectionné n'existe pas.";
+            $id = null;  // Réinitialiser $id si l'hôtel n'existe pas
+        }
+    } catch (PDOException $e) {
+        $errors[] = "Erreur lors de la récupération des informations de l'hôtel : " . $e->getMessage();
+    }
+}
+
 
 // Récupérer les hôtels depuis la base de données
 try {
@@ -47,30 +92,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($errors)) {
         try {
             // Récupérer le code postal de l'hôtel sélectionné
-            $stmt = $db->prepare("SELECT code_postal FROM musees WHERE nom = :nom");
+            $stmt = $db->prepare("SELECT id, code_postal, ville FROM musees WHERE nom = :nom");
             $stmt->execute([':nom' => $nom]);
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if ($result) {
                 $code_postal = $result['code_postal'];
+                $ville = $result['ville'];
+                $id = $result['id'];
 
                 // Insertion dans la base de données
-                $stmt = $db->prepare("INSERT INTO avis (nom, date, note, avis, pseudo, type, code_postal) 
-                                      VALUES (:nom, :date, :note, :avis, :pseudo, 'Musee', :code_postal)");
+                $stmt = $db->prepare("INSERT INTO avis (nom, id, date, note, avis, pseudo, type, code_postal, ville) 
+                                      VALUES (:nom, :id, :date, :note, :avis, :pseudo, 'musees', :code_postal, :ville)");
 
                 // Exécution de la requête avec les données envoyées
                 $stmt->execute([
                     ':nom' => $nom,
+                    ':id' => $id,
                     ':date' => $date,
                     ':note' => $note,
                     ':avis' => $avis,
                     ':pseudo' => $pseudo,
-                    ':code_postal' => $code_postal
+                    ':code_postal' => $code_postal,
+                    ':ville' => $ville
                 ]);
 
+                
                 $success = "Votre avis a été enregistré avec succès!";
             } else {
-                $errors[] = "L'hôtel sélectionné n'existe pas.";
+                $errors[] = "Le musée sélectionné n'existe pas.";
             }
         } catch (PDOException $e) {
             $errors[] = "Erreur lors de l'enregistrement de l'avis : " . $e->getMessage();
@@ -94,6 +144,7 @@ echo $twig->render('donnerAvisDetails.html.twig', [
     'success' => $success,
     'pageActive' => $pageActive,
     'pageAvis' => $pageAvis,
-    'type' => $type
+    'type' => $type,
+    'selectionne' =>$selectionne
 ]);
 ?>

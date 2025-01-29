@@ -31,7 +31,7 @@ $queryRestaurants = $db->prepare("
            ROUND(AVG(avis.note),1) AS moyenne, 
            avis.type,
            id,
-           GROUP_CONCAT('De : ', avis.pseudo, ' (', avis.note, '/5) ', avis.avis ORDER BY avis.date DESC) AS avis
+           GROUP_CONCAT('De : ', avis.pseudo, ' (', avis.note, '/5) ', avis.avis SEPARATOR 'separator') AS avis
     FROM avis
     WHERE (:ville IS NULL OR avis.ville = :ville)
       AND avis.type = :type

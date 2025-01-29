@@ -5,6 +5,9 @@ require 'vendor/autoload.php';  // Assurez-vous que Twig est bien chargé
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
+
+$id = $_GET['id'] ?? null;
+
 // Paramètres de connexion à la base de données
 $host = 'localhost';
 $dbname = 'appli_tourisme';
@@ -27,6 +30,48 @@ try {
 } catch (PDOException $e) {
     $errors[] = "Erreur lors de la récupération des hôtels : " . $e->getMessage();
 }
+
+$hotelSelectionne = null;
+
+// Récupérer l'ID de l'hôtel depuis l'URL (et le forcer en entier pour éviter les injections SQL)
+$id = isset($_GET['id']) ? (int) $_GET['id'] : null;
+
+$selectionne = null; // ✅ Initialisation de la variable pour éviter les erreurs
+
+if ($id) {
+    try {
+        $stmt = $db->prepare("SELECT nom FROM hotels WHERE id = :id");
+        $stmt->execute([':id' => $id]);
+        $selectionne = $stmt->fetchColumn(); // ✅ Récupère le nom sous forme de texte
+
+        if (!$selectionne) {
+            $errors[] = "L'hôtel sélectionné n'existe pas.";
+            $id = null;
+        }
+    } catch (PDOException $e) {
+        $errors[] = "Erreur lors de la récupération des informations de l'hôtel : " . $e->getMessage();
+    }
+}
+
+if ($id) {
+    // Vérifier si l'hôtel existe et récupérer ses informations
+    try {
+        $stmt = $db->prepare("SELECT  nom FROM hotels WHERE id = :id");
+        $stmt->execute([':id' => $id]);
+        $selectionne = $stmt->fetchColumn();
+
+
+       
+
+        if (!$selectionne) {
+            $errors[] = "L'hôtel sélectionné n'existe pas.";
+            $id = null;  // Réinitialiser $id si l'hôtel n'existe pas
+        }
+    } catch (PDOException $e) {
+        $errors[] = "Erreur lors de la récupération des informations de l'hôtel : " . $e->getMessage();
+    }
+}
+
 
 // Traitement du formulaire lors de la soumission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -97,6 +142,7 @@ echo $twig->render('donnerAvisDetails.html.twig', [
     'success' => $success,
     'pageActive' => $pageActive,
     'pageAvis' => $pageAvis,
-    'type' => $type
+    'type' => $type,
+    'selectionne' => $selectionne
 ]);
 ?>
