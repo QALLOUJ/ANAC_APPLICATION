@@ -27,6 +27,32 @@ try {
 } catch (PDOException $e) {
     $errors[] = "Erreur lors de la récupération des restaurants : " . $e->getMessage();
 }
+$restaurantSelectionne = null;
+
+// Récupérer l'ID de l'hôtel depuis l'URL (et le forcer en entier pour éviter les injections SQL)
+$id = $_GET['id'] ?? null;
+
+
+$selectionne = null; // ✅ Initialisation de la variable pour éviter les erreurs
+
+if ($id) {
+    try {
+        // Utilisation correcte des guillemets simples et doubles
+        $stmt = $db->prepare("SELECT CONCAT(nom, ' (', code_ville, ')') AS nom FROM restaurants WHERE id = :id");
+        $stmt->execute([':id' => $id]);
+        $selectionne = $stmt->fetchColumn(); // ✅ Récupère le nom sous forme de texte
+
+        if (!$selectionne) {
+            $errors[] = "Le restaurant sélectionné n'existe pas.";
+            $id = null;
+        }
+    } catch (PDOException $e) {
+        $errors[] = "Erreur lors de la récupération des informations du restaurant : " . $e->getMessage();
+    }
+}
+
+
+
 
 
 // Traitement du formulaire lors de la soumission
@@ -47,16 +73,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($errors)) {
         try {
             // Récupérer le code ville du restaurant sélectionné
-            $stmt = $db->prepare("SELECT code_ville FROM restaurants WHERE CONCAT(nom, ' (', code_ville, ')') = :nom");
+            $stmt = $db->prepare("SELECT code_ville, id, ville FROM restaurants WHERE CONCAT(nom, ' (', code_ville, ')') = :nom");
             $stmt->execute([':nom' => $nom]);
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if ($result) {
                 $code_ville = $result['code_ville'];
+                $ville = $result['ville'];
+                $id = $result['id'];
 
                 // Insertion dans la base de données
-                $stmt = $db->prepare("INSERT INTO avis (nom, date, note, avis, pseudo, type, code_postal) 
-                                      VALUES (:nom, :date, :note, :avis, :pseudo, 'Restaurant', :code_ville)");
+                $stmt = $db->prepare("INSERT INTO avis (nom,id, date, note, avis, pseudo, type, code_postal, ville) 
+                                      VALUES (:nom,:id, :date, :note, :avis, :pseudo, 'Restaurant', :code_ville, :ville)");
 
                 // Exécution de la requête avec les données envoyées
                 $stmt->execute([
@@ -65,7 +93,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     ':note' => $note,
                     ':avis' => $avis,
                     ':pseudo' => $pseudo,
-                    ':code_ville' => $code_ville
+                    ':code_ville' => $code_ville,
+                    ':ville' => $ville,
+                    ':id' => $id
                 ]);
 
                 $success = "Votre avis a été enregistré avec succès!";
@@ -95,6 +125,7 @@ echo $twig->render('donnerAvisDetails.html.twig', [
     'success' => $success,
     'pageActive' => $pageActive,
     'pageAvis' => $pageAvis,
-    'type' => $type
+    'type' => $type,
+    'selectionne' => $selectionne
 ]);
 ?>

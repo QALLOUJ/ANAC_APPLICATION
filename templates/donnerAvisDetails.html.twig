@@ -52,9 +52,8 @@
             <form method="POST" action="donnerAvis{{pageAvis}}.php">
                 <div class="form-group">
                     <label >Nom {{type}} </label>
-                    <input list="hotels" name="nom" id="nom" autocomplete="off" required>
+                    <input list="hotels" name="nom" id="nom" autocomplete="off" value="{{ selectionne }}" placeholder="Sélectionner un hôtel" required>
                     <datalist id="hotels">
-                        <option value="">Sélectionner l'hôtel</option>
                           {% for row in result %}
                          <option value="{{ row.nom }}">
                          {{ row.nom }}

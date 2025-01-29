@@ -19,7 +19,7 @@ try {
     $tables = [
         'hotels' => 'nom, position_gps',
         'musees' => 'nom, position_gps',
-        'liste_des_jardins_remarquables' => 'nom, position_gps',
+        'jardins' => 'nom, position_gps',
         'restaurants' => 'nom, position_gps'
     ];
 

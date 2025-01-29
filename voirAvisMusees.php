@@ -23,7 +23,7 @@ $ville = isset($_GET['ville']) ? trim($_GET['ville']) : null;
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $perPage = 21; // Nombre d'hôtels par page
 $offset = ($page - 1) * $perPage;
-$typeMusee = 'Musee'; // Fixer le type à "Musee" (ou personnaliser selon vos besoins)
+$typeMusee = 'musees'; // Fixer le type à "Musee" (ou personnaliser selon vos besoins)
 
 // Requête pour récupérer les hôtels
 $queryMusees = $db->prepare("
@@ -31,7 +31,7 @@ $queryMusees = $db->prepare("
            ROUND(AVG(avis.note),1) AS moyenne, 
            avis.type,
            id,
-           GROUP_CONCAT('De : ', avis.pseudo, ' (', avis.note, '/5) ', avis.avis ORDER BY avis.date DESC) AS avis
+           GROUP_CONCAT('De : ', avis.pseudo, ' (', avis.note, '/5) ', avis.avis SEPARATOR 'separator') AS avis
     FROM avis
     WHERE (:ville IS NULL OR avis.ville = :ville)
       AND avis.type = :type

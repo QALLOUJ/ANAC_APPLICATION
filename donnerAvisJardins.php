@@ -21,9 +21,52 @@ try {
 $errors = [];
 $success = '';
 
+$jardinSelectionne = null;
+
+// Récupérer l'ID de l'hôtel depuis l'URL (et le forcer en entier pour éviter les injections SQL)
+$id = $_GET['id'] ?? null;
+
+
+$selectionne = null; // ✅ Initialisation de la variable pour éviter les erreurs
+
+if ($id) {
+    try {
+        $stmt = $db->prepare("SELECT nom FROM jardins WHERE id = :id");
+        $stmt->execute([':id' => $id]);
+        $selectionne = $stmt->fetchColumn(); // ✅ Récupère le nom sous forme de texte
+
+        if (!$selectionne) {
+            $errors[] = "L'hôtel sélectionné n'existe pas.";
+            $id = null;
+        }
+    } catch (PDOException $e) {
+        $errors[] = "Erreur lors de la récupération des informations de l'hôtel : " . $e->getMessage();
+    }
+}
+
+if ($id) {
+    // Vérifier si l'hôtel existe et récupérer ses informations
+    try {
+        $stmt = $db->prepare("SELECT  nom FROM jardins WHERE id = :id");
+        $stmt->execute([':id' => $id]);
+        $selectionne = $stmt->fetchColumn();
+
+
+       
+
+        if (!$selectionne) {
+            $errors[] = "L'hôtel sélectionné n'existe pas.";
+            $id = null;  // Réinitialiser $id si l'hôtel n'existe pas
+        }
+    } catch (PDOException $e) {
+        $errors[] = "Erreur lors de la récupération des informations de l'hôtel : " . $e->getMessage();
+    }
+}
+
+
 // Récupérer les jardins depuis la base de données
 try {
-    $result = $db->query('SELECT nom FROM liste_des_jardins_remarquables WHERE nom IS NOT NULL AND TRIM(nom) != ""')->fetchAll(PDO::FETCH_ASSOC);
+    $result = $db->query('SELECT nom FROM jardins WHERE nom IS NOT NULL AND TRIM(nom) != ""')->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     $errors[] = "Erreur lors de la récupération des jardins : " . $e->getMessage();
 }
@@ -45,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($errors)) {
         try {
             // Récupérer le code postal du jardin sélectionné
-            $stmt = $db->prepare("SELECT code_postal, id FROM liste_des_jardins_remarquables WHERE nom = :nom");
+            $stmt = $db->prepare("SELECT code_postal, id FROM jardins WHERE nom = :nom");
             $stmt->execute([':nom' => $nom]);
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -55,8 +98,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $id = $result['id'];
 
                 // Insertion dans la base de données
-                $stmt = $db->prepare("INSERT INTO avis (nom, id, date, note, avis, pseudo, type, code_postal) 
-                                      VALUES (:nom, :id, :date, :note, :avis, :pseudo, 'Jardin', :code_postal)");
+                $stmt = $db->prepare("INSERT INTO avis (nom, id, date, note, avis, pseudo, type, code_postal, ville) 
+                                      VALUES (:nom, :id, :date, :note, :avis, :pseudo, 'Jardin', :code_postal, :ville)");
 
                 // Exécution de la requête avec les données envoyées
                 $stmt->execute([
@@ -95,6 +138,7 @@ echo $twig->render('donnerAvisDetails.html.twig', [
     'success' => $success,
     'pageActive' => $pageActive,
     'pageAvis' => $pageAvis,
-    'type' => $type
+    'type' => $type,
+    'selectionne' => $selectionne
 ]);
 ?>
