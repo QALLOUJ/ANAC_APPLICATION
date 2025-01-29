@@ -5,6 +5,32 @@
 {% block content %}
 
 <style>
+
+      /* Fixe la navbar en haut avec fixed */
+    nav.navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+    }
+
+    /* Ajouter un padding-top pour compenser la hauteur de la navbar */
+    .content {
+        padding-top: 70px; /* Ajuste cette valeur en fonction de la hauteur de ta navbar */
+    }
+
+    /* Réinitialisation des marges et paddings par défaut */
+    body, html {
+        margin: 0;
+        padding: 0;
+    }
+
+    .container-fluid {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
     /* Styles de base */
     body {
       font-family: Arial, sans-serif;
