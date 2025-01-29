@@ -239,30 +239,6 @@ a:hover {
         <div class="jumbotron-hotel">
             <h3>🏨 Informations sur l'hôtel</h3>
             
-
-        </ul>
-    {% elseif type == 'jardins' %}
-        <h3>Informations sur le jardin</h3>
-        <ul>
-            <li><b>Nom :</b> {{ place.nom }}</li>
-            <li><b>Code postal :</b> {{ place.code_postal }}</li>
-            <li><b>Région :</b> {{ place.region }}</li>
-            <li><b>Département :</b> {{ place.departement }}</li>
-            <li><b>Adresse :</b> {{ place.adresse }}</li>
-            <li><b>Ville :</b> {{ place.ville }}</li>
-            <li><b>Code département :</b> {{ place.code_departement }}</li>
-            <li><b>Code région :</b> {{ place.code_region }}</li>
-            <li><b>Site web :</b>
-                {% if place.site_web %}
-                    <a href="{{ place.site_web }}" target="_blank">{{ place.site_web }}</a>
-                {% else %}
-                    Non spécifié
-                {% endif %}
-            </li>
-            <li><b>Type :</b> {{ place.type }}</li>
-            <li><b>Description :</b> {{ place.description }}</li>
-            <li><b>Accessible au public :</b> {{ place.accessible_au_public ? 'Oui' : 'Non' }}</li>
-=======
             <ul>
                 <li><b>Type :</b> {{ place.type }}</li>
                 <li><b>Nombre d'étoiles :</b> {{ place.nb_etoiles }}</li>
@@ -315,7 +291,6 @@ a:hover {
 
     {% elseif type == 'liste_des_jardins_remarquables' %}
     <div class="container mt-4">
->>>>>>> fc55e6b2463c14146ea236a7a1d995680f2d1c94
 
         <!-- Nom du jardin en premier -->
         <div class="jumbotron-jardin-title">
