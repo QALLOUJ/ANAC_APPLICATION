@@ -69,6 +69,7 @@ $queryVilles = $db->query("
     FROM avis 
     WHERE ville IS NOT NULL 
       AND TRIM(ville) != '' 
+      AND type LIKE 'Restaurant'
     ORDER BY ville ASC
 ");
 $villes = $queryVilles->fetchAll(PDO::FETCH_ASSOC);

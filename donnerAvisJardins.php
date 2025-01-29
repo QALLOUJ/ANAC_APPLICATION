@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($errors)) {
         try {
             // Récupérer le code postal du jardin sélectionné
-            $stmt = $db->prepare("SELECT code_postal, id FROM jardins WHERE nom = :nom");
+            $stmt = $db->prepare("SELECT code_postal, id, ville FROM jardins WHERE nom = :nom");
             $stmt->execute([':nom' => $nom]);
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -96,6 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Si le jardin existe, on récupère le code postal
                 $code_postal = $result['code_postal'];
                 $id = $result['id'];
+                $ville = $result['ville'];
 
                 // Insertion dans la base de données
                 $stmt = $db->prepare("INSERT INTO avis (nom, id, date, note, avis, pseudo, type, code_postal, ville) 
@@ -109,7 +110,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     ':note' => $note,
                     ':avis' => $avis,
                     ':pseudo' => $pseudo,
-                    ':code_postal' => $code_postal
+                    ':code_postal' => $code_postal,
+                    ':ville' => $ville
                 ]);
 
                 $success = "Votre avis a été enregistré avec succès!";
