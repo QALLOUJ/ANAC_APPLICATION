@@ -121,6 +121,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             } else {
                 $errors[] = "L'hôtel sélectionné n'existe pas.";
             }
+            $result = $db->query("SELECT CONCAT(nom, ' (', code_postal, ')') AS nom FROM hotels WHERE nom IS NOT NULL AND TRIM(nom) != ''")
+            ->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             $errors[] = "Erreur lors de l'enregistrement de l'avis : " . $e->getMessage();
             echo $e->getMessage();  // Affiche l'erreur SQL

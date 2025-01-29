@@ -119,6 +119,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Si le jardin n'existe pas
                 $errors[] = "Le jardin sélectionné n'existe pas dans la base de données.";
             }
+            $result = $db->query("SELECT  nom FROM jardins WHERE nom IS NOT NULL AND TRIM(nom) != ''")
+            ->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             $errors[] = "Erreur lors de l'enregistrement de l'avis : " . $e->getMessage();
         }
