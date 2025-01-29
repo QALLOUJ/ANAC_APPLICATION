@@ -45,10 +45,12 @@ try {
 // Charger Twig
 $loader = new FilesystemLoader('templates');
 $twig = new Environment($loader);
+$pageActive = 'recherche'; 
 
 // Afficher la page avec les données
 echo $twig->render('rechercheMusee.html.twig', [
     'musees' => $musees, 
     'themes' => $themes,
+    'pageActive' => $pageActive,
 ]);
 ?>

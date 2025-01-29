@@ -28,9 +28,11 @@ $cuisines = $queryCuisines->fetchAll(PDO::FETCH_COLUMN);
 // Charger Twig
 $loader = new FilesystemLoader('templates');
 $twig = new Environment($loader);
+$pageActive = 'recherche'; 
 
 // Afficher la page avec les données
 echo $twig->render('rechercheRestaurant.html.twig', [
     'restaurants' => $restaurants,
     'cuisines' => $cuisines,
+    'pageActive' => $pageActive,
 ]);

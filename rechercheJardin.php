@@ -54,9 +54,11 @@ $jardins = $stmt->fetchAll(PDO::FETCH_ASSOC);  // Récupérer tous les résultat
 // Initialiser Twig
 $loader = new FilesystemLoader('templates'); // Assurez-vous que 'templates' contient 'rechercheJardin.html.twig'
 $twig = new Environment($loader);
+$pageActive = 'recherche'; 
 
 // Passer les données à Twig
 echo $twig->render('rechercheJardin.html.twig', [
-    'jardins' => $jardins // Passe les données des jardins à Twig
+    'jardins' => $jardins, // Passe les données des jardins à Twig
+    'pageActive' => $pageActive,
 ]);
 ?>
