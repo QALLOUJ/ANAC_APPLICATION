@@ -79,7 +79,7 @@ $loader = new FilesystemLoader('templates');
 $twig = new Environment($loader);
 
 // Définir les données pour Twig
-echo $twig->render('voirAvisHotels.html.twig', [
+echo $twig->render('voirAvisDetails.html.twig', [
     'pageActive' => 'avis',
     'pageAvis' => 'jardins',
     'type' => 'du jardin',
